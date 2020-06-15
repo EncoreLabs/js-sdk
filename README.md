@@ -132,7 +132,7 @@ enum ProductType {
 ```
 
 #### ➥ getDeliveries(basketReference, basketItems) ⇒ Array&lt;Delivery&gt;
-*Get deliveriry options available for basket*
+*Get delivery options available for basket*
 **Returns**: Array&lt;Delivery&gt; - *delivery models*  
 
 | Param | Type |
