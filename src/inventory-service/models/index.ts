@@ -1,0 +1,10 @@
+export { UpsellProduct } from './upsell-product';
+export { UpsellCollection } from './upsell-collection';
+export { SummaryAvailability } from './summary-availability';
+export { SummaryAvailabilityItem } from './summary-availability-item';
+export { Availability } from './availability';
+export { Area } from './area';
+export { Grouping } from './grouping';
+export { AreaPricing } from './area-pricing';
+export { Seat } from './seat';
+export { SeatLump } from './seat-lump';
