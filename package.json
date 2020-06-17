@@ -1,10 +1,11 @@
 {
   "name": "tte-api-services",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "/dist"
+    "/dist",
+    "/node"
   ],
   "engines": {
     "node": ">= 10.8.0",
@@ -15,8 +16,8 @@
     "build-dev": "npm-run-all lint test build-ts-dev build-ts-dev-for-node",
     "build-ts": "webpack --config webpack/webpack.build.js --progress --mode=production",
     "build-ts-dev": "webpack --config webpack/webpack.build.js --progress --mode=development",
-    "build-ts-for-node": "BUILD_TYPE=node webpack --config webpack/webpack.build.js --progress --mode=production --target=node --output-path=dist/node",
-    "build-ts-dev-for-node": "BUILD_TYPE=node webpack --config webpack/webpack.build.js --progress --mode=development --target=node --output-path=dist/node",
+    "build-ts-for-node": "BUILD_TYPE=node webpack --config webpack/webpack.build.js --progress --mode=production --target=node --output-path=node",
+    "build-ts-dev-for-node": "BUILD_TYPE=node webpack --config webpack/webpack.build.js --progress --mode=development --target=node --output-path=node",
     "start": "webpack-dev-server --config webpack/webpack.dev.js",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "jest --no-cache",
