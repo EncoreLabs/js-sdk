@@ -109,9 +109,9 @@ describe('Order model', () => {
 
       expect(order.getBillingAddress()).toBe(bookingDataMock.billingAddress);
 
-      order.setBillingAddress({});
+      order.setBillingAddress({ countryCode: 'UK' });
 
-      expect(order.getBillingAddress()).toEqual({});
+      expect(order.getBillingAddress()).toEqual({ countryCode: 'UK' });
     });
   });
 
@@ -121,9 +121,9 @@ describe('Order model', () => {
 
       expect(order.getDeliveryAddress()).toBe(bookingDataMock.deliveryAddress);
 
-      order.setDeliveryAddress({});
+      order.setDeliveryAddress({ countryCode: 'UK' });
 
-      expect(order.getDeliveryAddress()).toEqual({});
+      expect(order.getDeliveryAddress()).toEqual({ countryCode: 'UK' });
     });
   });
 
@@ -181,6 +181,7 @@ describe('Order model', () => {
       const shopperEnity = {
         email: 'email.com',
         firstName: 'First Name',
+        lastName: 'Last Name',
         telephoneNumber: '+1111111111',
         externalId: '1234567',
       }
