@@ -1,5 +1,5 @@
-export const base64Encode = (data: string, isNode: boolean = false) => {
-  if (isNode) {
+export const base64Encode = (data: string) => {
+  if (Buffer) {
     return Buffer.from(data).toString('base64');
   }
 

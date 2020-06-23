@@ -6,6 +6,5 @@ describe('base64Encode function', () => {
 
   it('should return encoded string', () => {
     expect(base64Encode(defaultString)).toBe(encodedString)
-    expect(base64Encode(defaultString, true)).toBe(encodedString)
   })
 })

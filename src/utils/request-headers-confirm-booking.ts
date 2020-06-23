@@ -6,11 +6,10 @@ export const getRequestHeadersForConfirmBooking = (agentDetails?: ApiConfirmBook
     return {};
   }
 
-  const isNode = process.env.BUILD_TYPE === 'node';
   const { agentId, agentPassword } = agentDetails;
   const headers = {
-    'X-AGENT-ID': base64Encode(agentId, isNode),
-    'X-AGENT-PASSWORD': base64Encode(agentPassword, isNode),
+    'X-AGENT-ID': base64Encode(agentId),
+    'X-AGENT-PASSWORD': base64Encode(agentPassword),
   }
 
   return { headers };

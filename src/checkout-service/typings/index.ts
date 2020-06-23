@@ -1,36 +1,36 @@
 export interface ApiBookingData {
-  reference: string;
   channelId: string;
-  origin: string;
+  billingAddress: ApiAddress;
+  deliveryMethod: ApiDeliveryMethodCheckout;
   redirectUrl: string;
-  deliveryCharge: number;
-  recipientName: string;
-  giftVoucherMessage: string;
-  deliveryAddress: ApiAddress;
-  hasFlexiTickets: boolean;
-  paymentType: PaymentType;
-  shopper?: ApiShopper;
-  billingAddress?: ApiAddress;
-  deliveryMethod?: ApiDeliveryMethodCheckout;
+  reference: string;
+  shopper: ApiShopper;
+  origin?: string;
+  deliveryCharge?: number;
+  recipientName?: string;
+  giftVoucherMessage?: string;
+  hasFlexiTickets?: boolean;
+  paymentType?: PaymentType;
+  deliveryAddress?: ApiAddress;
 }
 
 export type ApiDeliveryMethodCheckout = 'C' | 'E' | 'M';
 
 export interface ApiShopper {
-  email: string;
-  title?: string;
   firstName: string;
-  lastName?: string;
-  telephoneNumber: string;
-  externalId: string;
+  lastName: string;
+  email?: string;
+  title?: string;
+  telephoneNumber?: string;
+  externalId?: string;
 }
 
 export interface ApiAddress {
+  countryCode: string;
   line1?: string;
   line2?: string;
   postalCode?: string;
   city?: string;
-  countryCode?: string;
   countryName?: string;
   stateOrProvince?: string;
 }
