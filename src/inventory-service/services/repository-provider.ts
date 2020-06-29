@@ -24,6 +24,10 @@ export const getInventoryServiceRepository = (environment: Environment, inventor
 
     const availability = await inventoryServiceApi.getPerformanceAvailability(affiliateId, productId, quantity, date, time);
 
+    if (!availability) {
+      return null;
+    }
+
     return new Availability(availability);
   };
 
