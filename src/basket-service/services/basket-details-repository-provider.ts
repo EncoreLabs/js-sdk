@@ -12,9 +12,9 @@ const setEnvironment = (env: Environment, settings?: Settings) => {
 
   basketApiUrl = settings?.basketApiUrl;
 
-  contentApiUrl = settings?.contentImagesUrl;
+  contentApiUrl = settings?.contentApiUrl;
 
-  contentImagesUrl = settings?.contentApiUrl;
+  contentImagesUrl = settings?.contentImagesUrl;
 };
 
 const getRepository = () => {
