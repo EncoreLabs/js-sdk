@@ -3,8 +3,11 @@ import { VenueAddress } from '../venue-address';
 import { apiProductDataMock } from '../../../__mocks__/product-data';
 
 describe('Venue model', () => {
-  const getVenue = () => {
-    return new Venue(apiProductDataMock.venue);
+  const getVenue = (customData: any = {}) => {
+    return new Venue({
+      ...apiProductDataMock.venue,
+      ...customData,
+    });
   };
 
   describe('getId function', () => {
@@ -28,6 +31,12 @@ describe('Venue model', () => {
       const venue = getVenue();
 
       expect(venue.getAddress()).toEqual(new VenueAddress(apiProductDataMock.venue.address));
+    });
+
+    it('should return null if country is not defined', () => {
+      const venue = getVenue({ address: null });
+
+      expect(venue.getAddress()).toBeNull();
     });
   });
 });

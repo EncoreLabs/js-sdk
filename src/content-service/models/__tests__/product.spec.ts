@@ -4,8 +4,11 @@ import { ShowType } from '../show-type';
 import { apiProductDataMock } from '../../../__mocks__/product-data';
 
 describe('Product model', () => {
-  const getProduct = () => {
-    return new Product(apiProductDataMock);
+  const getProduct = (customData: any = {}) => {
+    return new Product({
+      ...apiProductDataMock,
+      ...customData,
+    });
   };
 
   describe('getId function', () => {
@@ -30,6 +33,12 @@ describe('Product model', () => {
 
       expect(product.getType()).toEqual(new ShowType(apiProductDataMock.showType).getType());
     });
+
+    it('should return null if show type is not defined', () => {
+      const product = getProduct({ showType: null });
+
+      expect(product.getType()).toBeNull();
+    });
   });
 
   describe('getVenue function', () => {
@@ -37,6 +46,12 @@ describe('Product model', () => {
       const product = getProduct();
 
       expect(product.getVenue()).toEqual(new Venue(apiProductDataMock.venue));
+    });
+
+    it('should return null if venue is not defined', () => {
+      const product = getProduct({ venue: null });
+
+      expect(product.getVenue()).toBeNull();
     });
   });
 

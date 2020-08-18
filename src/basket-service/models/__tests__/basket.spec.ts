@@ -18,7 +18,7 @@ jest.mock('../../services/basket-details-repository-provider', () => ({
 
 const basketItemsData = basketDataMock.reservations;
 const getBasket = (basketItems?: BasketItemData[]) => {
-  basketDataMock.reservations = basketItems || basketItemsData;
+  basketDataMock.reservations = typeof basketItems === 'undefined' ? basketItemsData : basketItems;
 
   return new Basket({ ...basketDataMock });
 };
@@ -27,6 +27,12 @@ describe('Basket', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.restoreAllMocks();
+  });
+
+  describe('constructor', () => {
+    it('should throw an error if reservations are not defined', () => {
+      expect(() => getBasket(null)).toThrowError('Basket: there are not reservations in the basket data');
+    });
   });
 
   describe('getExpiredDate function', () => {

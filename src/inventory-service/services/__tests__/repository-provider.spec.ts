@@ -59,6 +59,14 @@ describe('Inventory repository', () => {
 
       expect(getPerformanceAvailabilityMock).toBeCalledWith(affiliateId, productId, quantity, performanceDate, performanceTime);
     });
+
+    it('should return null if there is no availability in the response', async () => {
+      getPerformanceAvailabilityMock.mockImplementation(() => Promise.resolve(null));
+
+      const result = await getPerformanceAvailability(affiliateId, productId, quantity, performanceDate, performanceTime);
+
+      expect(result).toBeNull();
+    });
   });
 
   describe('getUpsellProductByAggregateReference function', () => {

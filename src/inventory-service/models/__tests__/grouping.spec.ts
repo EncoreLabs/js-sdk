@@ -5,8 +5,11 @@ import { SeatLump } from '../seat-lump';
 import { availabilityMock } from '../../__mocks__';
 
 const groupingMock = availabilityMock.areas[0].groupings[0];
-const getGrouping = () => {
-  return new Grouping(groupingMock);
+const getGrouping = (customData: any = {}) => {
+  return new Grouping({
+    ...groupingMock,
+    ...customData,
+  });
 };
 
 describe('Grouping', () => {
@@ -48,6 +51,12 @@ describe('Grouping', () => {
   describe('getPricing function', () => {
     it('should get price details', () => {
       expect(getGrouping().getPricing()).toEqual(new AreaPricing(groupingMock.pricing));
+    });
+
+    it('should return null if country is not defined', () => {
+      const grouping = getGrouping({ pricing: null });
+
+      expect(grouping.getPricing()).toBeNull();
     });
   });
 
