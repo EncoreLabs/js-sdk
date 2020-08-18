@@ -3,8 +3,11 @@ import { AreaPricing } from '../area-pricing';
 import { availabilityMock } from '../../__mocks__';
 
 const seatMock = availabilityMock.areas[0].groupings[0].seats[0];
-const getSeat = () => {
-  return new Seat(seatMock);
+const getSeat = (customData: any = {}) => {
+  return new Seat({
+    ...seatMock,
+    ...customData,
+  });
 };
 
 describe('Seat', () => {
@@ -28,6 +31,12 @@ describe('Seat', () => {
   describe('getPricing function', () => {
     it('should get pricing', () => {
       expect(getSeat().getPricing()).toEqual(new AreaPricing(seatMock.pricing));
+    });
+
+    it('should return null if country is not defined', () => {
+      const seat = getSeat({ pricing: null });
+
+      expect(seat.getPricing()).toBeNull();
     });
   });
 

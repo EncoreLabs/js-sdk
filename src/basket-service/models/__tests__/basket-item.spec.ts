@@ -29,6 +29,12 @@ describe('Basket item', () => {
     jest.restoreAllMocks();
   });
 
+  describe('constructor', () => {
+    it('should set null in date if date is not presented', () => {
+      expect(getBasketItem({ date: null }).getDate()).toBeNull();
+    });
+  });
+
   describe('getId function', () => {
     it('should get product id', () => {
       expect(getBasketItem().getId()).toBe('1');
@@ -158,7 +164,14 @@ describe('Basket item', () => {
           currency: 'GBP',
         },
       }).hasDiscount()).toBe(false);
-    });  
+    });
+
+    it('should return false if face value is not defined', () => {
+      expect(getBasketItem({
+        productType: ProductType.Show,
+        faceValueInShopperCurrency: null,
+      }).hasDiscount()).toBe(false);
+    });
   });
 
   describe('getPromotionDiscount function', () => {
@@ -203,6 +216,13 @@ describe('Basket item', () => {
   describe('getPriceBeforeDiscount function', () => {
     it('should get price before discount value', () => {
       expect(getBasketItem().getPriceBeforeDiscount()).toBe(1000);
+    });
+
+    it('should return 0 if face value is not defined', () => {
+      expect(getBasketItem({
+        productType: ProductType.Show,
+        faceValueInShopperCurrency: null,
+      }).getPriceBeforeDiscount()).toBe(0);
     });
   });
 

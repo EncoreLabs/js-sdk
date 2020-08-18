@@ -11,7 +11,7 @@ export class BasketItem {
   private readonly productId: string;
   private readonly productName: string;
   private readonly productType: ProductType;
-  private readonly faceValueInShopperCurrency: Amount;
+  private readonly faceValueInShopperCurrency: Amount | null;
   private readonly salePriceInShopperCurrency: Amount;
   private readonly adjustedSalePriceInShopperCurrency: Amount;
   private readonly adjustmentAmountInShopperCurrency: Amount;
@@ -116,7 +116,7 @@ export class BasketItem {
   }
 
   getFaceValueAmount () {
-    return this.faceValueInShopperCurrency.value;
+    return this.faceValueInShopperCurrency ? this.faceValueInShopperCurrency.value : null;
   }
 
   getSalePriceAmount () {
@@ -128,7 +128,13 @@ export class BasketItem {
   }
 
   hasDiscount () {
-    return this.getFaceValueAmount() > this.getOriginalSalePriceAmount();
+    const faceValueAmount = this.getFaceValueAmount();
+
+    if (!faceValueAmount) {
+      return false;
+    }
+
+    return faceValueAmount > this.getOriginalSalePriceAmount();
   }
 
   getPromotionDiscount () {
@@ -156,7 +162,13 @@ export class BasketItem {
   }
 
   getPriceBeforeDiscount () {
-    return this.quantity * this.getFaceValueAmount();
+    const faceValueAmount = this.getFaceValueAmount();
+
+    if (!faceValueAmount) {
+      return 0;
+    }
+
+    return this.quantity * faceValueAmount;
   }
 
   getDate () {

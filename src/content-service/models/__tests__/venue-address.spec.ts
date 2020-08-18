@@ -4,8 +4,11 @@ import { Region } from '../region';
 import { apiProductDataMock } from '../../../__mocks__/product-data';
 
 describe('Venue Address model', () => {
-  const getAddress = () => {
-    return new VenueAddress(apiProductDataMock.venue.address);
+  const getAddress = (customData: any = {}) => {
+    return new VenueAddress({
+      ...apiProductDataMock.venue.address,
+      ...customData,
+    });
   };
 
   describe('getFirstLine function', () => {
@@ -54,6 +57,12 @@ describe('Venue Address model', () => {
 
       expect(address.getRegion()).toEqual(new Region(apiProductDataMock.venue.address.region));
     });
+
+    it('should return null if region is not defined', () => {
+      const address = getAddress({ region: null });
+
+      expect(address.getRegion()).toBeNull();
+    });
   });
 
   describe('getCountry function', () => {
@@ -61,6 +70,12 @@ describe('Venue Address model', () => {
       const address = getAddress();
 
       expect(address.getCountry()).toEqual(new Country(apiProductDataMock.venue.address.country));
+    });
+
+    it('should return null if country is not defined', () => {
+      const address = getAddress({ country: null });
+
+      expect(address.getCountry()).toBeNull();
     });
   });
 });
