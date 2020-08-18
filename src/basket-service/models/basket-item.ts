@@ -116,7 +116,7 @@ export class BasketItem {
   }
 
   getFaceValueAmount () {
-    return this.faceValueInShopperCurrency?.value;
+    return this.faceValueInShopperCurrency ? this.faceValueInShopperCurrency.value : null;
   }
 
   getSalePriceAmount () {
