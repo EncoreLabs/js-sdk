@@ -79,6 +79,7 @@ export interface BasketData {
   shopperReference?: string;
   shopperCurrency?: string;
   missedPromotions?: Promotion[];
+  hasFlexiTickets?: boolean;
 }
 
 interface RequestSeat {
@@ -119,6 +120,7 @@ export interface RequestBasketData {
   shopperReference?: string;
   shopperCurrency?: string;
   exchangeRate?: number;
+  hasFlexiTickets?: boolean;
 }
 
 export enum BasketLocationType {

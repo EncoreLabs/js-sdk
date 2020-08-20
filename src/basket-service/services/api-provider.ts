@@ -24,6 +24,7 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
       reference,
       reservations,
       shopperCurrency,
+      hasFlexiTickets,
     } = basketData;
 
     return httpClient.patch(basketsPath, {
@@ -33,6 +34,7 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
       reference,
       reservations,
       shopperCurrency,
+      hasFlexiTickets,
     })
     .then((result) => {
       if (!result.data) {
