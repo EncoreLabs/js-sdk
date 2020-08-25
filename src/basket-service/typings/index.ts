@@ -79,6 +79,8 @@ export interface BasketData {
   shopperReference?: string;
   shopperCurrency?: string;
   missedPromotions?: Promotion[];
+  hasFlexiTickets?: boolean;
+  allowFlexiTickets?: boolean;
 }
 
 interface RequestSeat {

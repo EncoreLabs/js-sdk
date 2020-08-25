@@ -123,6 +123,16 @@ export const getBasketServiceRepository = (environment: Environment, settings?: 
     return new Basket(responseBasketData as BasketData);
   };
 
+  const upsertBasket = async (basket: Basket, basketData?: BasketData) => {
+    const requestBasketData = basketData || basket.getBasketData();
+    const responseBasketData = await basketApi.upsertBasket({
+      ...requestBasketData,
+      ...basket.prepareBasketData(),
+    });
+
+    return new Basket(responseBasketData as BasketData);
+  };
+
   return {
     getBasket,
     createBasket,
@@ -133,6 +143,7 @@ export const getBasketServiceRepository = (environment: Environment, settings?: 
     addPromoCode,
     removePromoCode,
     replaceItems,
+    upsertBasket,
 
     _unstable_: {
       setUpsellProducts,

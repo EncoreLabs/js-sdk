@@ -163,6 +163,10 @@ export class Basket {
     return !!this.basketData.mixed;
   }
 
+  isFlexiTicketsAllowed () {
+    return this.basketData.allowFlexiTickets;
+  }
+
   getAppliedPromotion () {
     return this.basketData.appliedPromotion;
   }
