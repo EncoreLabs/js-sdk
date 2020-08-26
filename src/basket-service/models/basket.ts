@@ -163,7 +163,7 @@ export class Basket {
     return !!this.basketData.mixed;
   }
 
-  isFlexiTicketsAllowed () {
+  areFlexiTicketsAllowed () {
     return this.basketData.allowFlexiTickets;
   }
 
