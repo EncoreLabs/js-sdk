@@ -16,6 +16,7 @@ export const basketDataMock = {
       currency: 'GBP',
     }
   },
+  allowFlexiTickets: true,
   status: BasketStatus.Active,
   createdAt: '2020-01-01T19:30:00+02:00',
   expiredAt: tomorrow.toString(),

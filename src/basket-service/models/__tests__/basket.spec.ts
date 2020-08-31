@@ -47,11 +47,11 @@ describe('Basket', () => {
       const basketDataMockWithExpiredStatus = basketDataMock;
       basketDataMockWithExpiredStatus.status = BasketStatus.Expired;
       const basketWithExpiredStatus = new Basket(basketDataMockWithExpiredStatus);
-  
+
       const basketDataMockWithExpiredDate = basketDataMock;
       basketDataMockWithExpiredDate.expiredAt = new Date('2000 01 01').toString();
       const basketWithExpiredDate = new Basket(basketDataMockWithExpiredDate);
-  
+
       expect(basket.isExpired()).toBe(false);
       expect(basketWithExpiredStatus.isExpired()).toBe(true);
       expect(basketWithExpiredDate.isExpired()).toBe(true);
@@ -67,6 +67,16 @@ describe('Basket', () => {
 
       expect(basket.isPaid()).toBe(false);
       expect(basketWithExpiredStatus.isPaid()).toBe(true);
+    });
+  });
+
+  describe('areFlexiTicketsAllowed function', () => {
+    it('should check is flexiticket allowed', () => {
+      const basket = getBasket();
+      const basketDataMockWithExpiredStatus = basketDataMock;
+      basketDataMockWithExpiredStatus.status = BasketStatus.Confirmed;
+
+      expect(basket.areFlexiTicketsAllowed()).toBe(true);
     });
   });
 
@@ -167,13 +177,13 @@ describe('Basket', () => {
     it('should get if basket is empty', () => {
       expect(getBasket().isEmpty()).toBe(false);
       expect(getBasket([]).isEmpty()).toBe(true);
-    });  
+    });
   });
 
   describe('getTotalPrice function', () => {
     it('should get total price', () => {
       expect(getBasket().getTotalPrice()).toBe(1000);
-    });  
+    });
   });
 
   describe('getTotalDiscount function', () => {
@@ -191,14 +201,14 @@ describe('Basket', () => {
   describe('getTotalPriceBeforeDiscount function', () => {
     it('should get total price before discount', () => {
       expect(getBasket().getTotalPriceBeforeDiscount()).toBe(2000);
-    });  
+    });
   });
 
   describe('hasDiscount function', () => {
     it('should get if basket has discount', () => {
       expect(getBasket().hasDiscount()).toBe(true);
       expect(getBasket([]).hasDiscount()).toBe(false);
-    });  
+    });
   });
 
   describe('getbasketDataMock function', () => {
@@ -415,7 +425,7 @@ describe('Basket', () => {
     });
   });
 
-  describe('replacebasketDataMock function', () => {
+  describe('replaceBasketData function', () => {
     it('should replace original basket items with new list', () => {
       const newBasketItem = {
         venueId: '138',

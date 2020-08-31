@@ -64,6 +64,7 @@ describe('Http client provider', () => {
     const errors = [{
       code: 'error_code',
       message: 'Error message',
+      responseUrl: 'https://service.co.uk',
     }];
     const failResponse = {
       response: {
@@ -74,6 +75,9 @@ describe('Http client provider', () => {
         },
         status: 1001,
         statusText: 'Error message',
+        request: {
+          responseURL: 'https://service.co.uk',
+        },
       },
     };
     const failResponseWithoutData = {
@@ -81,6 +85,10 @@ describe('Http client provider', () => {
         data: '',
         status: 1001,
         statusText: 'Error message',
+        responseUrl: 'https://service.co.uk',
+        request: {
+          responseURL: 'https://service.co.uk',
+        },
       },
     };
 
@@ -101,6 +109,7 @@ describe('Http client provider', () => {
         expect(e).toEqual({
           code: status,
           message: statusText,
+          responseUrl: 'https://service.co.uk',
         });
       }
     });
