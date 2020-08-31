@@ -1,6 +1,6 @@
 {
   "name": "tte-api-services",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -12,7 +12,7 @@
     "npm": ">= 6.3.0"
   },
   "scripts": {
-    "build": "npm-run-all lint test build-ts build-ts-for-node",
+    "build": "npm-run-all lint test-coverage build-ts build-ts-for-node",
     "build-dev": "npm-run-all lint test build-ts-dev build-ts-dev-for-node",
     "build-ts": "webpack --config webpack/webpack.build.js --progress --mode=production",
     "build-ts-dev": "webpack --config webpack/webpack.build.js --progress --mode=development",

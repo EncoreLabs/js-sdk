@@ -22,6 +22,7 @@ const mockBasket = (forUpsells?: boolean) => {
     getItemsCollection: () => new BasketItemsCollection(basketDataMock.reservations),
     prepareBasketData: forUpsells ? jest.fn() : () => basketDataMock,
     replaceBasketData: () => basketDataMock,
+    upsertBasket: () => basketDataMock,
   }));
 };
 
@@ -53,6 +54,7 @@ describe('Basket repository', () => {
     setSelectedDelivery,
     addPromoCode,
     removePromoCode,
+    upsertBasket,
     _unstable_,
   } = getBasketServiceRepository(environment);
   const { setUpsellProducts } = _unstable_;
@@ -203,5 +205,18 @@ describe('Basket repository', () => {
 
     expect(basket.prepareBasketData).toBeCalledWith(upsellProducts);
     expect(callArguments.length).toBe(1);
+  });
+
+  describe('upsertBasket function', () => {
+    it('should upsert basket', async () => {
+      mockBasket();
+
+      const basket = new Basket(basketDataMock);
+      await upsertBasket(basket);
+      const callArguments = getMockFunctionArguments(upsertBasketData);
+
+      expect(callArguments.length).toBe(1);
+      expect((callArguments[0] as BasketData).reservations.length).toBe(2);
+    })
   });
 });

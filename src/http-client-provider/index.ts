@@ -24,19 +24,20 @@ const errorInterceptor = (error: AxiosError) => {
   const data = responseError?.data;
   const statusText = responseError?.statusText;
   const status = responseError?.status;
+  const responseUrl = responseError?.request?.responseURL;
   const errors = data?.context?.errors;
 
   if (errors) {
     const { code, message } = errors[0];
 
     if (code) {
-      throw { code, message };
+      throw { code, message, responseUrl };
     }
 
-    throw new Error(message);
+    throw { message, responseUrl }
   }
 
   if (status && statusText) {
-    throw { code: status, message: statusText };
+    throw { code: status, message: statusText, responseUrl };
   }
 };
