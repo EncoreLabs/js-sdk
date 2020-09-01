@@ -15,7 +15,7 @@ export class Venue {
       name,
       address,
     } = venueData;
-    this.id = id;
+    this.id = id?.toString();
     this.name = name;
     this.address = address ? new VenueAddress(address) : null;
   }
