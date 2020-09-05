@@ -12,7 +12,7 @@ export interface ApiSummaryAvailabilityItemData {
 
 export interface ApiUpsellApiProductData {
   aggregateReference: string;
-  faceValue: Amount[];
+  faceValue: Amount[] | null;
   salePrice: Amount[];
   quantity: number;
   upSellIdentifier: string;
@@ -62,7 +62,7 @@ export interface ApiAreaGroup {
 }
 
 export interface ApiAreaPricing {
-  faceValue: ApiPricingValue[];
+  faceValue: ApiPricingValue[] | null;
   salePrice: ApiPricingValue[];
   percentageDiscount: number;
   includesBookingFee: boolean;

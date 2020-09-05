@@ -1,13 +1,22 @@
 import { upSellProductMock, upSellCollectionMock } from '../../__mocks__';
 import { UpsellProduct } from '../upsell-product';
 
-const getUpSellProduct = () => {
-  return new UpsellProduct(upSellProductMock, upSellCollectionMock.displayCurrency);
+const getUpSellProduct = (customUpSellProductProps = {}) => {
+  return new UpsellProduct({
+    ...upSellProductMock,
+    ...customUpSellProductProps,
+  }, upSellCollectionMock.displayCurrency);
 };
 
 describe('UpSell Product', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+  });
+
+  describe('constructor', () => {
+    it('should set null in face values are not presented', () => {
+      expect(getUpSellProduct({ faceValue: null }).getFaceValue()).toBeNull();
+    });
   });
 
   describe('getAggregateReference function', () => {

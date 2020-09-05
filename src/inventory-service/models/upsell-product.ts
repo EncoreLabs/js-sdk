@@ -5,7 +5,7 @@ import { ApiUpsellApiProductData, UpsellProductTypes } from '../typings';
 export class UpsellProduct {
   private displayCurrency: string = 'GBP';
   private readonly aggregateReference: string;
-  private readonly faceValue: Amount;
+  private readonly faceValue: Amount | null;
   private readonly salePrice: Amount;
   private readonly quantity: number;
   private readonly upSellIdentifier: string;
@@ -24,7 +24,7 @@ export class UpsellProduct {
 
     this.aggregateReference = aggregateReference;
     this.displayCurrency = displayCurrency;
-    this.faceValue = this.getPrice(faceValue, displayCurrency);
+    this.faceValue = faceValue ? this.getPrice(faceValue, displayCurrency) : null;
     this.salePrice = this.getPrice(salePrice, displayCurrency);
     this.quantity = quantity;
     this.upSellIdentifier = upSellIdentifier;

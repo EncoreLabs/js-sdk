@@ -3,14 +3,23 @@ import { PricingValue } from '../../../shared/models/pricing-value';
 import { availabilityMock } from '../../__mocks__';
 
 const areaPricingMock = availabilityMock.areas[0].groupings[0].pricing;
-const getAreaPricing = () => {
-  return new AreaPricing(areaPricingMock);
+const getAreaPricing = (customAreaPricingProps = {}) => {
+  return new AreaPricing({
+    ...areaPricingMock,
+    ...customAreaPricingProps,
+  });
 };
 
 describe('AreaPricing', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.restoreAllMocks();
+  });
+
+  describe('constructor', () => {
+    it('should set null in face values are not presented', () => {
+      expect(getAreaPricing({ faceValue: null }).getFaceValues()).toBeNull();
+    });
   });
 
   describe('getFaceValues function', () => {

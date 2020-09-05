@@ -3,7 +3,7 @@ import { PricingValue } from '../../shared/models/pricing-value';
 import { ApiAreaPricing } from '../typings';
 
 export class AreaPricing {
-  private readonly faceValue: PricingValue[];
+  private readonly faceValue: PricingValue[] | null;
   private readonly salePrice: PricingValue[];
   private readonly percentageDiscount: number;
   private readonly includesBookingFee: boolean;
@@ -13,7 +13,7 @@ export class AreaPricing {
   constructor (areaPricing: ApiAreaPricing) {
     checkRequiredProperty(areaPricing, 'Area Pricing: area pricing data');
 
-    this.faceValue = areaPricing.faceValue.map(pricing => new PricingValue(pricing));
+    this.faceValue = areaPricing.faceValue ? areaPricing.faceValue.map(pricing => new PricingValue(pricing)) : null;
     this.salePrice = areaPricing.salePrice.map(pricing => new PricingValue(pricing));
     this.percentageDiscount = areaPricing.percentageDiscount;
     this.includesBookingFee = areaPricing.includesBookingFee;
