@@ -2,7 +2,7 @@ import { checkRequiredProperty } from '../../utils/validator';
 import { AreaPricing } from './area-pricing';
 import { Seat } from './seat';
 import { SeatLump } from './seat-lump';
-import { ApiAreaGroup } from '../typings';
+import { ApiAreaGroup, SeatAllocationMode } from '../typings';
 
 export class Grouping {
   private readonly row: string;
@@ -18,6 +18,7 @@ export class Grouping {
     restrictedView: boolean;
     sideView: boolean;
   };
+  private readonly mode?: SeatAllocationMode;
 
   constructor (grouping: ApiAreaGroup) {
     checkRequiredProperty(grouping, 'Grouping: groping data');
@@ -32,7 +33,8 @@ export class Grouping {
       seats,
       seatLumps,
       aggregateReference,
-      attributes
+      attributes,
+      mode,
     } = grouping;
 
     this.row = row;
@@ -45,6 +47,7 @@ export class Grouping {
     this.seatLumps = seatLumps.map(seatLump => new SeatLump(seatLump));
     this.aggregateReference = aggregateReference;
     this.attributes = attributes;
+    this.mode = mode as SeatAllocationMode;
   }
 
   getRow () {
@@ -85,5 +88,9 @@ export class Grouping {
 
   getAttributes () {
     return this.attributes;
+  }
+
+  getMode () {
+    return this.mode;
   }
 }

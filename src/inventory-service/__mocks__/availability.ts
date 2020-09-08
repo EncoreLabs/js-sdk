@@ -11,6 +11,7 @@ export const availabilityMock = {
     mode: 'allocated',
     groupings: [{
       groupIdentifier: 'RoyalCircle~H40;40',
+      mode: 'allocated',
       aggregateReference: 'RU5UQX43NjY0NjF+Q0lSfjUwNX5VfjF+REN+MzUwMH40MjAwfjF+N35FTkMsQVAwLDF+MjE2SzE5NDkwNUsyfkx+fn4zNTAwfjE3LzExLzE4NTh+MA==',
       row: 'U',
       seatNumberStart: 1,

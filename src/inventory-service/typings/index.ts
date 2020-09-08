@@ -59,6 +59,7 @@ export interface ApiAreaGroup {
   pricing: ApiAreaPricing;
   seats: ApiAvailabilitySeat[];
   seatLumps: ApiAreaSeatLump[];
+  mode?: string;
 }
 
 export interface ApiAreaPricing {
@@ -100,4 +101,9 @@ export interface Lump {
 export interface ApiMaxNumberOfTickets {
   MaxNumberOfTickets: number;
   productId: string;
+}
+
+export enum SeatAllocationMode {
+  Allocated = 'allocated',
+  Freesell = 'freesell',
 }
