@@ -93,4 +93,10 @@ describe('Grouping', () => {
       expect(getGrouping().getAttributes()).toEqual(groupingMock.attributes);
     });
   });
+
+  describe('getMode function', () => {
+    it('should get seat allocation mode', () => {
+      expect(getGrouping().getMode()).toEqual(groupingMock.mode);
+    });
+  });
 });
