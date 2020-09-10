@@ -3,10 +3,10 @@ import { PricingValue } from '../../shared/models/pricing-value';
 import { ApiAreaPricing } from '../typings';
 
 export class AreaPricing {
-  private readonly faceValue: PricingValue[] | null;
-  private readonly salePrice: PricingValue[];
-  private readonly percentageDiscount: number;
-  private readonly includesBookingFee: boolean;
+  private faceValue: PricingValue[] | null;
+  private salePrice: PricingValue[];
+  private percentageDiscount: number;
+  private includesBookingFee: boolean;
   private readonly priceReference?: string;
   private readonly timestamp?: string;
 
@@ -25,16 +25,32 @@ export class AreaPricing {
     return this.faceValue;
   }
 
+  setFaceValues (faceValue: PricingValue[] | null) {
+    this.faceValue = faceValue;
+  }
+
   getSalePrices () {
     return this.salePrice;
+  }
+
+  setSalePrices (salePrice: PricingValue[]) {
+    this.salePrice = salePrice;
   }
 
   getPercentageDiscount () {
     return this.percentageDiscount;
   }
 
+  setPercentageDiscount (percentageDiscount: number) {
+    this.percentageDiscount = percentageDiscount;
+  }
+
   hasBookingFee () {
     return this.includesBookingFee;
+  }
+
+  setHasBookingFee (includesBookingFee: boolean) {
+    this.includesBookingFee = includesBookingFee;
   }
 
   getPriceReference () {

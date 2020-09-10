@@ -1,4 +1,5 @@
 import './shared/typings';
+import './shared/models/pricing-value';
 import { basketService } from './basket-service/services';
 import { checkoutService } from './checkout-service/services';
 import { contentService } from './content-service/services';
@@ -8,6 +9,7 @@ import { venueService } from './venue-service/services';
 import { fulfilmentService } from './fulfilment-service/services';
 
 export { Amount, Environment } from './shared/typings';
+export { PricingValue } from './shared/models/pricing-value';
 export * from './basket-service';
 export * from './content-service';
 export * from './inventory-service';
