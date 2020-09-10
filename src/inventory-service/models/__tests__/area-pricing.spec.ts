@@ -33,15 +33,47 @@ describe('AreaPricing', () => {
     });
   });
 
+  describe('setFaceValues function', () => {
+    it('should set face values', () => {
+      const newFaceValue = new PricingValue({
+        value: 10000,
+        currency: 'USD',
+        decimalPlaces: 2,
+      });
+      const areaPricing = getAreaPricing();
+      areaPricing.setFaceValues([newFaceValue]);
+      const faceValue = areaPricing.getFaceValues();
+
+      expect(faceValue).toHaveLength(1);
+      expect(faceValue[0]).toEqual(newFaceValue);
+    });
+  });
+
   describe('getSalePrices function', () => {
     it('should get sale values', () => {
       const salePrices = getAreaPricing().getSalePrices();
 
-      expect(salePrices).toHaveLength(areaPricingMock.salePrice.length);
+      expect(salePrices).toHaveLength(1);
       salePrices.forEach(value => {
         expect(value instanceof PricingValue).toBe(true);
       });
     });  
+  });
+
+  describe('setSalePrices function', () => {
+    it('should set sale prices', () => {
+      const newSalePrice = new PricingValue({
+        value: 10000,
+        currency: 'USD',
+        decimalPlaces: 2,
+      });
+      const areaPricing = getAreaPricing();
+      areaPricing.setSalePrices([newSalePrice]);
+      const salePrice = areaPricing.getSalePrices();
+
+      expect(salePrice).toHaveLength(1);
+      expect(salePrice[0]).toEqual(newSalePrice);
+    });
   });
 
   describe('getPercentageDiscount function', () => {
@@ -50,9 +82,31 @@ describe('AreaPricing', () => {
     });
   });
 
+  describe('setPercentageDiscount function', () => {
+    it('should set percentage discount', () => {
+      const newPercentageDiscount = 10;
+      const areaPricing = getAreaPricing();
+      areaPricing.setPercentageDiscount(newPercentageDiscount);
+      const percentageDiscount = areaPricing.getPercentageDiscount();
+
+      expect(percentageDiscount).toBe(newPercentageDiscount);
+    });
+  });
+
   describe('hasBookingFee function', () => {
     it('should check that pricing has booking fee', () => {
       expect(getAreaPricing().hasBookingFee()).toEqual(areaPricingMock.includesBookingFee);
+    });
+  });
+
+  describe('setHasBookingFee function', () => {
+    it('should set hasBookingFee state', () => {
+      const newHasBookingFeeState = false;
+      const areaPricing = getAreaPricing();
+      areaPricing.setHasBookingFee(newHasBookingFeeState);
+      const hasBookingFee = areaPricing.hasBookingFee();
+
+      expect(hasBookingFee).toBe(newHasBookingFeeState);
     });
   });
 
