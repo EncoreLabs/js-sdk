@@ -7,7 +7,7 @@ export class Area {
   private readonly availableCount: number;
   private readonly date: Moment;
   private readonly rawDate: string;
-  private readonly groupings: Grouping[];
+  private groupings: Grouping[];
   private readonly mode: string;
   private readonly name: string;
   private readonly aggregateReference?: string;
@@ -38,6 +38,10 @@ export class Area {
 
   getGroupings () {
     return this.groupings;
+  }
+
+  setGroupings (groupings: Grouping[]) {
+    this.groupings = groupings;
   }
 
   getMode () {

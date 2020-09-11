@@ -11,7 +11,7 @@ export class Grouping {
   private readonly seatNumberEnd: number;
   private readonly groupIdentifier: string;
   private readonly pricing: AreaPricing;
-  private readonly seats: Seat[];
+  private seats: Seat[];
   private readonly seatLumps: SeatLump[];
   private readonly aggregateReference?: string;
   private readonly attributes?: {
@@ -76,6 +76,10 @@ export class Grouping {
 
   getSeats () {
     return this.seats;
+  }
+
+  setSeats (seats: Seat[]) {
+    this.seats = seats;
   }
 
   getSeatLumps () {

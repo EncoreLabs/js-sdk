@@ -4,9 +4,9 @@ import { Grouping } from '../grouping';
 import { availabilityMock } from '../../__mocks__';
 
 const areaMock = availabilityMock.areas[0];
-const getArea = () => {
-  return new Area(areaMock);
-};
+const groupingMock = availabilityMock.areas[0].groupings[0];
+const getArea = () => new Area(areaMock);
+const getGrouping = () => new Grouping(groupingMock);
 
 describe('Area', () => {
   beforeEach(() => {
@@ -33,7 +33,19 @@ describe('Area', () => {
   });
 
   describe('getGroupings function', () => {
-    it('should get area groupings', () => {
+    it('should set area groupings', () => {
+      const newGrouping = getGrouping();
+      const area = getArea();
+      area.setGroupings([newGrouping]);
+      const groupings = area.getGroupings();
+
+      expect(groupings).toHaveLength(1);
+      expect(groupings[0]).toEqual(newGrouping);
+    });  
+  });
+
+  describe('setGroupings function', () => {
+    it('should set area groupings', () => {
       const groupings = getArea().getGroupings();
 
       expect(groupings).toHaveLength(areaMock.groupings.length);
