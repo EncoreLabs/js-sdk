@@ -4,11 +4,13 @@ import { ApiAvailability } from '../typings';
 
 export class Availability {
   private readonly availability: ApiAvailability;
+  private readonly areas: Area[];
 
   constructor (availabilityData: ApiAvailability) {
     checkRequiredProperty(availabilityData, 'Availability: availability data');
 
     this.availability = availabilityData;
+    this.areas = this.availability.areas.map(area => new Area(area));
   }
 
   getAvailability () {
@@ -16,6 +18,6 @@ export class Availability {
   }
 
   getAreas () {
-    return this.availability.areas.map(area => new Area(area));
+    return this.areas;
   }
 }
