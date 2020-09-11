@@ -5,12 +5,14 @@ import { SeatLump } from '../seat-lump';
 import { availabilityMock } from '../../__mocks__';
 
 const groupingMock = availabilityMock.areas[0].groupings[0];
+const seatMock = availabilityMock.areas[0].groupings[0].seats[0];
 const getGrouping = (customData: any = {}) => {
   return new Grouping({
     ...groupingMock,
     ...customData,
   });
 };
+const getSeat = () => new Seat(seatMock);
 
 describe('Grouping', () => {
   beforeEach(() => {
@@ -69,6 +71,18 @@ describe('Grouping', () => {
         expect(seat instanceof Seat).toBe(true);
       });
     });  
+  });
+
+  describe('setSeats function', () => {
+    it('should set seats', () => {
+      const newSeat = getSeat();
+      const grouping = getGrouping();
+      grouping.setSeats([newSeat]);
+      const seats = grouping.getSeats();
+
+      expect(seats).toHaveLength(1);
+      expect(seats[0]).toEqual(newSeat);
+    });
   });
 
   describe('getSeatLumps function', () => {
