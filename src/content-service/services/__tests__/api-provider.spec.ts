@@ -72,7 +72,7 @@ describe('Content service API', () => {
         const { imageSize, screenSize } = imageSizeSettings;
         const imagesBaseUrl = pathSettings[Environment.Dev].images;
   
-        expect(images[index]).toEqual({
+        expect(image).toEqual({
           screenSize,
           url: `${imagesBaseUrl}/${productEntity}/${entityId}/${ImageOrientation.Landscape}?width=${imageSize}`,
         });
@@ -92,9 +92,29 @@ describe('Content service API', () => {
         const imageSizeSettings = imageSizes[ImageOrientation.Default][index];
         const { imageSize, screenSize } = imageSizeSettings;
   
-        expect(images[index]).toEqual({
+        expect(image).toEqual({
           screenSize,
           url: `${settings.contentImagesUrl}/${productEntity}/${entityId}/${ImageOrientation.Default}?width=${imageSize}`,
+        });
+      });
+    });
+
+    it('should get image with custom size', () => {
+      const productEntity = EntityType.Products;
+      const entityId = 'test';
+      const customSize = '50';
+      const imagesBaseUrl = pathSettings[Environment.Dev].images;
+      const images = getContentServiceApi(Environment.Dev).getImages(
+        productEntity,
+        entityId,
+        ImageOrientation.Default,
+        customSize,
+      );
+  
+      images.forEach((image) => {
+        expect(image).toEqual({
+          screenSize: 'custom',
+          url: `${imagesBaseUrl}/${productEntity}/${entityId}/${ImageOrientation.Default}?width=${customSize}`,
         });
       });
     });
