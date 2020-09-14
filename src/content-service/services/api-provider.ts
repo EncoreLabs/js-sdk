@@ -42,14 +42,26 @@ export const getContentServiceApi = (environment: Environment, settings?: Settin
     return data;
   };
 
-  const getImages = (entityType: EntityType, entityId: string, orientation = ImageOrientation.Default): Image[] => (
-    (imageSizes[orientation] || imageSizes[ImageOrientation.Default]).map(({ screenSize, imageSize }) => (
+  const getImages = (
+    entityType: EntityType,
+    entityId: string,
+    orientation = ImageOrientation.Default,
+    customImageSize?: string,
+  ): Image[] => {
+    if (customImageSize) {
+      return [{
+        screenSize: 'custom',
+        url: `${baseContentImagesUrl}/${entityType}/${entityId}/${orientation}?width=${customImageSize}`,
+      }];
+    }
+
+    return (imageSizes[orientation] || imageSizes[ImageOrientation.Default]).map(({ screenSize, imageSize }) => (
       {
         screenSize,
-        url: `${baseContentImagesUrl}/${entityType}/${entityId}/${orientation}?width=${imageSize}`
+        url: `${baseContentImagesUrl}/${entityType}/${entityId}/${orientation}?width=${imageSize}`,
       }
     ))
-  );
+  };
 
   return {
     getProducts,
