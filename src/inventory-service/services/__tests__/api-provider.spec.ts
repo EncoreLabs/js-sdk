@@ -26,6 +26,10 @@ describe('Inventory API', () => {
   const fromDate = '20200101';
   const toDate = '20210101';
   const inventoryApi = getInventoryServiceApi(Environment.Dev);
+  const additionalHeaders = {
+    'x-ttg-client': 'Inventory service | JS SDK',
+    'x-ttg-client-version': 'v4',
+  }
 
   beforeEach(() => {
     httpClient = getMockFunctionReturnValue(getHttpClient);
@@ -45,10 +49,11 @@ describe('Inventory API', () => {
   describe('getPerformanceAvailability function', () => {
     it('should get product availability', async () => {
       inventoryApi.getPerformanceAvailability(affiliateId, productId, quantity, performanceDate, performanceTime);
-  
+
       expect(httpClient.get).toBeCalledWith(`/products/${productId}/areas?quantity=${quantity}&date=${performanceDate}&time=${performanceTime}`, {
         headers: {
           affiliateId,
+          ...additionalHeaders,
         }
       });
     });
@@ -57,12 +62,13 @@ describe('Inventory API', () => {
   describe('getUpsellProductByAggregateReference function', () => {
     it('should get upSell product by aggregate reference', async () => {
       const { aggregateReference, quantity: upsellQuantity, upSellIdentifier: productType } = upSellProductMock;
-  
+
       inventoryApi.getUpsellProductByAggregateReference(affiliateId, aggregateReference, quantity, productType);
-  
+
       expect(httpClient.get).toBeCalledWith(`/products/upsells?aggregateReference=${aggregateReference}&quantity=${upsellQuantity}&type=${productType}`, {
         headers: {
           affiliateId,
+          ...additionalHeaders,
         }
       });
     });
@@ -71,7 +77,7 @@ describe('Inventory API', () => {
   describe('getUpsellApiProductDataById function', () => {
     it('should get upSell product by product id', async () => {
       const { quantity: upsellQuantity, upSellIdentifier: productType } = upSellProductMock;
-  
+
       inventoryApi.getUpsellApiProductDataById(
         affiliateId,
         productId,
@@ -80,10 +86,11 @@ describe('Inventory API', () => {
         performanceDate,
         performanceTime,
       );
-  
+
       expect(httpClient.get).toBeCalledWith(`/products/${productId}/upsells?quantity=${upsellQuantity}&date=${performanceDate}&time=${performanceTime}&type=${productType}`, {
         headers: {
           affiliateId,
+          ...additionalHeaders,
         },
       });
     });
@@ -92,9 +99,13 @@ describe('Inventory API', () => {
   describe('getMaxQuantity function', () => {
     it('should get max quantity', async () => {
       inventoryApi.getMaxQuantity(productId);
-  
-      expect(httpClient.get).toBeCalledWith(`/availability/${productId}/max`);
-    });  
+
+      expect(httpClient.get).toBeCalledWith(`/availability/${productId}/max`, {
+        headers: {
+          ...additionalHeaders,
+        }
+      });
+    });
   });
 
   describe('getSummaryAvailability function', () => {
@@ -104,8 +115,9 @@ describe('Inventory API', () => {
       expect(httpClient.get).toBeCalledWith(`/availability/products/${productId}/quantity/${quantity}/from/${fromDate}/to/${toDate}`, {
         headers: {
           affiliateId,
+          ...additionalHeaders,
         },
       });
-    });  
+    });
   });
 });

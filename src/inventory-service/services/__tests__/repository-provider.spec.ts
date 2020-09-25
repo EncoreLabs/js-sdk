@@ -50,7 +50,7 @@ describe('Inventory repository', () => {
   it('should create api for specific environment', () => {
     getInventoryServiceRepository(environment);
 
-    expect(getInventoryServiceApi).toBeCalledWith(environment, undefined);
+    expect(getInventoryServiceApi).toBeCalledWith(environment, undefined, undefined);
   });
 
   describe('getPerformanceAvailability function', () => {
@@ -90,10 +90,10 @@ describe('Inventory repository', () => {
 
     it('should return upSell products by id', async () => {
       await getUpsellProductsById(affiliateId, productId, quantity, upSellProductMock.upSellIdentifier, performanceDate, performanceTime);
-  
+
       expect(getUpsellProductsByIdMock).toBeCalledWith(affiliateId, productId, quantity, upSellProductMock.upSellIdentifier, performanceDate, performanceTime);
       expect(UpsellCollection).toBeCalledWith(upSellCollectionMock);
-    });  
+    });
   });
 
   describe('getMaxQuantity function', () => {

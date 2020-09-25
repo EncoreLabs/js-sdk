@@ -4,10 +4,10 @@ import { UpsellCollection, SummaryAvailability, Availability } from '../models';
 import { Environment } from '../../shared/typings';
 import { ApiUpsellProductsData } from '../typings';
 
-export const getInventoryServiceRepository = (environment: Environment, inventoryApiUrl?: string) => {
+export const getInventoryServiceRepository = (environment: Environment, inventoryApiUrl?: string, widgetTitle?: string) => {
   checkRequiredProperty(environment, 'getInventoryServiceRepository: environment');
 
-  const inventoryServiceApi = getInventoryServiceApi(environment, inventoryApiUrl);
+  const inventoryServiceApi = getInventoryServiceApi(environment, inventoryApiUrl, widgetTitle);
 
   const getPerformanceAvailability = async (
     affiliateId: string,
