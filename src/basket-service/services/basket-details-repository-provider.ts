@@ -6,8 +6,9 @@ let environment;
 let basketApiUrl;
 let contentApiUrl;
 let contentImagesUrl;
+let title;
 
-const setEnvironment = (env: Environment, settings?: Settings) => {
+const setEnvironment = (env: Environment, settings?: Settings, widgetTitle?: string) => {
   environment = env;
 
   basketApiUrl = settings?.basketApiUrl;
@@ -15,6 +16,8 @@ const setEnvironment = (env: Environment, settings?: Settings) => {
   contentApiUrl = settings?.contentApiUrl;
 
   contentImagesUrl = settings?.contentImagesUrl;
+
+  title = widgetTitle;
 };
 
 const getRepository = () => {
@@ -28,8 +31,8 @@ const getRepository = () => {
     contentImagesUrl,
   };
 
-  const contentRepository = contentService.create(environment, settings);
-  const basketRepository = getBasketServiceRepository(environment, settings);
+  const contentRepository = contentService.create(environment, settings, title);
+  const basketRepository = getBasketServiceRepository(environment, settings, title);
   const { getProduct, getImages } = contentRepository;
   const { getDeliveries } = basketRepository;
 

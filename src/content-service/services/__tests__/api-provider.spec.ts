@@ -17,6 +17,10 @@ let httpClient: AxiosInstance;
 
 describe('Content service API', () => {
   const contentServiceApi = getContentServiceApi(Environment.Dev);
+  const additionalHeaders = {
+    'x-ttg-client': 'Content service | JS SDK',
+    'x-ttg-client-version': 'v1',
+  };
 
   beforeEach(() => {
     httpClient = getMockFunctionReturnValue(getHttpClient);
@@ -40,7 +44,14 @@ describe('Content service API', () => {
     it('should get list of products', async () => {
       await contentServiceApi.getProducts();
 
-      expect(httpClient.get).toBeCalledWith('/products');
+      expect(httpClient.get).toBeCalledWith(
+        '/products',
+        {
+          headers: {
+            ...additionalHeaders,
+          }
+        }
+      );
     });
 
     it('should get list of products with query', async () => {
@@ -48,7 +59,14 @@ describe('Content service API', () => {
       const limit = 100;
       await contentServiceApi.getProducts(page, limit);
 
-      expect(httpClient.get).toBeCalledWith('/products?page=5&limit=100');
+      expect(httpClient.get).toBeCalledWith(
+        '/products?page=5&limit=100',
+        {
+          headers: {
+            ...additionalHeaders,
+          }
+        }
+      );
     });
   });
 
@@ -56,9 +74,16 @@ describe('Content service API', () => {
     it('should get product', async () => {
       const id = 'test';
       await contentServiceApi.getProduct(id);
-  
-      expect(httpClient.get).toBeCalledWith(`/products/${id}`);
-    });  
+
+      expect(httpClient.get).toBeCalledWith(
+        `/products/${id}`,
+        {
+          headers: {
+            ...additionalHeaders,
+          }
+        }
+      );
+    });
   });
 
   describe('getImages function', () => {
@@ -66,19 +91,19 @@ describe('Content service API', () => {
       const productEntity = EntityType.Products;
       const entityId = 'test';
       const images = contentServiceApi.getImages(productEntity, entityId, ImageOrientation.Landscape);
-  
+
       images.forEach((image, index) => {
         const imageSizeSettings = (imageSizes[ImageOrientation.Landscape] || imageSizes[ImageOrientation.Default])[index];
         const { imageSize, screenSize } = imageSizeSettings;
         const imagesBaseUrl = pathSettings[Environment.Dev].images;
-  
+
         expect(image).toEqual({
           screenSize,
           url: `${imagesBaseUrl}/${productEntity}/${entityId}/${ImageOrientation.Landscape}?width=${imageSize}`,
         });
       });
     });
-  
+
     it('should get images from custom api', () => {
       const productEntity = EntityType.Products;
       const entityId = 'test';
@@ -87,11 +112,11 @@ describe('Content service API', () => {
         contentImagesUrl: 'contentImagesUrl',
       };
       const images = getContentServiceApi(Environment.Dev, settings).getImages(productEntity, entityId);
-  
+
       images.forEach((image, index) => {
         const imageSizeSettings = imageSizes[ImageOrientation.Default][index];
         const { imageSize, screenSize } = imageSizeSettings;
-  
+
         expect(image).toEqual({
           screenSize,
           url: `${settings.contentImagesUrl}/${productEntity}/${entityId}/${ImageOrientation.Default}?width=${imageSize}`,
@@ -110,7 +135,7 @@ describe('Content service API', () => {
         ImageOrientation.Default,
         customSize,
       );
-  
+
       images.forEach((image) => {
         expect(image).toEqual({
           screenSize: 'custom',

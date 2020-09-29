@@ -12,7 +12,12 @@ export const getInventoryServiceApi = (environment: Environment, inventoryApiUrl
   const productsPath = '/products';
   const upsellPath = '/upsells';
   const availabilityPath = '/availability';
-  const additionalHeaders = getAdditionalHeaders('Inventory service', 'v4', inventoryApiUrl, widgetTitle);
+  const additionalHeaders = getAdditionalHeaders(
+    'Inventory service',
+    'v4',
+    inventoryApiUrl,
+    widgetTitle,
+  );
 
   const getPerformanceAvailability = async (
     affiliateId: string,

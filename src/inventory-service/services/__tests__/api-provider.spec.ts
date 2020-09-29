@@ -29,7 +29,7 @@ describe('Inventory API', () => {
   const additionalHeaders = {
     'x-ttg-client': 'Inventory service | JS SDK',
     'x-ttg-client-version': 'v4',
-  }
+  };
 
   beforeEach(() => {
     httpClient = getMockFunctionReturnValue(getHttpClient);

@@ -21,6 +21,10 @@ const countryCode = 'countryCode';
 
 describe('Fulfilment Api', () => {
   const fulfilmentApi = getFulfilmentServiceApi(Environment.Dev);
+  const additionalHeaders = {
+    'x-ttg-client': 'Fulfilment service | JS SDK',
+    'x-ttg-client-version': 'v1',
+  };
 
   beforeEach(() => {
     httpClient = getMockFunctionReturnValue(getHttpClient);
@@ -32,6 +36,7 @@ describe('Fulfilment Api', () => {
 
   it('should create http client with custom api url', () => {
     const testApiUrl = 'test.api';
+
     getFulfilmentServiceApi(Environment.Dev, testApiUrl);
 
     expect(getHttpClient).toBeCalledWith(testApiUrl);
@@ -40,11 +45,19 @@ describe('Fulfilment Api', () => {
   it('should call delivery options request with proper props', async () => {
     fulfilmentApi.getDeliveryOptions(channelId, countryCode, [fulfilmentBasketItem]);
 
-    expect(httpClient.post).toBeCalledWith('/basket/pricedDeliveryOptions', {
-      channelId,
-      deliveryCountryCode: countryCode,
-      items: [fulfilmentBasketItem],
-    });
+    expect(httpClient.post).toBeCalledWith(
+      '/basket/pricedDeliveryOptions',
+      {
+        channelId,
+        deliveryCountryCode: countryCode,
+        items: [fulfilmentBasketItem],
+      },
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      }
+    );
   });
 
   it('should return delivery options', async () => {

@@ -1,6 +1,9 @@
 import { getHttpClient } from '../../http-client-provider';
-import { checkRequiredProperty } from '../../utils/validator';
-import { getRequestHeadersForConfirmBooking } from '../../utils/request-headers-confirm-booking';
+import {
+  checkRequiredProperty,
+  getRequestHeadersForConfirmBooking,
+  getAdditionalHeaders,
+} from '../../utils';
 import { pathSettings } from '../constants/path-settings';
 import { Environment } from '../../shared/typings';
 import {
@@ -10,23 +13,48 @@ import {
   ApiConfirmBookingAgentDetails,
 } from '../typings';
 
-export const getCheckoutServiceApi = (environment: Environment, checkoutApiUrl?: string) => {
+export const getCheckoutServiceApi = (environment: Environment, checkoutApiUrl?: string, widgetTitle?: string) => {
   checkRequiredProperty(environment, 'getPricingServiceApi: environment');
 
   const baseCheckoutApiUrl = checkoutApiUrl || pathSettings[environment];
   const httpClient = getHttpClient(baseCheckoutApiUrl);
   const checkoutPath = '/checkout';
   const bookingConfirmationPath = (reference: string) => `/bookings/${reference}/confirm`;
+  const additionalHeaders = getAdditionalHeaders(
+    'Checkout service',
+    'v1',
+    checkoutApiUrl,
+    widgetTitle,
+  );
 
   const createOrder = async (bookingData: ApiBookingData): Promise<ApiPaymentDetails> => {
-    const { data } = await httpClient.post(checkoutPath, bookingData);
+    const { data } = await httpClient.post(
+      checkoutPath,
+      bookingData,
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      },
+    );
 
     return data;
   };
 
-  const confirmBooking = async (reference: string, channelId: string, paymentId: string, agentDetails?: ApiConfirmBookingAgentDetails): Promise<ApiConfirmBooking> => {
+  const confirmBooking = async (
+    reference: string,
+    channelId: string,
+    paymentId: string,
+    agentDetails?: ApiConfirmBookingAgentDetails
+  ): Promise<ApiConfirmBooking> => {
+    const headers = {
+      ...getRequestHeadersForConfirmBooking(agentDetails),
+      ...additionalHeaders,
+    };
     const { data } = await httpClient.post(
-      bookingConfirmationPath(reference), { channelId, paymentId }, getRequestHeadersForConfirmBooking(agentDetails)
+      bookingConfirmationPath(reference),
+      { channelId, paymentId },
+      { headers }
     );
 
     return data;

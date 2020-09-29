@@ -15,7 +15,7 @@ describe('Fulfilment repository', () => {
   const { _unstable_ } = getFulfilmentServiceRepository(environment);
 
   it('should create api for specific environment', () => {
-    expect(getFulfilmentServiceApi).toBeCalledWith(environment, undefined);
+    expect(getFulfilmentServiceApi).toBeCalledWith(environment, undefined, undefined);
   });
 
   describe('getDeliveryOptions function', () => {
@@ -24,8 +24,8 @@ describe('Fulfilment repository', () => {
       const countryCode = 'UK';
       const basketItems = [];
       await _unstable_.getDeliveryOptions(channelId, countryCode, basketItems);
-  
+
       expect(getDeliveryOptionsData).toBeCalledWith(channelId, countryCode, basketItems);
-    });  
+    });
   });
 });

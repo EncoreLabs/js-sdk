@@ -1,10 +1,10 @@
 import { getHttpClient } from '../../http-client-provider';
-import { checkRequiredProperty } from '../../utils/validator';
+import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
 import { pathSettings } from '../constants/path-settings';
 import { ApiSeatAttributes } from '../typings';
 import { Environment } from '../../shared/typings';
 
-export const getVenueServiceApi = (environment: Environment, venueApiUrl?: string) => {
+export const getVenueServiceApi = (environment: Environment, venueApiUrl?: string, widgetTitle?: string) => {
   checkRequiredProperty(environment, 'getVenueServiceApi: environment');
 
   const baseVenueApiUrl = venueApiUrl || pathSettings[environment];
@@ -12,9 +12,23 @@ export const getVenueServiceApi = (environment: Environment, venueApiUrl?: strin
   const venuesPath = '/venues';
   const seatsPath = '/seats';
   const attributesPath = '/attributes';
+  const additionalHeaders = getAdditionalHeaders(
+    'Venue service',
+    'v2',
+    venueApiUrl,
+    widgetTitle,
+  );
 
   const getSeatAttributes = async (venueId: string): Promise<ApiSeatAttributes[]> => {
-    const { data } = await httpClient.get(`${venuesPath}/${venueId}${seatsPath}${attributesPath}`);
+    const requestUrl = `${venuesPath}/${venueId}${seatsPath}${attributesPath}`
+    const { data } = await httpClient.get(
+      requestUrl,
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      }
+    );
 
     return data;
   };

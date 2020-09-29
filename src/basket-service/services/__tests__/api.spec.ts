@@ -20,6 +20,10 @@ let httpClient: AxiosInstance;
 
 describe('Basket API', () => {
   const basketApi = getBasketServiceApi(Environment.Dev);
+  const additionalHeaders = {
+    'x-ttg-client': 'Basket service | JS SDK',
+    'x-ttg-client-version': 'v1',
+  };
 
   beforeEach(() => {
     httpClient = getMockFunctionReturnValue(getHttpClient);
@@ -40,14 +44,28 @@ describe('Basket API', () => {
     const reference = 'test';
     await basketApi.getBasket(reference);
 
-    expect(httpClient.get).toBeCalledWith(`/baskets/${reference}`);
+    expect(httpClient.get).toBeCalledWith(
+      `/baskets/${reference}`,
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      }
+    );
   });
 
   it('should get deliveriesMock', async () => {
     const reference = 'test';
     await basketApi.getDeliveries(reference);
 
-    expect(httpClient.get).toBeCalledWith(`/baskets/${reference}/deliveryOptions`);
+    expect(httpClient.get).toBeCalledWith(
+      `/baskets/${reference}/deliveryOptions`,
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      }
+    );
   });
 
   it('should apply delivery', async () => {
@@ -55,7 +73,15 @@ describe('Basket API', () => {
     const delivery = deliveriesMock[0];
     await basketApi.applyDelivery(reference, delivery);
 
-    expect(httpClient.patch).toBeCalledWith(`/baskets/${reference}/applyDelivery`, { delivery });
+    expect(httpClient.patch).toBeCalledWith(
+      `/baskets/${reference}/applyDelivery`,
+      { delivery },
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      }
+    );
   });
 
   it('should upsert basket', async () => {
@@ -70,14 +96,22 @@ describe('Basket API', () => {
 
     await basketApi.upsertBasket(basketDataMock);
 
-    expect(httpClient.patch).toBeCalledWith('/baskets', {
-      channelId,
-      coupon,
-      delivery,
-      reference,
-      reservations,
-      shopperCurrency,
-    });
+    expect(httpClient.patch).toBeCalledWith(
+      '/baskets',
+      {
+        channelId,
+        coupon,
+        delivery,
+        reference,
+        reservations,
+        shopperCurrency,
+      },
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      }
+    );
   });
 
 
@@ -86,6 +120,13 @@ describe('Basket API', () => {
     const reservationsId = 1;
     await basketApi.deleteItem(aggregateReference, reservationsId);
 
-    expect(httpClient.delete).toBeCalledWith(`/baskets/${aggregateReference}/reservations/${reservationsId}`);
+    expect(httpClient.delete).toBeCalledWith(
+      `/baskets/${aggregateReference}/reservations/${reservationsId}`,
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      }
+    );
   });
 });

@@ -7,10 +7,8 @@ describe('getRequestHeadersForConfirmBooking function', () => {
       agentPassword: 'test',
     };
     const result = {
-      headers: {
-        'X-AGENT-ID': 'dGVzdA==',
-        'X-AGENT-PASSWORD': 'dGVzdA==',
-      }
+      'X-AGENT-ID': 'dGVzdA==',
+      'X-AGENT-PASSWORD': 'dGVzdA==',
     };
 
     expect(getRequestHeadersForConfirmBooking(data)).toEqual(result);

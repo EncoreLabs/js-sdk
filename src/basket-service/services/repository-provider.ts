@@ -5,11 +5,12 @@ import { checkRequiredProperty } from '../../utils/validator';
 import { Environment, Settings } from '../../shared/typings';
 import { RequestBasketData, DeliveryData, BasketItemData, BasketData, UpsellApiProductData } from '../typings';
 
-export const getBasketServiceRepository = (environment: Environment, settings?: Settings) => {
+export const getBasketServiceRepository = (environment: Environment, settings?: Settings, widgetTitle?: string) => {
   checkRequiredProperty(environment, 'getBasketServiceRepository: environment');
 
-  const basketApi = getBasketServiceApi(environment, settings?.basketApiUrl);
-  basketDetailsRepositoryProvider.setEnvironment(environment, settings);
+  const basketApi = getBasketServiceApi(environment, settings?.basketApiUrl, widgetTitle);
+
+  basketDetailsRepositoryProvider.setEnvironment(environment, settings, widgetTitle);
 
   const getBasket = async (reference: string) => {
     checkRequiredProperty(reference, 'getBasket: basket reference');

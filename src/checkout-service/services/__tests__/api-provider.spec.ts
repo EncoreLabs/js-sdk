@@ -18,6 +18,10 @@ let httpClient: AxiosInstance;
 
 describe('Checkout Api', () => {
   const checkoutApi = getCheckoutServiceApi(Environment.Dev);
+  const additionalHeaders = {
+    'x-ttg-client': 'Checkout service | JS SDK',
+    'x-ttg-client-version': 'v1',
+  };
 
   beforeEach(() => {
     httpClient = getMockFunctionReturnValue(getHttpClient);
@@ -37,7 +41,15 @@ describe('Checkout Api', () => {
   it('should call booking request with proper props', async () => {
     await checkoutApi.createOrder(bookingDataMock);
 
-    expect(httpClient.post).toBeCalledWith('/checkout', bookingDataMock);
+    expect(httpClient.post).toBeCalledWith(
+      '/checkout',
+      bookingDataMock,
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      }
+    );
   });
 
   it('should call confirm booking request with proper props', async () => {
@@ -48,7 +60,15 @@ describe('Checkout Api', () => {
 
     await checkoutApi.confirmBooking(reference, channelId, paymentId);
 
-    expect(httpClient.post).toBeCalledWith(requestUrl, { channelId, paymentId }, {});
+    expect(httpClient.post).toBeCalledWith(
+      requestUrl,
+      { channelId, paymentId },
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      },
+    );
   });
 });
 

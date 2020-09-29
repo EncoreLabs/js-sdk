@@ -7,10 +7,9 @@ export const getRequestHeadersForConfirmBooking = (agentDetails?: ApiConfirmBook
   }
 
   const { agentId, agentPassword } = agentDetails;
-  const headers = {
+
+  return {
     'X-AGENT-ID': base64Encode(agentId),
     'X-AGENT-PASSWORD': base64Encode(agentPassword),
   }
-
-  return { headers };
 }
