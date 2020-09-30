@@ -1,10 +1,10 @@
 import { getHttpClient } from '../../http-client-provider';
-import { checkRequiredProperty } from '../../utils/validator';
+import { checkRequiredProperty, getAdditionalHeaders } from '../../utils/';
 import { pathSettings } from '../constants/path-settings';
 import { Environment } from '../../shared/typings';
 import { ApiMaxNumberOfTickets } from '../typings';
 
-export const getInventoryServiceApi = (environment: Environment, inventoryApiUrl?: string) => {
+export const getInventoryServiceApi = (environment: Environment, inventoryApiUrl?: string, widgetTitle?: string) => {
   checkRequiredProperty(environment, 'getInventoryServiceApi: environment');
 
   const baseInventoryApiUrl = inventoryApiUrl || pathSettings[environment];
@@ -12,6 +12,12 @@ export const getInventoryServiceApi = (environment: Environment, inventoryApiUrl
   const productsPath = '/products';
   const upsellPath = '/upsells';
   const availabilityPath = '/availability';
+  const additionalHeaders = getAdditionalHeaders(
+    'Inventory service',
+    'v4',
+    inventoryApiUrl,
+    widgetTitle,
+  );
 
   const getPerformanceAvailability = async (
     affiliateId: string,
@@ -26,6 +32,7 @@ export const getInventoryServiceApi = (environment: Environment, inventoryApiUrl
       {
         headers: {
           affiliateId,
+          ...additionalHeaders,
         }
       }
     );
@@ -45,6 +52,7 @@ export const getInventoryServiceApi = (environment: Environment, inventoryApiUrl
       {
         headers: {
           affiliateId,
+          ...additionalHeaders,
         }
       }
     );
@@ -66,6 +74,7 @@ export const getInventoryServiceApi = (environment: Environment, inventoryApiUrl
       {
         headers: {
           affiliateId,
+          ...additionalHeaders,
         }
       }
     );
@@ -75,7 +84,14 @@ export const getInventoryServiceApi = (environment: Environment, inventoryApiUrl
 
   const getMaxQuantity = async (productId: string): Promise<ApiMaxNumberOfTickets> => {
     const requestUrl = `${availabilityPath}/${productId}/max`;
-    const { data } = await httpClient.get(requestUrl);
+    const { data } = await httpClient.get(
+      requestUrl,
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      }
+    );
 
     return data;
   };
@@ -93,6 +109,7 @@ export const getInventoryServiceApi = (environment: Environment, inventoryApiUrl
       {
         headers: {
           affiliateId,
+          ...additionalHeaders,
         },
       },
     );

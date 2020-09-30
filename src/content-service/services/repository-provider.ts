@@ -3,10 +3,10 @@ import { getContentServiceApi } from './api-provider';
 import { checkRequiredProperty } from '../../utils/validator';
 import { Environment, Settings } from '../../shared/typings';
 
-export const getContentServiceRepository = (environment: Environment, settings?: Settings) => {
+export const getContentServiceRepository = (environment: Environment, settings?: Settings, widgetTitle?: string) => {
   checkRequiredProperty(environment, 'getContentServiceRepository: environment');
 
-  const contentServiceApi = getContentServiceApi(environment, settings);
+  const contentServiceApi = getContentServiceApi(environment, settings, widgetTitle);
   const { getImages, getProduct, getProducts } = contentServiceApi;
 
   return {

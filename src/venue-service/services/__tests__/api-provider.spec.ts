@@ -15,6 +15,10 @@ let httpClient: AxiosInstance;
 
 describe('Venue API', () => {
   const venueApi = getVenueServiceApi(Environment.Dev);
+  const additionalHeaders = {
+    'x-ttg-client': 'Venue service | JS SDK',
+    'x-ttg-client-version': 'v2',
+  }
 
   beforeEach(() => {
     httpClient = getMockFunctionReturnValue(getHttpClient);
@@ -28,6 +32,13 @@ describe('Venue API', () => {
     const venueId = 'test';
     venueApi.getSeatAttributes(venueId);
 
-    expect(httpClient.get).toBeCalledWith(`/venues/${venueId}/seats/attributes`);
+    expect(httpClient.get).toBeCalledWith(
+      `/venues/${venueId}/seats/attributes`,
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      }
+    );
   });
 });

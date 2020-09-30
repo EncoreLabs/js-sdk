@@ -63,13 +63,13 @@ describe('Basket repository', () => {
   });
 
   it('should create api for specific environment', () => {
-    expect(getBasketServiceApi).toBeCalledWith(environment, undefined);
+    expect(getBasketServiceApi).toBeCalledWith(environment, undefined, undefined);
   });
 
   it('should create api for specific apiUrl', () => {
-    getBasketServiceRepository(environment, settings);
+    getBasketServiceRepository(environment, settings, '');
 
-    expect(getBasketServiceApi).toBeCalledWith(environment, settings.basketApiUrl);
+    expect(getBasketServiceApi).toBeCalledWith(environment, settings.basketApiUrl, '');
   });
 
   it('should return basket', async () => {

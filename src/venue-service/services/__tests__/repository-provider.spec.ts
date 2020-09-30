@@ -17,7 +17,7 @@ describe('Venue repository', () => {
   const { getSeatAttributes } = getVenueServiceRepository(environment);
 
   it('should create api for specific environment', () => {
-    expect(getVenueServiceApi).toBeCalledWith(environment, undefined);
+    expect(getVenueServiceApi).toBeCalledWith(environment, undefined, undefined);
   });
 
   describe('getSeatAttributes function', () => {

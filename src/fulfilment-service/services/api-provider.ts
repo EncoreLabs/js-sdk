@@ -1,13 +1,19 @@
 import { getHttpClient } from '../../http-client-provider';
-import { checkRequiredProperty } from '../../utils/validator';
+import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
 import { pathSettings } from '../constants/path-settings';
 import { Environment, FulfilmentBasketItem } from '../../shared/typings';
 
-export const getFulfilmentServiceApi = (environment: Environment, fulfilmentApiUrl?: string) => {
+export const getFulfilmentServiceApi = (environment: Environment, fulfilmentApiUrl?: string, widgetTitle?: string) => {
   checkRequiredProperty(environment, 'getFulfilmentServiceApi: environment');
 
   const baseFulfilmentApiUrl = fulfilmentApiUrl || pathSettings[environment];
   const httpClient = getHttpClient(baseFulfilmentApiUrl);
+  const additionalHeaders = getAdditionalHeaders(
+    'Fulfilment service',
+    'v1',
+    fulfilmentApiUrl,
+    widgetTitle,
+  );
 
   const getDeliveryOptions = async (channelId: string, countryCode: string, basketItems: FulfilmentBasketItem[]) => {
     const requestUrl = '/basket/pricedDeliveryOptions';
@@ -17,7 +23,15 @@ export const getFulfilmentServiceApi = (environment: Environment, fulfilmentApiU
       deliveryCountryCode: countryCode,
     };
 
-    const { data } = await httpClient.post(requestUrl, body);
+    const { data } = await httpClient.post(
+      requestUrl,
+      body,
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      }
+    );
 
     return data;
   };

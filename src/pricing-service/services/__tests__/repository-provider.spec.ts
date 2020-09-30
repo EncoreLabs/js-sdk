@@ -17,7 +17,7 @@ describe('Pricing repository', () => {
   const { getFromPrices } = getPricingServiceRepository(environment);
 
   it('should create api for specific environment', () => {
-    expect(getPricingServiceApi).toBeCalledWith(environment, undefined);
+    expect(getPricingServiceApi).toBeCalledWith(environment, undefined, undefined);
   });
 
   describe('getFromPrices function', () => {
@@ -30,7 +30,7 @@ describe('Pricing repository', () => {
       (getPricingServiceApi as jest.Mock).mockImplementationOnce(() => ({ getFromPrices: jest.fn(() => null) }));
       const repository = getPricingServiceRepository(Environment.Dev);
       const result = await repository.getFromPrices(productId);
-  
+
       expect(result).toBeNull();
     });
 

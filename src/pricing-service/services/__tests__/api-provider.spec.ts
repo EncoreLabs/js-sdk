@@ -20,6 +20,10 @@ let httpClient: AxiosInstance;
 describe('Pricing API', () => {
   const pricingApi = getPricingServiceApi(Environment.Dev);
   const productId = '1001';
+  const additionalHeaders = {
+    'x-ttg-client': 'Pricing service | JS SDK',
+    'x-ttg-client-version': 'v3',
+  }
 
   beforeEach(() => {
     httpClient = getMockFunctionReturnValue(getHttpClient);
@@ -41,6 +45,14 @@ describe('Pricing API', () => {
 
     await pricingApi.getFromPrices(productId);
 
-    expect(httpClient.get).toBeCalledWith(requestUrl, { headers: priceEndpointHeaders });
+    expect(httpClient.get).toBeCalledWith(
+      requestUrl,
+      {
+        headers: {
+          ...priceEndpointHeaders,
+          ...additionalHeaders,
+        }
+      }
+    );
   });
 });

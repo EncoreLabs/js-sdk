@@ -1,10 +1,10 @@
 import { getHttpClient } from '../../http-client-provider';
-import { checkRequiredProperty } from '../../utils/validator';
+import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
 import { pathSettings } from '../constants/path-settings';
 import { BasketData, DeliveryData, RequestBasketData } from '../typings';
 import { Environment, ApiError } from '../../shared/typings';
 
-export const getBasketServiceApi = (environment: Environment, basketApiUrl?: string) => {
+export const getBasketServiceApi = (environment: Environment, basketApiUrl?: string, widgetTitle?: string) => {
   checkRequiredProperty(environment, 'getBasketServiceApi: environment');
 
   const baseBasketApiUrl = basketApiUrl || pathSettings[environment];
@@ -13,6 +13,12 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
   const deliveriesPath = '/deliveryOptions';
   const applyDeliveryPath = '/applyDelivery';
   const reservationsPath = '/reservations';
+  const additionalHeaders = getAdditionalHeaders(
+    'Basket service',
+    'v1',
+    basketApiUrl,
+    widgetTitle,
+  );
 
   const upsertBasket = async (basketData: RequestBasketData): Promise<BasketData | ApiError> => {
     checkRequiredProperty(basketData, 'upsertBasket: basket data');
@@ -35,6 +41,10 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
       reservations,
       shopperCurrency,
       hasFlexiTickets,
+    }, {
+      headers: {
+        ...additionalHeaders,
+      }
     })
     .then((result) => {
       if (!result.data) {
@@ -50,7 +60,14 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
     checkRequiredProperty(reservationsId, 'deleteItem: reservation id');
 
     const requestUrl = `${basketsPath}/${reference}${reservationsPath}/${reservationsId}`;
-    const { data } = await httpClient.delete(requestUrl);
+    const { data } = await httpClient.delete(
+      requestUrl,
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      }
+    );
 
     return data;
   };
@@ -59,7 +76,14 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
     checkRequiredProperty(reference, 'getBasket: basket reference');
 
     const requestUrl = `${basketsPath}/${reference}`;
-    const { data } = await httpClient.get(requestUrl);
+    const { data } = await httpClient.get(
+      requestUrl,
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      }
+    );
 
     return data;
   };
@@ -68,7 +92,14 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
     checkRequiredProperty(reference, 'getDeliveries: basket reference');
 
     const requestUrl = `${basketsPath}/${reference}${deliveriesPath}`;
-    const { data } = await httpClient.get(requestUrl);
+    const { data } = await httpClient.get(
+      requestUrl,
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      },
+    );
 
     return data.results;
   };
@@ -78,7 +109,15 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
     checkRequiredProperty(delivery, 'applyDelivery: delivery data');
 
     const requestUrl = `${basketsPath}/${reference}${applyDeliveryPath}`;
-    const { data } = await httpClient.patch(requestUrl, { delivery });
+    const { data } = await httpClient.patch(
+      requestUrl,
+      { delivery },
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      }
+    );
 
     return data;
   };

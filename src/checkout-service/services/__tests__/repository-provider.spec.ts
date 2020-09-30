@@ -21,7 +21,7 @@ describe('Checkout repository', () => {
   const { createOrder, confirmBooking } = getCheckoutServiceRepository(environment);
 
   it('should create api for specific environment', () => {
-    expect(getCheckoutServiceApi).toBeCalledWith(environment, undefined);
+    expect(getCheckoutServiceApi).toBeCalledWith(environment, undefined, undefined);
   });
 
   describe('createOrder function', () => {

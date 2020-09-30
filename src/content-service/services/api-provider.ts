@@ -1,11 +1,11 @@
 import { getHttpClient } from '../../http-client-provider';
-import { checkRequiredProperty } from '../../utils/validator';
+import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
 import { pathSettings } from '../constants/path-settings';
 import { imageSizes } from '../constants/image-sizes';
 import { ApiProductData, EntityType, ImageOrientation, Image } from '../typings';
 import { Environment, Settings } from '../../shared/typings';
 
-export const getContentServiceApi = (environment: Environment, settings?: Settings) => {
+export const getContentServiceApi = (environment: Environment, settings?: Settings, widgetTitle?: string) => {
   checkRequiredProperty(environment, 'getContentServiceApi: environment');
 
   const baseContentApiUrl = settings?.contentApiUrl || pathSettings[environment].api;
@@ -13,6 +13,12 @@ export const getContentServiceApi = (environment: Environment, settings?: Settin
 
   const httpClient = getHttpClient(baseContentApiUrl);
   const productsPath = '/products';
+  const additionalHeaders = getAdditionalHeaders(
+    'Content service',
+    'v1',
+    settings?.contentApiUrl,
+    widgetTitle,
+  );
 
   const getProducts = async (page?: number, limit?: number): Promise<ApiProductData[]> => {
     let requestUrl = productsPath;
@@ -30,14 +36,28 @@ export const getContentServiceApi = (environment: Environment, settings?: Settin
       requestUrl += query.replace('&', '?');
     }
 
-    const { data } = await httpClient.get(requestUrl);
+    const { data } = await httpClient.get(
+      requestUrl,
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      }
+    );
 
     return data;
   };
 
   const getProduct = async (id: string): Promise<ApiProductData> => {
     const requestUrl = `${productsPath}/${id}`;
-    const { data } = await httpClient.get(requestUrl);
+    const { data } = await httpClient.get(
+      requestUrl,
+      {
+        headers: {
+          ...additionalHeaders,
+        }
+      }
+    );
 
     return data;
   };
