@@ -8,15 +8,39 @@ export const getVenueServiceRepository = (environment: Environment, venueApiUrl?
 
   const venueApi = getVenueServiceApi(environment, venueApiUrl, widgetTitle);
 
-  const getSeatAttributes = async (venueId: string) => {
+  const getSeatAttributes = async (venueId: string, performanceDate?: string, performanceTime?: string) => {
     checkRequiredProperty(venueId, 'getSeatAttributes: venue id');
 
-    const seatAttributesData = await venueApi.getSeatAttributes(venueId);
+    const seatAttributesData = await venueApi.getSeatAttributes({ venueId, performanceDate, performanceTime });
 
     return seatAttributesData.map(seatAttributes => new SeatAttributes(seatAttributes));
   };
 
+  const getSeatAttributesBySeatId = async (venueId: string, seatIdCollection: string[]) => {
+    checkRequiredProperty(venueId, 'getSeatAttributesBySeatId: venue id');
+    checkRequiredProperty(seatIdCollection, 'getSeatAttributesBySeatId: seat id collection');
+
+    const seatAttributesData = await venueApi.getSeatAttributes({ venueId, seatIdCollection });
+
+    return seatAttributesData.map(seatAttributes => new SeatAttributes(seatAttributes));
+  };
+
+  const getDetails = async (venueId: string) => {
+    checkRequiredProperty(venueId, 'getDetails: venue id');
+
+    return venueApi.getDetails(venueId);
+  };
+
+  const getChartDetails = async (productId: string, date?: string) => {
+    checkRequiredProperty(productId, 'getChartDetails: product id');
+
+    return venueApi.getChartDetails(productId, date);
+  };
+
   return {
     getSeatAttributes,
+    getDetails,
+    getChartDetails,
+    getSeatAttributesBySeatId,
   };
 };
