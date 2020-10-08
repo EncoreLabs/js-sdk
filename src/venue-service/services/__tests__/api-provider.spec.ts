@@ -85,12 +85,12 @@ describe('Venue API', () => {
       );
     });
 
-    it('should call httpClient.get with seatId if provided', async () => {
+    it('should call httpClient.get with seatIdCollection if provided', async () => {
       const venueId = 'test';
       const performanceTime = 'performanceTime';
       const performanceDate = 'performanceDate';
-      const seatId = ['Seat-1', 'Seat-2'];
-      venueApi.getSeatAttributes({ venueId, performanceTime, performanceDate, seatId } );
+      const seatIdCollection = ['Seat-1', 'Seat-2'];
+      venueApi.getSeatAttributes({ venueId, performanceTime, performanceDate, seatIdCollection } );
 
       expect(sendRequest).toBeCalledWith(
         `/venues/test/seats/attributes?date=performanceDate&time=performanceTime&seatIds[]=Seat-1&seatIds[]=Seat-2`,

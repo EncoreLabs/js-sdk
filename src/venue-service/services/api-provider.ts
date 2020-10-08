@@ -6,7 +6,7 @@ import { Environment } from '../../shared/typings';
 
 interface Params {
   venueId: string;
-  seatId?: string[];
+  seatIdCollection?: string[];
   performanceDate?: string;
   performanceTime?: string;
 }
@@ -27,10 +27,10 @@ export const getVenueServiceApi = (environment: Environment, venueApiUrl?: strin
     widgetTitle,
   );
 
-  const getSeatAttributes = async ({ venueId, seatId, performanceDate, performanceTime }: Params): Promise<ApiSeatAttributes[]> => {
+  const getSeatAttributes = async ({ venueId, seatIdCollection, performanceDate, performanceTime }: Params): Promise<ApiSeatAttributes[]> => {
     let requestUrl = `${venuesPath}/${venueId}${seatsPath}${attributesPath}`;
 
-    if (performanceDate || performanceTime || seatId) {
+    if (performanceDate || performanceTime || seatIdCollection) {
       requestUrl += '?';
     }
 
@@ -44,8 +44,8 @@ export const getVenueServiceApi = (environment: Environment, venueApiUrl?: strin
       requestUrl += `&time=${formattedTime}`;
     }
 
-    if (seatId?.length) {
-      seatId.forEach(item => requestUrl += `&seatIds[]=${item}`);
+    if (seatIdCollection?.length) {
+      seatIdCollection.forEach(item => requestUrl += `&seatIds[]=${item}`);
     }
 
     const { data } = await httpClient.get(
