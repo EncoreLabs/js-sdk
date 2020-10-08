@@ -25,7 +25,7 @@ export interface ChartDetails {
 }
 
 export interface VenueDetails {
-  address: ApiAddress;
+  address: VenueDetailsApiAddress;
   facilities: ApiFacility[];
   internalId: string;
   title: string;
@@ -33,7 +33,7 @@ export interface VenueDetails {
   venueTerminals: ApiVenueTerminal[];
 }
 
-export interface ApiAddress {
+export interface VenueDetailsApiAddress {
   city: string;
   country: ApiLocation;
   firstLine: string;
