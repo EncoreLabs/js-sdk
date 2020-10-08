@@ -16,9 +16,9 @@ export const getVenueServiceRepository = (environment: Environment, venueApiUrl?
     return seatAttributesData.map(seatAttributes => new SeatAttributes(seatAttributes));
   };
 
-  const getSeatAttributesBySeatId = async (venueId: string, seatIdCollection: string[]) => {
-    checkRequiredProperty(venueId, 'getSeatAttributesBySeatId: venue id');
-    checkRequiredProperty(seatIdCollection, 'getSeatAttributesBySeatId: seat id collection');
+  const getSeatAttributesBySeatIds = async (venueId: string, seatIdCollection: string[]) => {
+    checkRequiredProperty(venueId, 'getSeatAttributesBySeatIds: venue id');
+    checkRequiredProperty(seatIdCollection, 'getSeatAttributesBySeatIds: seat id collection');
 
     const seatAttributesData = await venueApi.getSeatAttributes({ venueId, seatIdCollection });
 
@@ -41,6 +41,6 @@ export const getVenueServiceRepository = (environment: Environment, venueApiUrl?
     getSeatAttributes,
     getDetails,
     getChartDetails,
-    getSeatAttributesBySeatId,
+    getSeatAttributesBySeatIds,
   };
 };

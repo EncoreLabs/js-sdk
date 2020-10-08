@@ -530,9 +530,9 @@ enum ImageOrientation {
 | [venueApiUrl] | string |
 
 * getSeatAttributes(venueId) ⇒ Array&lt;SeatAttributes&gt;
-* getSeatAttributesBySeatId(venueId, seatIdCollection) ⇒ Array&lt;SeatAttributes&gt;
-* getDetails(venueId, seatIdCollection) ⇒ Array&lt;VenueDetails&gt;
-* getChartDetails(productId, date) ⇒ Array&lt;ChartDetails&gt;
+* getSeatAttributesBySeatIds(venueId, seatIdCollection) ⇒ Array&lt;SeatAttributes&gt;
+* getDetails(venueId) ⇒ Object&lt;VenueDetails&gt;
+* getChartDetails(productId, date) ⇒ Object&lt;ChartDetails&gt;
 
 #### ➥ getSeatAttributes(venueId) ⇒ Array&lt;SeatAttributes&gt;
 *Get list of seat attributes*
@@ -541,15 +541,17 @@ enum ImageOrientation {
 | Param | Type |
 | --- | --- |
 | venueId | string |
+| performanceDate | string |
+| performanceTime | string |
 
-#### ➥ getSeatAttributesBySeatId(venueId, seatIdCollection) ⇒ Array&lt;SeatAttributes&gt;
+#### ➥ getSeatAttributesBySeatIds(venueId, seatIdCollection) ⇒ Array&lt;SeatAttributes&gt;
 *Get list of seat attributes by seat id*
 **Returns**: Array&lt;SeatAttributes&gt; - *seat attribute models*
 
 | Param | Type |
 | --- | --- |
 | venueId | string |
-| seatIdCollection | array |
+| seatIdCollection | array<string> |
 
 #### ➥ getDetails(venueId) ⇒ Array&lt;VenueDetails&gt;
 *Get venue details*
@@ -565,5 +567,4 @@ enum ImageOrientation {
 
 | Param | Type |
 | --- | --- |
-| venueId | string |
 | venueId | string |

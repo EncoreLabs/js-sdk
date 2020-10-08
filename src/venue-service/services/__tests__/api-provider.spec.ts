@@ -27,7 +27,7 @@ describe('Venue API', () => {
   describe('getSeatAttributes method', () => {
     it('should get seat attributes', async () => {
       const venueId = 'test';
-      venueApi.getSeatAttributes({ venueId } );
+      venueApi.getSeatAttributes({ venueId });
 
       expect(sendRequest).toBeCalledWith(
         `/venues/${venueId}/seats/attributes`,

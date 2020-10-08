@@ -23,7 +23,12 @@ describe('Venue repository', () => {
   const seatIdCollection = ['Seat-1', 'Seat-2'];
 
   const environment = Environment.Dev;
-  const { getSeatAttributes, getSeatAttributesBySeatId, getDetails, getChartDetails } = getVenueServiceRepository(environment);
+  const {
+    getSeatAttributes,
+    getSeatAttributesBySeatIds,
+    getDetails,
+    getChartDetails
+  } = getVenueServiceRepository(environment);
 
   it('should create api for specific environment', () => {
     expect(getVenueServiceApi).toBeCalledWith(environment, undefined, undefined);
@@ -47,21 +52,21 @@ describe('Venue repository', () => {
     });
   });
 
-  describe('getSeatAttributesBySeatId function', () => {
+  describe('getSeatAttributesBySeatIds function', () => {
     it('should throw an error if venue id is not defined', async () => {
       expect.assertions(1);
 
-      await expect(getSeatAttributesBySeatId(null, null)).rejects.toEqual(new Error('getSeatAttributesBySeatId: venue id is required'));
+      await expect(getSeatAttributesBySeatIds(null, null)).rejects.toEqual(new Error('getSeatAttributesBySeatIds: venue id is required'));
     });
 
     it('should throw an error if seat id collection is not defined', async () => {
       expect.assertions(1);
 
-      await expect(getSeatAttributesBySeatId(venueId, null)).rejects.toEqual(new Error('getSeatAttributesBySeatId: seat id collection is required'));
+      await expect(getSeatAttributesBySeatIds(venueId, null)).rejects.toEqual(new Error('getSeatAttributesBySeatIds: seat id collection is required'));
     });
 
     it('should call getSeatAttributes with valid arguments', async () => {
-      await getSeatAttributesBySeatId(venueId, seatIdCollection);
+      await getSeatAttributesBySeatIds(venueId, seatIdCollection);
 
       expect(getSeatsData).toBeCalledWith({
         seatIdCollection,

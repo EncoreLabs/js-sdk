@@ -11,7 +11,11 @@ interface Params {
   performanceTime?: string;
 }
 
-export const getVenueServiceApi = (environment: Environment, venueApiUrl?: string, widgetTitle?: string) => {
+export const getVenueServiceApi = (
+  environment: Environment,
+  venueApiUrl?: string,
+  widgetTitle?: string
+) => {
   checkRequiredProperty(environment, 'getVenueServiceApi: environment');
 
   const baseVenueApiUrl = venueApiUrl || pathSettings[environment];
