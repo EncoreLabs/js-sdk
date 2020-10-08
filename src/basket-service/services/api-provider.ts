@@ -44,7 +44,7 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
     }, {
       headers: {
         ...additionalHeaders,
-      }
+      },
     })
     .then((result) => {
       if (!result.data) {
@@ -65,8 +65,8 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
       {
         headers: {
           ...additionalHeaders,
-        }
-      }
+        },
+      },
     );
 
     return data;
@@ -81,8 +81,8 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
       {
         headers: {
           ...additionalHeaders,
-        }
-      }
+        },
+      },
     );
 
     return data;
@@ -97,7 +97,7 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
       {
         headers: {
           ...additionalHeaders,
-        }
+        },
       },
     );
 
@@ -115,8 +115,8 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
       {
         headers: {
           ...additionalHeaders,
-        }
-      }
+        },
+      },
     );
 
     return data;
