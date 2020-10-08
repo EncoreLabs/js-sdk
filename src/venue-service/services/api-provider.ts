@@ -1,7 +1,7 @@
 import { getHttpClient } from '../../http-client-provider';
 import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
 import { pathSettings } from '../constants/path-settings';
-import { ApiSeatAttributes } from '../typings';
+import { ApiSeatAttributes, ChartDetails, VenueDetails } from '../typings';
 import { Environment } from '../../shared/typings';
 
 interface Params {
@@ -60,7 +60,7 @@ export const getVenueServiceApi = (environment: Environment, venueApiUrl?: strin
     return data;
   };
 
-  const getDetails = async (venueId: string) => {
+  const getDetails = async (venueId: string): Promise<VenueDetails> => {
     const requestUrl = `${venuesPath}/${venueId}`;
     const { data } = await httpClient.get(
       requestUrl,
@@ -74,7 +74,7 @@ export const getVenueServiceApi = (environment: Environment, venueApiUrl?: strin
     return data;
   };
 
-  const getChartDetails = async (productId: string, date?: string) => {
+  const getChartDetails = async (productId: string, date?: string): Promise<ChartDetails> => {
     let requestUrl = `${productsPath}/${productId}`;
 
     if (date) {
