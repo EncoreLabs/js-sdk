@@ -5,7 +5,7 @@ import {
   getAdditionalHeaders,
 } from '../../utils';
 import { pathSettings } from '../constants/path-settings';
-import { Environment } from '../../shared/typings';
+import { Environment, SourceInformation } from '../../shared/typings';
 import {
   ApiBookingData,
   ApiPaymentDetails,
@@ -13,7 +13,11 @@ import {
   ApiConfirmBookingAgentDetails,
 } from '../typings';
 
-export const getCheckoutServiceApi = (environment: Environment, checkoutApiUrl?: string, widgetTitle?: string) => {
+export const getCheckoutServiceApi = (
+  environment: Environment,
+  checkoutApiUrl?: string,
+  { sourceName, sourceVersion }: SourceInformation = {},
+) => {
   checkRequiredProperty(environment, 'getPricingServiceApi: environment');
 
   const baseCheckoutApiUrl = checkoutApiUrl || pathSettings[environment];
@@ -22,9 +26,8 @@ export const getCheckoutServiceApi = (environment: Environment, checkoutApiUrl?:
   const bookingConfirmationPath = (reference: string) => `/bookings/${reference}/confirm`;
   const additionalHeaders = getAdditionalHeaders(
     'Checkout service',
-    'v1',
-    checkoutApiUrl,
-    widgetTitle,
+    sourceName,
+    sourceVersion,
   );
 
   const createOrder = async (bookingData: ApiBookingData): Promise<ApiPaymentDetails> => {
@@ -32,9 +35,7 @@ export const getCheckoutServiceApi = (environment: Environment, checkoutApiUrl?:
       checkoutPath,
       bookingData,
       {
-        headers: {
-          ...additionalHeaders,
-        }
+        headers: additionalHeaders,
       },
     );
 

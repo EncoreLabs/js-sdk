@@ -1,14 +1,18 @@
 import { contentService } from '../../content-service/services';
 import { getBasketServiceRepository } from './repository-provider';
-import { Environment, Settings } from '../../shared/typings';
+import { Environment, Settings, SourceInformation } from '../../shared/typings';
 
 let environment;
 let basketApiUrl;
 let contentApiUrl;
 let contentImagesUrl;
-let title;
+let source;
 
-const setEnvironment = (env: Environment, settings?: Settings, widgetTitle?: string) => {
+const setEnvironment = (
+  env: Environment,
+  settings?: Settings,
+  sourceInformation?: SourceInformation,
+) => {
   environment = env;
 
   basketApiUrl = settings?.basketApiUrl;
@@ -17,7 +21,7 @@ const setEnvironment = (env: Environment, settings?: Settings, widgetTitle?: str
 
   contentImagesUrl = settings?.contentImagesUrl;
 
-  title = widgetTitle;
+  source = sourceInformation;
 };
 
 const getRepository = () => {
@@ -31,8 +35,8 @@ const getRepository = () => {
     contentImagesUrl,
   };
 
-  const contentRepository = contentService.create(environment, settings, title);
-  const basketRepository = getBasketServiceRepository(environment, settings, title);
+  const contentRepository = contentService.create(environment, settings, source);
+  const basketRepository = getBasketServiceRepository(environment, settings, source);
   const { getProduct, getImages } = contentRepository;
   const { getDeliveries } = basketRepository;
 

@@ -1,13 +1,17 @@
 import { getCheckoutServiceApi } from './api-provider';
 import { checkRequiredProperty } from '../../utils/validator';
 import { PaymentDetails } from '../models';
-import { Environment } from '../../shared/typings';
+import { Environment, SourceInformation } from '../../shared/typings';
 import { ApiBookingData, ApiConfirmBookingAgentDetails } from '../typings';
 
-export const getCheckoutServiceRepository = (environment: Environment, checkoutApiUrl?: string, widgetTitle?: string) => {
+export const getCheckoutServiceRepository = (
+  environment: Environment,
+  checkoutApiUrl?: string,
+  sourceInformation: SourceInformation = {},
+) => {
   checkRequiredProperty(environment, 'getPricingServiceRepository: environment');
 
-  const checkoutServiceApi = getCheckoutServiceApi(environment, checkoutApiUrl, widgetTitle);
+  const checkoutServiceApi = getCheckoutServiceApi(environment, checkoutApiUrl, sourceInformation);
 
   const createOrder = async (bookingData: ApiBookingData) => {
     checkRequiredProperty(bookingData, 'createOrder: booking data');

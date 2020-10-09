@@ -25,10 +25,14 @@ describe('Inventory API', () => {
   const performanceTime = '19:30';
   const fromDate = '20200101';
   const toDate = '20210101';
-  const inventoryApi = getInventoryServiceApi(Environment.Dev);
+  const sourceInformation = {
+    sourceName: 'Source name',
+    sourceVersion: 'Source version',
+  };
+  const inventoryApi = getInventoryServiceApi(Environment.Dev, null, sourceInformation);
   const additionalHeaders = {
-    'x-ttg-client': 'Inventory service | JS SDK',
-    'x-ttg-client-version': 'v4',
+    'x-ttg-client': 'Inventory service | Source name using JS SDK',
+    'x-ttg-client-version': 'Source version',
   };
 
   beforeEach(() => {
@@ -54,7 +58,7 @@ describe('Inventory API', () => {
         headers: {
           affiliateId,
           ...additionalHeaders,
-        }
+        },
       });
     });
   });
@@ -69,7 +73,7 @@ describe('Inventory API', () => {
         headers: {
           affiliateId,
           ...additionalHeaders,
-        }
+        },
       });
     });
   });
@@ -101,9 +105,7 @@ describe('Inventory API', () => {
       inventoryApi.getMaxQuantity(productId);
 
       expect(httpClient.get).toBeCalledWith(`/availability/${productId}/max`, {
-        headers: {
-          ...additionalHeaders,
-        }
+        headers: additionalHeaders,
       });
     });
   });

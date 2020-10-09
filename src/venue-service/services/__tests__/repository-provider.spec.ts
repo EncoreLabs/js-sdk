@@ -14,10 +14,19 @@ jest.mock('../api-provider', () => ({
 describe('Venue repository', () => {
   const venueId = '199';
   const environment = Environment.Dev;
+  const sourceInformation = {
+    sourceName: 'Source name',
+    sourceVersion: 'Source version',
+  };
+  const venueApiUrl = 'https://venue-service.qatixuk.io/api/v2';
   const { getSeatAttributes } = getVenueServiceRepository(environment);
 
   it('should create api for specific environment', () => {
-    expect(getVenueServiceApi).toBeCalledWith(environment, undefined, undefined);
+    expect(getVenueServiceApi).toBeCalledWith(environment, undefined, {});
+
+    getVenueServiceRepository(environment, venueApiUrl, sourceInformation);
+
+    expect(getVenueServiceApi).toBeCalledWith(environment, venueApiUrl, sourceInformation);
   });
 
   describe('getSeatAttributes function', () => {

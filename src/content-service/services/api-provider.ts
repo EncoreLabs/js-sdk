@@ -3,9 +3,13 @@ import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
 import { pathSettings } from '../constants/path-settings';
 import { imageSizes } from '../constants/image-sizes';
 import { ApiProductData, EntityType, ImageOrientation, Image } from '../typings';
-import { Environment, Settings } from '../../shared/typings';
+import { Environment, Settings, SourceInformation } from '../../shared/typings';
 
-export const getContentServiceApi = (environment: Environment, settings?: Settings, widgetTitle?: string) => {
+export const getContentServiceApi = (
+  environment: Environment,
+  settings?: Settings,
+  { sourceName, sourceVersion }: SourceInformation = {},
+) => {
   checkRequiredProperty(environment, 'getContentServiceApi: environment');
 
   const baseContentApiUrl = settings?.contentApiUrl || pathSettings[environment].api;
@@ -15,9 +19,8 @@ export const getContentServiceApi = (environment: Environment, settings?: Settin
   const productsPath = '/products';
   const additionalHeaders = getAdditionalHeaders(
     'Content service',
-    'v1',
-    settings?.contentApiUrl,
-    widgetTitle,
+    sourceName,
+    sourceVersion,
   );
 
   const getProducts = async (page?: number, limit?: number): Promise<ApiProductData[]> => {
@@ -39,10 +42,8 @@ export const getContentServiceApi = (environment: Environment, settings?: Settin
     const { data } = await httpClient.get(
       requestUrl,
       {
-        headers: {
-          ...additionalHeaders,
-        }
-      }
+        headers: additionalHeaders,
+      },
     );
 
     return data;
@@ -53,10 +54,8 @@ export const getContentServiceApi = (environment: Environment, settings?: Settin
     const { data } = await httpClient.get(
       requestUrl,
       {
-        headers: {
-          ...additionalHeaders,
-        }
-      }
+        headers: additionalHeaders,
+      },
     );
 
     return data;

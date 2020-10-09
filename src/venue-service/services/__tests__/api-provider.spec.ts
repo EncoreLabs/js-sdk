@@ -14,11 +14,15 @@ jest.mock('../../../http-client-provider', () => ({
 let httpClient: AxiosInstance;
 
 describe('Venue API', () => {
-  const venueApi = getVenueServiceApi(Environment.Dev);
+  const sourceInformation = {
+    sourceName: 'Source name',
+    sourceVersion: 'Source version',
+  };
+  const venueApi = getVenueServiceApi(Environment.Dev, null, sourceInformation);
   const additionalHeaders = {
-    'x-ttg-client': 'Venue service | JS SDK',
-    'x-ttg-client-version': 'v2',
-  }
+    'x-ttg-client': 'Venue service | Source name using JS SDK',
+    'x-ttg-client-version': 'Source version',
+  };
 
   beforeEach(() => {
     httpClient = getMockFunctionReturnValue(getHttpClient);
@@ -28,6 +32,13 @@ describe('Venue API', () => {
     expect(getHttpClient).toBeCalledWith(pathSettings[Environment.Dev]);
   });
 
+  it('should create http client with custom api url', () => {
+    const testApiUrl = 'test.api';
+    getVenueServiceApi(Environment.Dev, testApiUrl);
+
+    expect(getHttpClient).toBeCalledWith(testApiUrl);
+  });
+
   it('should get seat attributes', async () => {
     const venueId = 'test';
     venueApi.getSeatAttributes(venueId);
@@ -35,10 +46,8 @@ describe('Venue API', () => {
     expect(httpClient.get).toBeCalledWith(
       `/venues/${venueId}/seats/attributes`,
       {
-        headers: {
-          ...additionalHeaders,
-        }
-      }
+        headers: additionalHeaders,
+      },
     );
   });
 });

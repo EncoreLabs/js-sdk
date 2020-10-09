@@ -36,16 +36,22 @@ import apiServices from 'tte-api-services/node';
 ## Basket Service
 [Basket Service in the developer portal](https://developer.encore.co.uk/basket-service/api)
 
-### basketService.create(environment, [settings])
+### basketService.create(environment, [settings], [sourceInformation])
 
 | Param | Type |
 | --- | --- |
 | environment | Environment | 
-| [settings] | Settings | 
+| [settings] | Settings |
+| [sourceInformation] | SourceInformation | 
 
 ```typescript
 interface Settings {
     basketApiUrl?: string;
+}
+
+interface SourceInformation {
+    sourceName?: string;
+    sourceVersion?: string;
 }
 ```
 
@@ -304,12 +310,20 @@ interface Amount {
 ## Checkout Service
 [Checkout Service in the developer portal](https://developer.encore.co.uk/checkout-service/api-reference)
 
-### checkoutService.create(environment, [checkoutApiUrl])
+### checkoutService.create(environment, [checkoutApiUrl], [sourceInformation])
 
 | Param | Type |
 | --- | --- |
 | environment | Environment | 
 | [checkoutApiUrl] | string | 
+| [sourceInformation] | SourceInformation | 
+
+```typescript
+interface SourceInformation {
+    sourceName?: string;
+    sourceVersion?: string;
+}
+```
 
 * createOrder(bookingData) ⇒ Order;
 * confirmBooking(reference, channelId, paymentId, [agentDetails]) ⇒ ApiConfirmBooking;
@@ -392,17 +406,23 @@ interface ApiConfirmBookingAgentDetails {
 ## Content Service
 [Content Service in the developer portal](https://developer.encore.co.uk/content-service/api-reference)
 
-### contentService.create(environment, [settings])
+### contentService.create(environment, [settings], [sourceInformation])
 
 | Param | Type |
 | --- | --- |
 | environment | Environment | 
 | [settings] | Settings | 
+| [sourceInformation] | SourceInformation | 
 
 ```typescript
 interface Settings {
     contentApiUrl?: string;
     contentImagesUrl?: string;
+}
+
+interface SourceInformation {
+    sourceName?: string;
+    sourceVersion?: string;
 }
 ```
 
@@ -454,12 +474,20 @@ enum ImageOrientation {
 ## Inventory Service
 [Inventory Service in the developer portal](https://developer.encore.co.uk/inventory-service/api-reference)
 
-### inventoryService.create(environment, [inventoryApiUrl])
+### inventoryService.create(environment, [inventoryApiUrl], [sourceInformation])
 
 | Param | Type |
 | --- | --- |
 | environment | Environment | 
 | [inventoryApiUrl] | string | 
+| [sourceInformation] | SourceInformation | 
+
+```typescript
+interface SourceInformation {
+    sourceName?: string;
+    sourceVersion?: string;
+}
+```
 
 * getPerformanceAvailability(affiliateId, productId, quantity, date, time) ⇒ Availability
 * getMaxQuantity(productId) ⇒ number
@@ -501,12 +529,20 @@ enum ImageOrientation {
 ## Pricing Service
 [Pricing Service in the developer portal](https://developer.encore.co.uk/pricing-service/api-reference)
 
-### pricingService.create(environment, [pricingApiUrl])
+### pricingService.create(environment, [pricingApiUrl], [sourceInformation])
 
 | Param | Type |
 | --- | --- |
 | environment | Environment | 
 | [pricingApiUrl] | string | 
+| [sourceInformation] | SourceInformation | 
+
+```typescript
+interface SourceInformation {
+    sourceName?: string;
+    sourceVersion?: string;
+}
+```
 
 * getFromPrices(productId) ⇒ Array&lt;FromPrices&gt;
 
@@ -522,12 +558,20 @@ enum ImageOrientation {
 ## Venue Service
 [Venue Service in the developer portal](https://developer.encore.co.uk/venue-service/api-reference)
 
-### venueService.create(environment, [venueApiUrl])
+### venueService.create(environment, [venueApiUrl], [sourceInformation])
 
 | Param | Type |
 | --- | --- |
 | environment | Environment | 
 | [venueApiUrl] | string | 
+| [sourceInformation] | SourceInformation | 
+
+```typescript
+interface SourceInformation {
+    sourceName?: string;
+    sourceVersion?: string;
+}
+```
 
 * getSeatAttributes(venueId) ⇒ Array&lt;SeatAttributes&gt;
 

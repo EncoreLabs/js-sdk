@@ -2,15 +2,19 @@ import { getBasketServiceApi } from './api-provider';
 import { basketDetailsRepositoryProvider } from './basket-details-repository-provider';
 import { Basket, BasketItemsCollection, Delivery } from '../models';
 import { checkRequiredProperty } from '../../utils/validator';
-import { Environment, Settings } from '../../shared/typings';
+import { Environment, Settings, SourceInformation } from '../../shared/typings';
 import { RequestBasketData, DeliveryData, BasketItemData, BasketData, UpsellApiProductData } from '../typings';
 
-export const getBasketServiceRepository = (environment: Environment, settings?: Settings, widgetTitle?: string) => {
+export const getBasketServiceRepository = (
+  environment: Environment,
+  settings?: Settings,
+  sourceInformation: SourceInformation = {},
+) => {
   checkRequiredProperty(environment, 'getBasketServiceRepository: environment');
 
-  const basketApi = getBasketServiceApi(environment, settings?.basketApiUrl, widgetTitle);
+  const basketApi = getBasketServiceApi(environment, settings?.basketApiUrl, sourceInformation);
 
-  basketDetailsRepositoryProvider.setEnvironment(environment, settings, widgetTitle);
+  basketDetailsRepositoryProvider.setEnvironment(environment, settings, sourceInformation);
 
   const getBasket = async (reference: string) => {
     checkRequiredProperty(reference, 'getBasket: basket reference');

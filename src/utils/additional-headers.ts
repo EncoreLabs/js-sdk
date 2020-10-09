@@ -1,22 +1,16 @@
-export const getVersion = (serviceVersion: string, apiUrl? : string) => {
-  if (!apiUrl) {
-    return serviceVersion;
-  }
-
-  return apiUrl.substr(apiUrl.lastIndexOf('/') + 1);
-};
-
 export const getAdditionalHeaders = (
   serviceTitle: string,
-  serviceVersion: string,
-  apiUrl?: string,
-  widgetTitle?: string,
+  sourceName?: string,
+  sourceVersion?: string,
 ) => {
-  const requestInformation = `${serviceTitle} | ${widgetTitle ? `${widgetTitle} using ` : ''}JS SDK`;
-  const version = getVersion(serviceVersion, apiUrl);
-
-  return {
+  const requestInformation = `${serviceTitle} | ${sourceName ? `${sourceName} using ` : ''}JS SDK`;
+  const header = {
     'x-ttg-client': requestInformation,
-    'x-ttg-client-version': version,
   };
+
+  if (sourceVersion) {
+    header['x-ttg-client-version'] = sourceVersion
+  }
+
+  return header;
 }

@@ -20,10 +20,14 @@ const channelId = 'channelId';
 const countryCode = 'countryCode';
 
 describe('Fulfilment Api', () => {
-  const fulfilmentApi = getFulfilmentServiceApi(Environment.Dev);
+  const sourceInformation = {
+    sourceName: 'Source name',
+    sourceVersion: 'Source version',
+  };
+  const fulfilmentApi = getFulfilmentServiceApi(Environment.Dev, null, sourceInformation);
   const additionalHeaders = {
-    'x-ttg-client': 'Fulfilment service | JS SDK',
-    'x-ttg-client-version': 'v1',
+    'x-ttg-client': 'Fulfilment service | Source name using JS SDK',
+    'x-ttg-client-version': 'Source version',
   };
 
   beforeEach(() => {
@@ -53,10 +57,8 @@ describe('Fulfilment Api', () => {
         items: [fulfilmentBasketItem],
       },
       {
-        headers: {
-          ...additionalHeaders,
-        }
-      }
+        headers: additionalHeaders,
+      },
     );
   });
 

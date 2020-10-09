@@ -12,10 +12,19 @@ jest.mock('../api-provider', () => ({
 
 describe('Fulfilment repository', () => {
   const environment = Environment.Dev;
+  const sourceInformation = {
+    sourceName: 'Source name',
+    sourceVersion: 'Source version',
+  };
+  const fulfilmentApiUrl = 'https://fulfilment-api.url/api/v1'
   const { _unstable_ } = getFulfilmentServiceRepository(environment);
 
   it('should create api for specific environment', () => {
-    expect(getFulfilmentServiceApi).toBeCalledWith(environment, undefined, undefined);
+    expect(getFulfilmentServiceApi).toBeCalledWith(environment, undefined, {});
+
+    getFulfilmentServiceRepository(environment, fulfilmentApiUrl, sourceInformation);
+
+    expect(getFulfilmentServiceApi).toBeCalledWith(environment, fulfilmentApiUrl, sourceInformation);
   });
 
   describe('getDeliveryOptions function', () => {
