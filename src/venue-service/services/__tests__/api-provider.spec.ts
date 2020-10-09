@@ -44,9 +44,7 @@ describe('Venue API', () => {
       expect(sendRequest).toBeCalledWith(
         `/venues/${venueId}/seats/attributes`,
         {
-          headers: {
-            ...additionalHeaders,
-          }
+          headers: additionalHeaders,
         }
       );
     });
@@ -59,9 +57,7 @@ describe('Venue API', () => {
       expect(sendRequest).toBeCalledWith(
         `/venues/${venueId}/seats/attributes?date=${performanceDate}`,
         {
-          headers: {
-            ...additionalHeaders,
-          }
+          headers: additionalHeaders,
         }
       );
     });
@@ -74,9 +70,7 @@ describe('Venue API', () => {
       expect(sendRequest).toBeCalledWith(
         `/venues/${venueId}/seats/attributes?&time=${performanceTime}`,
         {
-          headers: {
-            ...additionalHeaders,
-          }
+          headers: additionalHeaders,
         }
       );
     });
@@ -90,9 +84,7 @@ describe('Venue API', () => {
       expect(sendRequest).toBeCalledWith(
         `/venues/${venueId}/seats/attributes?date=${performanceDate}&time=${performanceTime}`,
         {
-          headers: {
-            ...additionalHeaders,
-          }
+          headers: additionalHeaders,
         }
       );
     });
@@ -107,9 +99,7 @@ describe('Venue API', () => {
       expect(sendRequest).toBeCalledWith(
         `/venues/test/seats/attributes?date=performanceDate&time=performanceTime&seatIds[]=Seat-1&seatIds[]=Seat-2`,
         {
-          headers: {
-            ...additionalHeaders,
-          }
+          headers: additionalHeaders,
         }
       );
     });
@@ -123,9 +113,7 @@ describe('Venue API', () => {
       expect(sendRequest).toBeCalledWith(
         `/venues/test`,
         {
-          headers: {
-            ...additionalHeaders,
-          }
+          headers: additionalHeaders,
         }
       );
     });
@@ -139,9 +127,7 @@ describe('Venue API', () => {
       expect(sendRequest).toBeCalledWith(
         `/products/${productId}`,
         {
-          headers: {
-            ...additionalHeaders,
-          }
+          headers: additionalHeaders,
         }
       );
     });
@@ -154,9 +140,7 @@ describe('Venue API', () => {
       expect(sendRequest).toBeCalledWith(
         `/products/productId?date=${date}`,
         {
-          headers: {
-            ...additionalHeaders,
-          }
+          headers: additionalHeaders,
         }
       );
     });
