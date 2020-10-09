@@ -7,7 +7,7 @@ import { Environment, ApiError, SourceInformation } from '../../shared/typings';
 export const getBasketServiceApi = (
   environment: Environment,
   basketApiUrl?: string,
-  { serviceName, sourceName, sourceVersion }: SourceInformation = {},
+  sourceInformation: SourceInformation = {},
 ) => {
   checkRequiredProperty(environment, 'getBasketServiceApi: environment');
 
@@ -17,11 +17,7 @@ export const getBasketServiceApi = (
   const deliveriesPath = '/deliveryOptions';
   const applyDeliveryPath = '/applyDelivery';
   const reservationsPath = '/reservations';
-  const additionalHeaders = getAdditionalHeaders(
-    serviceName,
-    sourceName,
-    sourceVersion,
-  );
+  const additionalHeaders = getAdditionalHeaders(sourceInformation);
 
   const upsertBasket = async (basketData: RequestBasketData): Promise<BasketData | ApiError> => {
     checkRequiredProperty(basketData, 'upsertBasket: basket data');

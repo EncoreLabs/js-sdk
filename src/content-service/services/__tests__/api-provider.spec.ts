@@ -17,13 +17,13 @@ let httpClient: AxiosInstance;
 
 describe('Content service API', () => {
   const sourceInformation = {
-    serviceName: 'Service name',
+    viewName: 'View name',
     sourceName: 'Source name',
     sourceVersion: 'Source version',
   };
   const contentServiceApi = getContentServiceApi(Environment.Dev, null, sourceInformation);
   const additionalHeaders = {
-    'x-ttg-client': 'Service name | Source name using JS SDK',
+    'x-ttg-client': 'Source name | View name using JS SDK',
     'x-ttg-client-version': 'Source version',
   };
 

@@ -7,7 +7,7 @@ import { Environment, SourceInformation } from '../../shared/typings';
 export const getVenueServiceApi = (
   environment: Environment,
   venueApiUrl?: string,
-  { serviceName, sourceName, sourceVersion }: SourceInformation = {},
+  sourceInformation: SourceInformation = {},
 ) => {
   checkRequiredProperty(environment, 'getVenueServiceApi: environment');
 
@@ -16,11 +16,7 @@ export const getVenueServiceApi = (
   const venuesPath = '/venues';
   const seatsPath = '/seats';
   const attributesPath = '/attributes';
-  const additionalHeaders = getAdditionalHeaders(
-    serviceName,
-    sourceName,
-    sourceVersion,
-  );
+  const additionalHeaders = getAdditionalHeaders(sourceInformation);
 
   const getSeatAttributes = async (venueId: string): Promise<ApiSeatAttributes[]> => {
     const requestUrl = `${venuesPath}/${venueId}${seatsPath}${attributesPath}`

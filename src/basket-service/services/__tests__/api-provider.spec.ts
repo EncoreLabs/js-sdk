@@ -20,13 +20,13 @@ let httpClient: AxiosInstance;
 
 describe('Basket API', () => {
   const sourceInformation = {
-    serviceName: 'Service name',
+    viewName: 'View name',
     sourceName: 'Source name',
     sourceVersion: 'Source version',
   };
   const basketApi = getBasketServiceApi(Environment.Dev, null, sourceInformation);
   const additionalHeaders = {
-    'x-ttg-client': 'Service name | Source name using JS SDK',
+    'x-ttg-client': 'Source name | View name using JS SDK',
     'x-ttg-client-version': 'Source version',
   };
 

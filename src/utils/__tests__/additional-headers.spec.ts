@@ -1,8 +1,8 @@
 import { getAdditionalHeaders } from '../additional-headers';
 
-const serviceName = 'Service name';
 const sourceName = 'Source name';
 const sourceVersion = 'v1';
+const viewName = 'View name';
 
 describe('getAdditionalHeaders function', () => {
   it('should return right headers', () => {
@@ -13,28 +13,28 @@ describe('getAdditionalHeaders function', () => {
     expect(getAdditionalHeaders()).toEqual(result);
   });
 
-  it('should return right headers when the service name is provided', () => {
+  it('should return right headers when the source name is provided', () => {
     const result = {
-      'x-ttg-client': `${serviceName} | JS SDK`,
+      'x-ttg-client': `${sourceName} | JS SDK`,
     };
 
-    expect(getAdditionalHeaders(serviceName)).toEqual(result);
+    expect(getAdditionalHeaders({ sourceName })).toEqual(result);
   });
 
-  it('should return right headers when the service name, version are provided', () => {
+  it('should return right headers when the source name and view name are provided', () => {
     const result = {
-      'x-ttg-client': `${serviceName} | ${sourceName} using JS SDK`,
+      'x-ttg-client': `${sourceName} | ${viewName} using JS SDK`,
     };
 
-    expect(getAdditionalHeaders(serviceName, sourceName)).toEqual(result);
+    expect(getAdditionalHeaders({ sourceName, viewName })).toEqual(result);
   });
 
   it('should return right headers when all arguments were provided', () => {
     const result = {
-      'x-ttg-client': `${serviceName} | ${sourceName} using JS SDK`,
+      'x-ttg-client': `${sourceName} | ${viewName} using JS SDK`,
       'x-ttg-client-version': sourceVersion,
     };
 
-    expect(getAdditionalHeaders(serviceName, sourceName, sourceVersion)).toEqual(result);
+    expect(getAdditionalHeaders({ sourceName, sourceVersion, viewName })).toEqual(result);
   });
 })
