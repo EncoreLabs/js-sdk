@@ -8,18 +8,14 @@ import { ApiFromPrices } from '../typings';
 export const getPricingServiceApi = (
   environment: Environment,
   pricingApiUrl?: string,
-  { sourceName, sourceVersion }: SourceInformation = {},
+  sourceInformation: SourceInformation = {},
 ) => {
   checkRequiredProperty(environment, 'getPricingServiceApi: environment');
 
   const basePricingApiUrl = pricingApiUrl || pathSettings[environment];
   const httpClient = getHttpClient(basePricingApiUrl);
   const productsPath = '/products';
-  const additionalHeaders = getAdditionalHeaders(
-    'Pricing service',
-    sourceName,
-    sourceVersion,
-  );
+  const additionalHeaders = getAdditionalHeaders(sourceInformation);
 
   const getFromPrices = async (productId: string): Promise<ApiFromPrices[]> => {
     const requestUrl = `${productsPath}/${productId}/performances/from-price/quantity/1`;

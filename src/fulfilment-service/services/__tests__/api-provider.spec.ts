@@ -21,12 +21,13 @@ const countryCode = 'countryCode';
 
 describe('Fulfilment Api', () => {
   const sourceInformation = {
+    viewName: 'View name',
     sourceName: 'Source name',
     sourceVersion: 'Source version',
   };
   const fulfilmentApi = getFulfilmentServiceApi(Environment.Dev, null, sourceInformation);
   const additionalHeaders = {
-    'x-ttg-client': 'Fulfilment service | Source name using JS SDK',
+    'x-ttg-client': 'Source name | View name using JS SDK',
     'x-ttg-client-version': 'Source version',
   };
 

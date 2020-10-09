@@ -6,17 +6,13 @@ import { Environment, FulfilmentBasketItem, SourceInformation } from '../../shar
 export const getFulfilmentServiceApi = (
   environment: Environment,
   fulfilmentApiUrl?: string,
-  { sourceName, sourceVersion }: SourceInformation = {},
+  sourceInformation: SourceInformation = {},
 ) => {
   checkRequiredProperty(environment, 'getFulfilmentServiceApi: environment');
 
   const baseFulfilmentApiUrl = fulfilmentApiUrl || pathSettings[environment];
   const httpClient = getHttpClient(baseFulfilmentApiUrl);
-  const additionalHeaders = getAdditionalHeaders(
-    'Fulfilment service',
-    sourceName,
-    sourceVersion,
-  );
+  const additionalHeaders = getAdditionalHeaders(sourceInformation);
 
   const getDeliveryOptions = async (channelId: string, countryCode: string, basketItems: FulfilmentBasketItem[]) => {
     const requestUrl = '/basket/pricedDeliveryOptions';

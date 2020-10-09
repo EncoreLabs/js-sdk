@@ -44,5 +44,6 @@ export interface ApiPricingValue {
 
 export interface SourceInformation {
   sourceName?: string;
+  viewName?: string;
   sourceVersion?: string;
 }

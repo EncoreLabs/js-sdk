@@ -14,7 +14,7 @@ interface Params {
 export const getVenueServiceApi = (
   environment: Environment,
   venueApiUrl?: string,
-  { sourceName, sourceVersion }: SourceInformation = {},
+  sourceInformation: SourceInformation = {},
 ) => {
   checkRequiredProperty(environment, 'getVenueServiceApi: environment');
 
@@ -24,11 +24,7 @@ export const getVenueServiceApi = (
   const seatsPath = '/seats';
   const productsPath = '/products';
   const attributesPath = '/attributes';
-  const additionalHeaders = getAdditionalHeaders(
-    'Venue service',
-    sourceName,
-    sourceVersion,
-  );
+  const additionalHeaders = getAdditionalHeaders(sourceInformation);
 
   const getSeatAttributes = async ({
     venueId,

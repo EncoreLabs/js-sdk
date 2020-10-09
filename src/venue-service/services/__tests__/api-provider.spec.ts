@@ -11,12 +11,13 @@ jest.mock('../../../http-client-provider', () => ({
 
 describe('Venue API', () => {
   const sourceInformation = {
+    viewName: 'View name',
     sourceName: 'Source name',
     sourceVersion: 'Source version',
   };
   const venueApi = getVenueServiceApi(Environment.Dev, null, sourceInformation);
   const additionalHeaders = {
-    'x-ttg-client': 'Venue service | Source name using JS SDK',
+    'x-ttg-client': 'Source name | View name using JS SDK',
     'x-ttg-client-version': 'Source version',
   };
 

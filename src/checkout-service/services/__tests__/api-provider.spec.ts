@@ -18,12 +18,13 @@ let httpClient: AxiosInstance;
 
 describe('Checkout Api', () => {
   const sourceInformation = {
+    viewName: 'View name',
     sourceName: 'Source name',
     sourceVersion: 'Source version',
   };
   const checkoutApi = getCheckoutServiceApi(Environment.Dev, null, sourceInformation);
   const additionalHeaders = {
-    'x-ttg-client': 'Checkout service | Source name using JS SDK',
+    'x-ttg-client': 'Source name | View name using JS SDK',
     'x-ttg-client-version': 'Source version',
   };
 
