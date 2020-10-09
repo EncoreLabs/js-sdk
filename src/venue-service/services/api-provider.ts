@@ -30,7 +30,12 @@ export const getVenueServiceApi = (
     sourceVersion,
   );
 
-  const getSeatAttributes = async ({ venueId, seatIdCollection, performanceDate, performanceTime }: Params): Promise<ApiSeatAttributes[]> => {
+  const getSeatAttributes = async ({
+    venueId,
+    seatIdCollection,
+    performanceDate,
+    performanceTime,
+  }: Params): Promise<ApiSeatAttributes[]> => {
     let requestUrl = `${venuesPath}/${venueId}${seatsPath}${attributesPath}`;
 
     if (performanceDate || performanceTime || seatIdCollection) {
