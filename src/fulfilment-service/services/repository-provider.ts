@@ -1,11 +1,15 @@
 import { getFulfilmentServiceApi } from './api-provider';
 import { checkRequiredProperty } from '../../utils';
-import { Environment, FulfilmentBasketItem } from '../../shared/typings';
+import { Environment, FulfilmentBasketItem, SourceInformation } from '../../shared/typings';
 
-export const getFulfilmentServiceRepository = (environment: Environment, fulfilmentApiUrl?: string, widgetTitle?: string) => {
+export const getFulfilmentServiceRepository = (
+  environment: Environment,
+  fulfilmentApiUrl?: string,
+  sourceInformation: SourceInformation = {},
+) => {
   checkRequiredProperty(environment, 'getFulfilmentServiceRepository: environment');
 
-  const fulfilmentServiceApi = getFulfilmentServiceApi(environment, fulfilmentApiUrl, widgetTitle);
+  const fulfilmentServiceApi = getFulfilmentServiceApi(environment, fulfilmentApiUrl, sourceInformation);
 
   const getDeliveryOptions = async (
     channelId: string,

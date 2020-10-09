@@ -17,10 +17,14 @@ jest.mock('../../../http-client-provider', () => ({
 let httpClient: AxiosInstance;
 
 describe('Checkout Api', () => {
-  const checkoutApi = getCheckoutServiceApi(Environment.Dev);
+  const sourceInformation = {
+    sourceName: 'Source name',
+    sourceVersion: 'Source version',
+  };
+  const checkoutApi = getCheckoutServiceApi(Environment.Dev, null, sourceInformation);
   const additionalHeaders = {
-    'x-ttg-client': 'Checkout service | JS SDK',
-    'x-ttg-client-version': 'v1',
+    'x-ttg-client': 'Checkout service | Source name using JS SDK',
+    'x-ttg-client-version': 'Source version',
   };
 
   beforeEach(() => {
@@ -45,10 +49,8 @@ describe('Checkout Api', () => {
       '/checkout',
       bookingDataMock,
       {
-        headers: {
-          ...additionalHeaders,
-        }
-      }
+        headers: additionalHeaders,
+      },
     );
   });
 
@@ -66,7 +68,7 @@ describe('Checkout Api', () => {
       {
         headers: {
           ...additionalHeaders,
-        }
+        },
       },
     );
   });

@@ -41,3 +41,8 @@ export interface ApiPricingValue {
   currency: string;
   decimalPlaces?: number;
 }
+
+export interface SourceInformation {
+  sourceName?: string;
+  sourceVersion?: string;
+}

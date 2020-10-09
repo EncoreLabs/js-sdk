@@ -2,9 +2,13 @@ import { getHttpClient } from '../../http-client-provider';
 import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
 import { pathSettings } from '../constants/path-settings';
 import { BasketData, DeliveryData, RequestBasketData } from '../typings';
-import { Environment, ApiError } from '../../shared/typings';
+import { Environment, ApiError, SourceInformation } from '../../shared/typings';
 
-export const getBasketServiceApi = (environment: Environment, basketApiUrl?: string, widgetTitle?: string) => {
+export const getBasketServiceApi = (
+  environment: Environment,
+  basketApiUrl?: string,
+  { sourceName, sourceVersion }: SourceInformation = {},
+) => {
   checkRequiredProperty(environment, 'getBasketServiceApi: environment');
 
   const baseBasketApiUrl = basketApiUrl || pathSettings[environment];
@@ -15,9 +19,8 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
   const reservationsPath = '/reservations';
   const additionalHeaders = getAdditionalHeaders(
     'Basket service',
-    'v1',
-    basketApiUrl,
-    widgetTitle,
+    sourceName,
+    sourceVersion,
   );
 
   const upsertBasket = async (basketData: RequestBasketData): Promise<BasketData | ApiError> => {
@@ -42,9 +45,7 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
       shopperCurrency,
       hasFlexiTickets,
     }, {
-      headers: {
-        ...additionalHeaders,
-      }
+      headers: additionalHeaders,
     })
     .then((result) => {
       if (!result.data) {
@@ -63,9 +64,7 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
     const { data } = await httpClient.delete(
       requestUrl,
       {
-        headers: {
-          ...additionalHeaders,
-        }
+        headers: additionalHeaders,
       }
     );
 
@@ -79,9 +78,7 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
     const { data } = await httpClient.get(
       requestUrl,
       {
-        headers: {
-          ...additionalHeaders,
-        }
+        headers: additionalHeaders,
       }
     );
 
@@ -95,9 +92,7 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
     const { data } = await httpClient.get(
       requestUrl,
       {
-        headers: {
-          ...additionalHeaders,
-        }
+        headers: additionalHeaders,
       },
     );
 
@@ -113,10 +108,8 @@ export const getBasketServiceApi = (environment: Environment, basketApiUrl?: str
       requestUrl,
       { delivery },
       {
-        headers: {
-          ...additionalHeaders,
-        }
-      }
+        headers: additionalHeaders,
+      },
     );
 
     return data;

@@ -1,10 +1,14 @@
 import { getHttpClient } from '../../http-client-provider';
 import { checkRequiredProperty, getAdditionalHeaders } from '../../utils/';
 import { pathSettings } from '../constants/path-settings';
-import { Environment } from '../../shared/typings';
+import { Environment, SourceInformation } from '../../shared/typings';
 import { ApiMaxNumberOfTickets } from '../typings';
 
-export const getInventoryServiceApi = (environment: Environment, inventoryApiUrl?: string, widgetTitle?: string) => {
+export const getInventoryServiceApi = (
+  environment: Environment,
+  inventoryApiUrl?: string,
+  { sourceName, sourceVersion }: SourceInformation = {},
+) => {
   checkRequiredProperty(environment, 'getInventoryServiceApi: environment');
 
   const baseInventoryApiUrl = inventoryApiUrl || pathSettings[environment];
@@ -14,9 +18,8 @@ export const getInventoryServiceApi = (environment: Environment, inventoryApiUrl
   const availabilityPath = '/availability';
   const additionalHeaders = getAdditionalHeaders(
     'Inventory service',
-    'v4',
-    inventoryApiUrl,
-    widgetTitle,
+    sourceName,
+    sourceVersion,
   );
 
   const getPerformanceAvailability = async (
@@ -33,8 +36,8 @@ export const getInventoryServiceApi = (environment: Environment, inventoryApiUrl
         headers: {
           affiliateId,
           ...additionalHeaders,
-        }
-      }
+        },
+      },
     );
 
     return data;
@@ -53,8 +56,8 @@ export const getInventoryServiceApi = (environment: Environment, inventoryApiUrl
         headers: {
           affiliateId,
           ...additionalHeaders,
-        }
-      }
+        },
+      },
     );
 
     return data;
@@ -75,8 +78,8 @@ export const getInventoryServiceApi = (environment: Environment, inventoryApiUrl
         headers: {
           affiliateId,
           ...additionalHeaders,
-        }
-      }
+        },
+      },
     );
 
     return data;
@@ -87,10 +90,8 @@ export const getInventoryServiceApi = (environment: Environment, inventoryApiUrl
     const { data } = await httpClient.get(
       requestUrl,
       {
-        headers: {
-          ...additionalHeaders,
-        }
-      }
+        headers: additionalHeaders,
+      },
     );
 
     return data;

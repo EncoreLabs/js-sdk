@@ -2,9 +2,13 @@ import { getHttpClient } from '../../http-client-provider';
 import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
 import { pathSettings } from '../constants/path-settings';
 import { ApiSeatAttributes } from '../typings';
-import { Environment } from '../../shared/typings';
+import { Environment, SourceInformation } from '../../shared/typings';
 
-export const getVenueServiceApi = (environment: Environment, venueApiUrl?: string, widgetTitle?: string) => {
+export const getVenueServiceApi = (
+  environment: Environment,
+  venueApiUrl?: string,
+  { sourceName, sourceVersion }: SourceInformation = {},
+) => {
   checkRequiredProperty(environment, 'getVenueServiceApi: environment');
 
   const baseVenueApiUrl = venueApiUrl || pathSettings[environment];
@@ -14,9 +18,8 @@ export const getVenueServiceApi = (environment: Environment, venueApiUrl?: strin
   const attributesPath = '/attributes';
   const additionalHeaders = getAdditionalHeaders(
     'Venue service',
-    'v2',
-    venueApiUrl,
-    widgetTitle,
+    sourceName,
+    sourceVersion,
   );
 
   const getSeatAttributes = async (venueId: string): Promise<ApiSeatAttributes[]> => {
@@ -24,10 +27,8 @@ export const getVenueServiceApi = (environment: Environment, venueApiUrl?: strin
     const { data } = await httpClient.get(
       requestUrl,
       {
-        headers: {
-          ...additionalHeaders,
-        }
-      }
+        headers: additionalHeaders,
+      },
     );
 
     return data;

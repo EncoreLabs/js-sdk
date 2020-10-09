@@ -18,12 +18,16 @@ jest.mock('../../../http-client-provider', () => ({
 let httpClient: AxiosInstance;
 
 describe('Pricing API', () => {
-  const pricingApi = getPricingServiceApi(Environment.Dev);
-  const productId = '1001';
+  const sourceInformation = {
+    sourceName: 'Source name',
+    sourceVersion: 'Source version',
+  };
+  const pricingApi = getPricingServiceApi(Environment.Dev, null, sourceInformation);
   const additionalHeaders = {
-    'x-ttg-client': 'Pricing service | JS SDK',
-    'x-ttg-client-version': 'v3',
-  }
+    'x-ttg-client': 'Pricing service | Source name using JS SDK',
+    'x-ttg-client-version': 'Source version',
+  };
+  const productId = '1001';
 
   beforeEach(() => {
     httpClient = getMockFunctionReturnValue(getHttpClient);
@@ -51,8 +55,8 @@ describe('Pricing API', () => {
         headers: {
           ...priceEndpointHeaders,
           ...additionalHeaders,
-        }
-      }
+        },
+      },
     );
   });
 });

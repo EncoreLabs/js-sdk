@@ -16,10 +16,14 @@ jest.mock('../../../http-client-provider', () => ({
 let httpClient: AxiosInstance;
 
 describe('Content service API', () => {
-  const contentServiceApi = getContentServiceApi(Environment.Dev);
+  const sourceInformation = {
+    sourceName: 'Source name',
+    sourceVersion: 'Source version',
+  };
+  const contentServiceApi = getContentServiceApi(Environment.Dev, null, sourceInformation);
   const additionalHeaders = {
-    'x-ttg-client': 'Content service | JS SDK',
-    'x-ttg-client-version': 'v1',
+    'x-ttg-client': 'Content service | Source name using JS SDK',
+    'x-ttg-client-version': 'Source version',
   };
 
   beforeEach(() => {
@@ -47,10 +51,8 @@ describe('Content service API', () => {
       expect(httpClient.get).toBeCalledWith(
         '/products',
         {
-          headers: {
-            ...additionalHeaders,
-          }
-        }
+          headers: additionalHeaders,
+        },
       );
     });
 
@@ -62,10 +64,8 @@ describe('Content service API', () => {
       expect(httpClient.get).toBeCalledWith(
         '/products?page=5&limit=100',
         {
-          headers: {
-            ...additionalHeaders,
-          }
-        }
+          headers: additionalHeaders,
+        },
       );
     });
   });
@@ -78,10 +78,8 @@ describe('Content service API', () => {
       expect(httpClient.get).toBeCalledWith(
         `/products/${id}`,
         {
-          headers: {
-            ...additionalHeaders,
-          }
-        }
+          headers: additionalHeaders,
+        },
       );
     });
   });

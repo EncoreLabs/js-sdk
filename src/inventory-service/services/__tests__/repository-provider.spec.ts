@@ -31,6 +31,11 @@ describe('Inventory repository', () => {
   const fromDate = '20200101';
   const toDate = '20210101';
   const environment= Environment.Dev;
+  const sourceInformation = {
+    sourceName: 'Source name',
+    sourceVersion: 'Source version',
+  };
+  const inventoryApiUrl = 'https://inventory-service.qatixuk.io/api/v4';
   const {
     getPerformanceAvailability,
     getMaxQuantity,
@@ -50,7 +55,11 @@ describe('Inventory repository', () => {
   it('should create api for specific environment', () => {
     getInventoryServiceRepository(environment);
 
-    expect(getInventoryServiceApi).toBeCalledWith(environment, undefined, undefined);
+    expect(getInventoryServiceApi).toBeCalledWith(environment, undefined, {});
+
+    getInventoryServiceRepository(environment, inventoryApiUrl, sourceInformation);
+
+    expect(getInventoryServiceApi).toBeCalledWith(environment, inventoryApiUrl, sourceInformation);
   });
 
   describe('getPerformanceAvailability function', () => {

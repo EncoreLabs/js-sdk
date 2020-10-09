@@ -17,11 +17,21 @@ jest.mock('../../models/payment-details');
 
 describe('Checkout repository', () => {
   const environment = Environment.Dev;
+  const sourceInformation = {
+    sourceName: 'Source name',
+    sourceVersion: 'Source version',
+  };
+  const checkoutApiUrl = 'https://checkout-service.qatixuk.io/api/v1'
 
   const { createOrder, confirmBooking } = getCheckoutServiceRepository(environment);
 
   it('should create api for specific environment', () => {
-    expect(getCheckoutServiceApi).toBeCalledWith(environment, undefined, undefined);
+    expect(getCheckoutServiceApi).toBeCalledWith(environment, undefined, {});
+
+    getCheckoutServiceRepository(environment, checkoutApiUrl, sourceInformation);
+
+    expect(getCheckoutServiceApi).toBeCalledWith(environment, checkoutApiUrl, sourceInformation);
+
   });
 
   describe('createOrder function', () => {
