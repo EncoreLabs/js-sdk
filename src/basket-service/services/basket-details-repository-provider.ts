@@ -2,11 +2,11 @@ import { contentService } from '../../content-service/services';
 import { getBasketServiceRepository } from './repository-provider';
 import { Environment, Settings, SourceInformation } from '../../shared/typings';
 
-let environment;
-let basketApiUrl;
-let contentApiUrl;
-let contentImagesUrl;
-let source;
+let environment: Environment;
+let basketApiUrl: string;
+let contentApiUrl: string;
+let contentImagesUrl: string;
+let source: SourceInformation;
 
 const setEnvironment = (
   env: Environment,
@@ -44,7 +44,7 @@ const getRepository = () => {
     getShowDetails: getProduct,
     getImages,
     getDeliveries,
-  }
+  };
 };
 
 export const basketDetailsRepositoryProvider = {

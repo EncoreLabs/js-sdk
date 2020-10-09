@@ -88,7 +88,7 @@ export interface ApiAreaSeatLump {
   seats: string[];
 }
 
-export interface SeatAttribute {
+export interface SeatAttributeType {
   title: string;
   description: string
 }

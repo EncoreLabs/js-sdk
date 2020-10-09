@@ -40,6 +40,7 @@ export interface ApiAddressData {
 
 export enum EntityType {
   Products = 'products',
+  SeatPlan = 'seat-plan',
 }
 
 export enum ImageOrientation {
