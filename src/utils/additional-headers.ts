@@ -4,7 +4,7 @@ export const getAdditionalHeaders = ({
   sourceName,
   sourceVersion,
   viewName,
-}: SourceInformation = {} ) => {
+}: SourceInformation = {}) => {
   const sourceNamePart = sourceName ? `${sourceName} | ` : '';
   const viewNamePart = viewName ? `${viewName} using ` : '';
   const requestInformation = `${sourceNamePart}${viewNamePart}JS SDK`;
