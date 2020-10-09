@@ -1,12 +1,16 @@
 import { Product } from '../models';
 import { getContentServiceApi } from './api-provider';
 import { checkRequiredProperty } from '../../utils/validator';
-import { Environment, Settings } from '../../shared/typings';
+import { Environment, Settings, SourceInformation } from '../../shared/typings';
 
-export const getContentServiceRepository = (environment: Environment, settings?: Settings, widgetTitle?: string) => {
+export const getContentServiceRepository = (
+  environment: Environment,
+  settings?: Settings,
+  sourceInformation: SourceInformation = {},
+) => {
   checkRequiredProperty(environment, 'getContentServiceRepository: environment');
 
-  const contentServiceApi = getContentServiceApi(environment, settings, widgetTitle);
+  const contentServiceApi = getContentServiceApi(environment, settings, sourceInformation);
   const { getImages, getProduct, getProducts } = contentServiceApi;
 
   return {

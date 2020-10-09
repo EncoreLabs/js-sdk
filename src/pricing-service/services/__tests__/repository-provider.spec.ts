@@ -14,10 +14,19 @@ jest.mock('../api-provider', () => ({
 describe('Pricing repository', () => {
   const productId = '1001';
   const environment = Environment.Dev;
+  const sourceInformation = {
+    sourceName: 'Source name',
+    sourceVersion: 'Source version',
+  };
+  const pricingApiUrl = 'https://pricing-service.qatixuk.io/api/v1';
   const { getFromPrices } = getPricingServiceRepository(environment);
 
   it('should create api for specific environment', () => {
-    expect(getPricingServiceApi).toBeCalledWith(environment, undefined, undefined);
+    expect(getPricingServiceApi).toBeCalledWith(environment, undefined, {});
+
+    getPricingServiceRepository(environment, pricingApiUrl, sourceInformation);
+
+    expect(getPricingServiceApi).toBeCalledWith(environment, pricingApiUrl, sourceInformation);
   });
 
   describe('getFromPrices function', () => {

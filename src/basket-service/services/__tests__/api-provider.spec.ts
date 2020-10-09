@@ -19,10 +19,14 @@ jest.mock('../../../http-client-provider', () => ({
 let httpClient: AxiosInstance;
 
 describe('Basket API', () => {
-  const basketApi = getBasketServiceApi(Environment.Dev);
+  const sourceInformation = {
+    sourceName: 'Source name',
+    sourceVersion: 'Source version',
+  };
+  const basketApi = getBasketServiceApi(Environment.Dev, null, sourceInformation);
   const additionalHeaders = {
-    'x-ttg-client': 'Basket service | JS SDK',
-    'x-ttg-client-version': 'v1',
+    'x-ttg-client': 'Basket service | Source name using JS SDK',
+    'x-ttg-client-version': 'Source version',
   };
 
   beforeEach(() => {
@@ -48,9 +52,7 @@ describe('Basket API', () => {
       expect(httpClient.get).toBeCalledWith(
         `/baskets/${reference}`,
         {
-          headers: {
-            ...additionalHeaders,
-          }
+          headers: additionalHeaders,
         },
       );
     });
@@ -64,9 +66,7 @@ describe('Basket API', () => {
       expect(httpClient.get).toBeCalledWith(
         `/baskets/${reference}/deliveryOptions`,
         {
-          headers: {
-            ...additionalHeaders,
-          }
+          headers: additionalHeaders,
         },
       );
     });
@@ -82,9 +82,7 @@ describe('Basket API', () => {
         `/baskets/${reference}/applyDelivery`,
         { delivery },
         {
-          headers: {
-            ...additionalHeaders,
-          }
+          headers: additionalHeaders,
         },
       );
     });
@@ -114,9 +112,7 @@ describe('Basket API', () => {
           shopperCurrency,
         },
         {
-          headers: {
-            ...additionalHeaders,
-          }
+          headers: additionalHeaders,
         },
       );
     });
@@ -139,9 +135,7 @@ describe('Basket API', () => {
       expect(httpClient.delete).toBeCalledWith(
         `/baskets/${reference}/reservations/${reservationsId}`,
         {
-          headers: {
-            ...additionalHeaders,
-          }
+          headers: additionalHeaders,
         },
       );
     });

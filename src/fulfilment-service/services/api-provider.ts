@@ -1,18 +1,21 @@
 import { getHttpClient } from '../../http-client-provider';
 import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
 import { pathSettings } from '../constants/path-settings';
-import { Environment, FulfilmentBasketItem } from '../../shared/typings';
+import { Environment, FulfilmentBasketItem, SourceInformation } from '../../shared/typings';
 
-export const getFulfilmentServiceApi = (environment: Environment, fulfilmentApiUrl?: string, widgetTitle?: string) => {
+export const getFulfilmentServiceApi = (
+  environment: Environment,
+  fulfilmentApiUrl?: string,
+  { sourceName, sourceVersion }: SourceInformation = {},
+) => {
   checkRequiredProperty(environment, 'getFulfilmentServiceApi: environment');
 
   const baseFulfilmentApiUrl = fulfilmentApiUrl || pathSettings[environment];
   const httpClient = getHttpClient(baseFulfilmentApiUrl);
   const additionalHeaders = getAdditionalHeaders(
     'Fulfilment service',
-    'v1',
-    fulfilmentApiUrl,
-    widgetTitle,
+    sourceName,
+    sourceVersion,
   );
 
   const getDeliveryOptions = async (channelId: string, countryCode: string, basketItems: FulfilmentBasketItem[]) => {
@@ -27,10 +30,8 @@ export const getFulfilmentServiceApi = (environment: Environment, fulfilmentApiU
       requestUrl,
       body,
       {
-        headers: {
-          ...additionalHeaders,
-        }
-      }
+        headers: additionalHeaders,
+      },
     );
 
     return data;

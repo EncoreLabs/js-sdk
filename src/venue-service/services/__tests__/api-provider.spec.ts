@@ -10,11 +10,15 @@ jest.mock('../../../http-client-provider', () => ({
 }));
 
 describe('Venue API', () => {
-  const venueApi = getVenueServiceApi(Environment.Dev);
+  const sourceInformation = {
+    sourceName: 'Source name',
+    sourceVersion: 'Source version',
+  };
+  const venueApi = getVenueServiceApi(Environment.Dev, null, sourceInformation);
   const additionalHeaders = {
-    'x-ttg-client': 'Venue service | JS SDK',
-    'x-ttg-client-version': 'v2',
-  }
+    'x-ttg-client': 'Venue service | Source name using JS SDK',
+    'x-ttg-client-version': 'Source version',
+  };
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -22,6 +26,13 @@ describe('Venue API', () => {
 
   it('should create http client', () => {
     expect(getHttpClient).toBeCalledWith(pathSettings[Environment.Dev]);
+  });
+
+  it('should create http client with custom api url', () => {
+    const testApiUrl = 'test.api';
+    getVenueServiceApi(Environment.Dev, testApiUrl);
+
+    expect(getHttpClient).toBeCalledWith(testApiUrl);
   });
 
   describe('getSeatAttributes method', () => {

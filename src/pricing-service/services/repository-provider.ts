@@ -1,12 +1,16 @@
 import { getPricingServiceApi } from './api-provider';
 import { checkRequiredProperty } from '../../utils/validator';
 import { FromPrices } from '../models';
-import { Environment } from '../../shared/typings';
+import { Environment, SourceInformation } from '../../shared/typings';
 
-export const getPricingServiceRepository = (environment: Environment, pricingApiUrl?: string, widgetTitle?: string) => {
+export const getPricingServiceRepository = (
+  environment: Environment,
+  pricingApiUrl?: string,
+  sourceInformation: SourceInformation = {},
+) => {
   checkRequiredProperty(environment, 'getPricingServiceRepository: environment');
 
-  const pricingServiceApi = getPricingServiceApi(environment, pricingApiUrl, widgetTitle);
+  const pricingServiceApi = getPricingServiceApi(environment, pricingApiUrl, sourceInformation);
 
   const getFromPrices = async (productId: string) => {
     checkRequiredProperty(productId, 'getFromPrices: product id');

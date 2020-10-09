@@ -21,8 +21,12 @@ describe('Venue repository', () => {
   const performanceDate = 'performanceDate';
   const performanceTime = 'performanceTime';
   const seatIdCollection = ['Seat-1', 'Seat-2'];
-
   const environment = Environment.Dev;
+  const sourceInformation = {
+    sourceName: 'Source name',
+    sourceVersion: 'Source version',
+  };
+  const venueApiUrl = 'https://venue-service.qatixuk.io/api/v2';
   const {
     getSeatAttributes,
     getSeatAttributesBySeatIds,
@@ -31,7 +35,11 @@ describe('Venue repository', () => {
   } = getVenueServiceRepository(environment);
 
   it('should create api for specific environment', () => {
-    expect(getVenueServiceApi).toBeCalledWith(environment, undefined, undefined);
+    expect(getVenueServiceApi).toBeCalledWith(environment, undefined, {});
+
+    getVenueServiceRepository(environment, venueApiUrl, sourceInformation);
+
+    expect(getVenueServiceApi).toBeCalledWith(environment, venueApiUrl, sourceInformation);
   });
 
   describe('getSeatAttributes function', () => {

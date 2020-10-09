@@ -1,13 +1,17 @@
 import { getInventoryServiceApi } from './api-provider';
 import { checkRequiredProperty, checkDateProperty } from '../../utils/validator';
 import { UpsellCollection, SummaryAvailability, Availability } from '../models';
-import { Environment } from '../../shared/typings';
+import { Environment, SourceInformation } from '../../shared/typings';
 import { ApiUpsellProductsData } from '../typings';
 
-export const getInventoryServiceRepository = (environment: Environment, inventoryApiUrl?: string, widgetTitle?: string) => {
+export const getInventoryServiceRepository = (
+  environment: Environment,
+  inventoryApiUrl?: string,
+  sourceInformation: SourceInformation = {},
+) => {
   checkRequiredProperty(environment, 'getInventoryServiceRepository: environment');
 
-  const inventoryServiceApi = getInventoryServiceApi(environment, inventoryApiUrl, widgetTitle);
+  const inventoryServiceApi = getInventoryServiceApi(environment, inventoryApiUrl, sourceInformation);
 
   const getPerformanceAvailability = async (
     affiliateId: string,
