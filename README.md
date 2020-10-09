@@ -541,8 +541,8 @@ enum ImageOrientation {
 | Param | Type |
 | --- | --- |
 | venueId | string |
-| performanceDate | string |
-| performanceTime | string |
+| [performanceDate] | string |
+| [performanceTime] | string |
 
 #### ➥ getSeatAttributesBySeatIds(venueId, seatIdCollection) ⇒ Array&lt;SeatAttributes&gt;
 *Get list of seat attributes by seat id*
@@ -568,3 +568,4 @@ enum ImageOrientation {
 | Param | Type |
 | --- | --- |
 | venueId | string |
+| [date] | string |
