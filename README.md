@@ -50,6 +50,7 @@ interface Settings {
 }
 
 interface SourceInformation {
+    serviceName?: string;
     sourceName?: string;
     sourceVersion?: string;
 }
@@ -320,6 +321,7 @@ interface Amount {
 
 ```typescript
 interface SourceInformation {
+    serviceName?: string;
     sourceName?: string;
     sourceVersion?: string;
 }
@@ -421,6 +423,7 @@ interface Settings {
 }
 
 interface SourceInformation {
+    serviceName?: string;
     sourceName?: string;
     sourceVersion?: string;
 }
@@ -484,6 +487,7 @@ enum ImageOrientation {
 
 ```typescript
 interface SourceInformation {
+    serviceName?: string;
     sourceName?: string;
     sourceVersion?: string;
 }
@@ -539,6 +543,7 @@ interface SourceInformation {
 
 ```typescript
 interface SourceInformation {
+    serviceName?: string;
     sourceName?: string;
     sourceVersion?: string;
 }
@@ -568,6 +573,7 @@ interface SourceInformation {
 
 ```typescript
 interface SourceInformation {
+    serviceName?: string;
     sourceName?: string;
     sourceVersion?: string;
 }

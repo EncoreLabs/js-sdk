@@ -7,7 +7,7 @@ import { Environment, ApiError, SourceInformation } from '../../shared/typings';
 export const getBasketServiceApi = (
   environment: Environment,
   basketApiUrl?: string,
-  { sourceName, sourceVersion }: SourceInformation = {},
+  { serviceName, sourceName, sourceVersion }: SourceInformation = {},
 ) => {
   checkRequiredProperty(environment, 'getBasketServiceApi: environment');
 
@@ -18,7 +18,7 @@ export const getBasketServiceApi = (
   const applyDeliveryPath = '/applyDelivery';
   const reservationsPath = '/reservations';
   const additionalHeaders = getAdditionalHeaders(
-    'Basket service',
+    serviceName,
     sourceName,
     sourceVersion,
   );

@@ -1,9 +1,11 @@
 export const getAdditionalHeaders = (
-  serviceTitle: string,
+  serviceName?: string,
   sourceName?: string,
   sourceVersion?: string,
 ) => {
-  const requestInformation = `${serviceTitle} | ${sourceName ? `${sourceName} using ` : ''}JS SDK`;
+  const serviceNamePart = serviceName ? `${serviceName} | ` : '';
+  const sourceNamePart = sourceName ? `${sourceName} using ` : '';
+  const requestInformation = `${serviceNamePart}${sourceNamePart}JS SDK`;
   const header = {
     'x-ttg-client': requestInformation,
   };

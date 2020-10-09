@@ -16,7 +16,7 @@ import {
 export const getCheckoutServiceApi = (
   environment: Environment,
   checkoutApiUrl?: string,
-  { sourceName, sourceVersion }: SourceInformation = {},
+  { serviceName, sourceName, sourceVersion }: SourceInformation = {},
 ) => {
   checkRequiredProperty(environment, 'getPricingServiceApi: environment');
 
@@ -25,7 +25,7 @@ export const getCheckoutServiceApi = (
   const checkoutPath = '/checkout';
   const bookingConfirmationPath = (reference: string) => `/bookings/${reference}/confirm`;
   const additionalHeaders = getAdditionalHeaders(
-    'Checkout service',
+    serviceName,
     sourceName,
     sourceVersion,
   );

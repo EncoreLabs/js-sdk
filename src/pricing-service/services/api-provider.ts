@@ -8,7 +8,7 @@ import { ApiFromPrices } from '../typings';
 export const getPricingServiceApi = (
   environment: Environment,
   pricingApiUrl?: string,
-  { sourceName, sourceVersion }: SourceInformation = {},
+  { serviceName, sourceName, sourceVersion }: SourceInformation = {},
 ) => {
   checkRequiredProperty(environment, 'getPricingServiceApi: environment');
 
@@ -16,7 +16,7 @@ export const getPricingServiceApi = (
   const httpClient = getHttpClient(basePricingApiUrl);
   const productsPath = '/products';
   const additionalHeaders = getAdditionalHeaders(
-    'Pricing service',
+    serviceName,
     sourceName,
     sourceVersion,
   );

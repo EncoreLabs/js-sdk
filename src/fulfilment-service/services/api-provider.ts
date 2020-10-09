@@ -6,14 +6,14 @@ import { Environment, FulfilmentBasketItem, SourceInformation } from '../../shar
 export const getFulfilmentServiceApi = (
   environment: Environment,
   fulfilmentApiUrl?: string,
-  { sourceName, sourceVersion }: SourceInformation = {},
+  { serviceName, sourceName, sourceVersion }: SourceInformation = {},
 ) => {
   checkRequiredProperty(environment, 'getFulfilmentServiceApi: environment');
 
   const baseFulfilmentApiUrl = fulfilmentApiUrl || pathSettings[environment];
   const httpClient = getHttpClient(baseFulfilmentApiUrl);
   const additionalHeaders = getAdditionalHeaders(
-    'Fulfilment service',
+    serviceName,
     sourceName,
     sourceVersion,
   );

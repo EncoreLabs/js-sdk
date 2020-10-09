@@ -43,6 +43,7 @@ export interface ApiPricingValue {
 }
 
 export interface SourceInformation {
+  serviceName?: string;
   sourceName?: string;
   sourceVersion?: string;
 }

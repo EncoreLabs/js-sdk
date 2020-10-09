@@ -8,7 +8,7 @@ import { Environment, Settings, SourceInformation } from '../../shared/typings';
 export const getContentServiceApi = (
   environment: Environment,
   settings?: Settings,
-  { sourceName, sourceVersion }: SourceInformation = {},
+  { serviceName, sourceName, sourceVersion }: SourceInformation = {},
 ) => {
   checkRequiredProperty(environment, 'getContentServiceApi: environment');
 
@@ -18,7 +18,7 @@ export const getContentServiceApi = (
   const httpClient = getHttpClient(baseContentApiUrl);
   const productsPath = '/products';
   const additionalHeaders = getAdditionalHeaders(
-    'Content service',
+    serviceName,
     sourceName,
     sourceVersion,
   );

@@ -7,7 +7,7 @@ import { Environment, SourceInformation } from '../../shared/typings';
 export const getVenueServiceApi = (
   environment: Environment,
   venueApiUrl?: string,
-  { sourceName, sourceVersion }: SourceInformation = {},
+  { serviceName, sourceName, sourceVersion }: SourceInformation = {},
 ) => {
   checkRequiredProperty(environment, 'getVenueServiceApi: environment');
 
@@ -17,7 +17,7 @@ export const getVenueServiceApi = (
   const seatsPath = '/seats';
   const attributesPath = '/attributes';
   const additionalHeaders = getAdditionalHeaders(
-    'Venue service',
+    serviceName,
     sourceName,
     sourceVersion,
   );
