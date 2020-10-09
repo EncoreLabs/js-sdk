@@ -7,7 +7,7 @@ import { ApiMaxNumberOfTickets } from '../typings';
 export const getInventoryServiceApi = (
   environment: Environment,
   inventoryApiUrl?: string,
-  { sourceName, sourceVersion }: SourceInformation = {},
+  sourceInformation: SourceInformation = {},
 ) => {
   checkRequiredProperty(environment, 'getInventoryServiceApi: environment');
 
@@ -16,11 +16,7 @@ export const getInventoryServiceApi = (
   const productsPath = '/products';
   const upsellPath = '/upsells';
   const availabilityPath = '/availability';
-  const additionalHeaders = getAdditionalHeaders(
-    'Inventory service',
-    sourceName,
-    sourceVersion,
-  );
+  const additionalHeaders = getAdditionalHeaders(sourceInformation);
 
   const getPerformanceAvailability = async (
     affiliateId: string,

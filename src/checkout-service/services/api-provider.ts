@@ -16,7 +16,7 @@ import {
 export const getCheckoutServiceApi = (
   environment: Environment,
   checkoutApiUrl?: string,
-  { sourceName, sourceVersion }: SourceInformation = {},
+  sourceInformation: SourceInformation = {},
 ) => {
   checkRequiredProperty(environment, 'getPricingServiceApi: environment');
 
@@ -24,11 +24,7 @@ export const getCheckoutServiceApi = (
   const httpClient = getHttpClient(baseCheckoutApiUrl);
   const checkoutPath = '/checkout';
   const bookingConfirmationPath = (reference: string) => `/bookings/${reference}/confirm`;
-  const additionalHeaders = getAdditionalHeaders(
-    'Checkout service',
-    sourceName,
-    sourceVersion,
-  );
+  const additionalHeaders = getAdditionalHeaders(sourceInformation);
 
   const createOrder = async (bookingData: ApiBookingData): Promise<ApiPaymentDetails> => {
     const { data } = await httpClient.post(

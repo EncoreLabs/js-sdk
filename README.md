@@ -52,6 +52,7 @@ interface Settings {
 interface SourceInformation {
     sourceName?: string;
     sourceVersion?: string;
+    viewName?: string;
 }
 ```
 
@@ -322,6 +323,7 @@ interface Amount {
 interface SourceInformation {
     sourceName?: string;
     sourceVersion?: string;
+    viewName?: string;
 }
 ```
 
@@ -423,6 +425,7 @@ interface Settings {
 interface SourceInformation {
     sourceName?: string;
     sourceVersion?: string;
+    viewName?: string;
 }
 ```
 
@@ -486,6 +489,7 @@ enum ImageOrientation {
 interface SourceInformation {
     sourceName?: string;
     sourceVersion?: string;
+    viewName?: string;
 }
 ```
 
@@ -541,6 +545,7 @@ interface SourceInformation {
 interface SourceInformation {
     sourceName?: string;
     sourceVersion?: string;
+    viewName?: string;
 }
 ```
 
@@ -570,6 +575,7 @@ interface SourceInformation {
 interface SourceInformation {
     sourceName?: string;
     sourceVersion?: string;
+    viewName?: string;
 }
 ```
 

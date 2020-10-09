@@ -26,12 +26,13 @@ describe('Inventory API', () => {
   const fromDate = '20200101';
   const toDate = '20210101';
   const sourceInformation = {
+    viewName: 'View name',
     sourceName: 'Source name',
     sourceVersion: 'Source version',
   };
   const inventoryApi = getInventoryServiceApi(Environment.Dev, null, sourceInformation);
   const additionalHeaders = {
-    'x-ttg-client': 'Inventory service | Source name using JS SDK',
+    'x-ttg-client': 'Source name | View name using JS SDK',
     'x-ttg-client-version': 'Source version',
   };
 
