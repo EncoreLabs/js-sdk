@@ -86,12 +86,14 @@ describe('Content service API', () => {
   });
 
   describe('getImages function', () => {
-    it('should get images', () => {
+    it('should get images with specific size', () => {
       const productEntity = EntityType.Products;
       const entityId = 'test';
       const images = contentServiceApi.getImages(productEntity, entityId, ImageOrientation.Landscape);
 
-      images.forEach((image, index) => {
+      images
+        .filter(image => image.screenSize !== 'default')
+        .forEach((image, index) => {
         const imageSizeSettings = (imageSizes[ImageOrientation.Landscape] || imageSizes[ImageOrientation.Default])[index];
         const { imageSize, screenSize } = imageSizeSettings;
         const imagesBaseUrl = pathSettings[Environment.Dev].images;
@@ -112,7 +114,9 @@ describe('Content service API', () => {
       };
       const images = getContentServiceApi(Environment.Dev, settings).getImages(productEntity, entityId);
 
-      images.forEach((image, index) => {
+      images
+        .filter(image => image.screenSize !== 'default')
+        .forEach((image, index) => {
         const imageSizeSettings = imageSizes[ImageOrientation.Default][index];
         const { imageSize, screenSize } = imageSizeSettings;
 
@@ -139,6 +143,26 @@ describe('Content service API', () => {
         expect(image).toEqual({
           screenSize: 'custom',
           url: `${imagesBaseUrl}/${productEntity}/${entityId}/${ImageOrientation.Default}?width=${customSize}`,
+        });
+      });
+    });
+
+    it('should get image with default size', () => {
+      const productEntity = EntityType.Products;
+      const entityId = 'test';
+      const imagesBaseUrl = pathSettings[Environment.Dev].images;
+      const images = getContentServiceApi(Environment.Dev).getImages(
+        productEntity,
+        entityId,
+        ImageOrientation.Default,
+      );
+
+      images
+        .filter(image => image.screenSize === 'default')
+        .forEach((image) => {
+        expect(image).toEqual({
+          screenSize: 'default',
+          url: `${imagesBaseUrl}/${productEntity}/${entityId}/${ImageOrientation.Default}`,
         });
       });
     });

@@ -70,12 +70,10 @@ export const getContentServiceApi = (
       }];
     }
 
-    return (imageSizes[orientation] || imageSizes[ImageOrientation.Default]).map(({ screenSize, imageSize }) => (
-      {
-        screenSize,
-        url: `${baseContentImagesUrl}/${entityType}/${entityId}/${orientation}?width=${imageSize}`,
-      }
-    ))
+    return (imageSizes[orientation] || imageSizes[ImageOrientation.Default]).map(({ screenSize, imageSize }) => ({
+      screenSize,
+      url: `${baseContentImagesUrl}/${entityType}/${entityId}/${orientation}${imageSize ? `?width=${imageSize}` : '' }`,
+    }));
   };
 
   return {
