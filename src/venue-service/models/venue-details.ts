@@ -11,15 +11,15 @@ export class VenueDetails {
   private readonly description: string;
   private readonly createdAt: string;
 
-  constructor (seatSettings: VenueDetailsApi) {
-    checkRequiredProperty(seatSettings, 'Venue details: api settings');
+  constructor (venueDetails: VenueDetailsApi) {
+    checkRequiredProperty(venueDetails, 'Venue details: api settings');
 
-    this.seatSettings = new SeatSettings(seatSettings.seatSettings);
-    this.address = new VenueAddress(seatSettings.address);
-    this.title = seatSettings.title;
-    this.internalId = seatSettings.internalId;
-    this.description = seatSettings.description;
-    this.createdAt = seatSettings.createdAt;
+    this.seatSettings = new SeatSettings(venueDetails.seatSettings);
+    this.address = new VenueAddress(venueDetails.address);
+    this.title = venueDetails.title;
+    this.internalId = venueDetails.internalId;
+    this.description = venueDetails.description;
+    this.createdAt = venueDetails.createdAt;
   }
 
   getSeatSettings () {
