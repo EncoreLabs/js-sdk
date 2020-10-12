@@ -1,8 +1,7 @@
 import { getVenueServiceApi } from './api-provider';
 import { checkRequiredProperty } from '../../utils/validator';
 import { Environment, SourceInformation } from '../../shared/typings';
-import { SeatAttributes } from '../models';
-import { VenueDetails } from '../models/venue-details';
+import { SeatAttributes, VenueDetails, ChartInfo } from '../models';
 
 export const getVenueServiceRepository = (
   environment: Environment,
@@ -40,7 +39,8 @@ export const getVenueServiceRepository = (
   const getChartDetails = async (productId: string, date?: string) => {
     checkRequiredProperty(productId, 'getChartDetails: product id');
 
-    return venueApi.getChartDetails(productId, date);
+    return venueApi.getChartDetails(productId, date)
+      .then(chartDetails => new ChartInfo(chartDetails));
   };
 
   return {
