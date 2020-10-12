@@ -1,3 +1,5 @@
+import { ApiAddressData } from '../../content-service/typings';
+
 export interface ApiSeatAttribute {
   title: string;
   description: string;
@@ -24,31 +26,26 @@ export interface ChartDetails {
   };
 }
 
-export interface VenueDetails {
-  address: VenueDetailsApiAddress;
+export interface VenueDetailsApi {
+  address: ApiAddressData;
   facilities: ApiFacility[];
   internalId: string;
   title: string;
   transportAttributes: ApiTransportAttribute[];
   venueTerminals: ApiVenueTerminal[];
+  seatSettings: VenueSeatSettings;
+  description: string;
+  createdAt: string;
 }
 
-export interface VenueDetailsApiAddress {
-  city: string;
-  country: ApiLocation;
-  firstLine: string;
-  latitude: string;
-  longitude: string;
-  postcode: string;
-  region: ApiLocation;
-  secondLine: string;
-  thirdLine: string;
-  [key:string]: string | ApiLocation;
-}
-
-export interface ApiLocation {
-  name: string | null;
-  isoCode: string;
+export interface VenueSeatSettings {
+  allocationType: {
+    name: string;
+  };
+  seatSelectionMode: {
+    name: string;
+  };
+  seatsSupplied: boolean;
 }
 
 export interface ApiFacility {
