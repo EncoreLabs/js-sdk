@@ -156,14 +156,11 @@ describe('Content service API', () => {
         entityId,
         ImageOrientation.Default,
       );
+      const image = images.find(item => item.screenSize === 'default');
 
-      images
-        .filter(image => image.screenSize === 'default')
-        .forEach((image) => {
-        expect(image).toEqual({
-          screenSize: 'default',
-          url: `${imagesBaseUrl}/${productEntity}/${entityId}/${ImageOrientation.Default}`,
-        });
+      expect(image).toEqual({
+        screenSize: 'default',
+        url: `${imagesBaseUrl}/${productEntity}/${entityId}/${ImageOrientation.Default}`,
       });
     });
   });
