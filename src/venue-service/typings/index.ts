@@ -1,4 +1,4 @@
-import { ApiAddressData } from '../../content-service/typings';
+import { ApiCountryData, ApiRegionData } from '../../content-service/typings';
 
 export interface ApiSeatAttribute {
   title: string;
@@ -26,8 +26,20 @@ export interface ChartDetails {
   };
 }
 
+export interface VenueApiAddressData {
+  firstLine: string;
+  secondLine: string;
+  thirdLine: string;
+  city: string;
+  region: ApiRegionData;
+  country: ApiCountryData;
+  latitude: string;
+  longitude: string;
+  postcode: string;
+}
+
 export interface VenueDetailsApi {
-  address: ApiAddressData;
+  address: VenueApiAddressData;
   facilities: ApiFacility[];
   internalId: string;
   title: string;

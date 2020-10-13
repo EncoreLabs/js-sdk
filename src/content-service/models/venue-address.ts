@@ -26,9 +26,10 @@ export class VenueAddress {
       country,
       latitude,
       longitude,
-      postCode,
       postcode,
     } = addressData as VenueApiAddressData;
+    const { postCode } = addressData as ApiAddressData;
+
     this.firstLine = firstLine;
     this.secondLine = secondLine;
     this.thirdLine = thirdLine;
