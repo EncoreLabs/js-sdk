@@ -14,7 +14,7 @@ describe('Venue details', () => {
   });
 
   describe('constructor', () => {
-    it('should return object without errors if seatSettings and address provided', () => {
+    it('should return valid object if seatSettings and address provided', () => {
       expect(new VenueDetails({ seatSettings: {}, address: {} } as any)).toEqual({
         address: new VenueAddress({} as any),
         createdAt: undefined,
@@ -75,7 +75,8 @@ describe('Venue details', () => {
 
   describe('getVenueTerminals method', () => {
     it('should return valid info', () => {
-      expect(getVenueDetails().getVenueTerminals()).toEqual(venueDetailsMock.venueTerminals.map(item => new VenueTerminal(item)));
+      expect(getVenueDetails().getVenueTerminals())
+        .toEqual(venueDetailsMock.venueTerminals.map(item => new VenueTerminal(item)));
     });
 
     it('should return empty array if getVenueTerminals not provided', () => {
@@ -87,7 +88,8 @@ describe('Venue details', () => {
 
   describe('getFacilities method', () => {
     it('should return valid info', () => {
-      expect(getVenueDetails().getFacilities()).toEqual(venueDetailsMock.facilities.map(item => new Facility(item)));
+      expect(getVenueDetails().getFacilities())
+        .toEqual(venueDetailsMock.facilities.map(item => new Facility(item)));
     });
 
     it('should return empty array if facilities not provided', () => {
@@ -99,7 +101,8 @@ describe('Venue details', () => {
 
   describe('getTransportAttributes method', () => {
     it('should return valid info', () => {
-      expect(getVenueDetails().getTransportAttributes()).toEqual(venueDetailsMock.transportAttributes.map(item => item.description));
+      expect(getVenueDetails().getTransportAttributes())
+        .toEqual(venueDetailsMock.transportAttributes.map(item => item.description));
     });
 
     it('should return empty array if transportAttributes not provided', () => {

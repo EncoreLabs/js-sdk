@@ -82,7 +82,7 @@ describe('Venue Address model', () => {
 
   describe('getCoordinates method', () => {
     it('should get coordinates', () => {
-      const address = new VenueAddress(venueDetailsMock.address)
+      const address = new VenueAddress(venueDetailsMock.address);
 
       expect(address.getCoordinates()).toEqual({
         latitude: venueDetailsMock.address.latitude,

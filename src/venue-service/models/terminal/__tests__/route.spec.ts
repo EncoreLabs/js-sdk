@@ -26,7 +26,7 @@ describe('Route', () => {
       const updatedRoute = updatedObj.venueTerminals[0].terminal.routes[0];
       updatedRoute.transportMode = undefined;
 
-      expect(new Route(updatedRoute).getTransportModeName()).toBe(undefined);
+      expect(new Route(updatedRoute).getTransportModeName()).toBeUndefined();
     });
   });
 });

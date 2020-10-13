@@ -19,7 +19,12 @@ describe('Terminal Item', () => {
 
   describe('getRoutes method', () => {
     it('should return valid info', () => {
-      expect(getTerminalItem().getRoutes()).toEqual(terminalItem.routes.map(item => new Route(item)));
+      expect(getTerminalItem().getRoutes())
+        .toEqual(terminalItem.routes.map(item => new Route(item)));
+    });
+
+    it('should return empty array if routes are undefined', () => {
+      expect(new TerminalItem({} as any).getRoutes()).toEqual([]);
     });
   });
 });

@@ -7,7 +7,7 @@ export class TerminalItem {
 
   constructor (data: ApiTerminal) {
     this.name = data.name;
-    this.routes = data.routes.map(item => new Route(item));
+    this.routes = (data.routes || []).map(item => new Route(item));
   }
 
   getName () {
