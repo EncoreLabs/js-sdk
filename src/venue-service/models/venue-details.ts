@@ -19,15 +19,17 @@ export class VenueDetails {
   constructor (venueDetails: VenueDetailsApi) {
     checkRequiredProperty(venueDetails, 'Venue details: api settings');
 
+    const { venueTerminals = [], facilities = [], transportAttributes = [] } = venueDetails;
+
     this.seatSettings = new SeatSettings(venueDetails.seatSettings);
     this.address = new VenueAddress(venueDetails.address);
     this.title = venueDetails.title;
     this.internalId = venueDetails.internalId;
     this.description = venueDetails.description;
     this.createdAt = venueDetails.createdAt;
-    this.venueTerminals = (venueDetails.venueTerminals || []).map(item => new VenueTerminal(item));
-    this.facilities = (venueDetails.facilities || []).map(item => new Facility(item));
-    this.transportAttributes = (venueDetails.transportAttributes || []).map(item => item.description);
+    this.venueTerminals = venueTerminals.map(item => new VenueTerminal(item));
+    this.facilities = facilities.map(item => new Facility(item));
+    this.transportAttributes = transportAttributes.map(item => item.description);
   }
 
   getSeatSettings () {
