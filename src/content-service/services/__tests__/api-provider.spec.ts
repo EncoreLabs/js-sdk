@@ -2,7 +2,7 @@ import {AxiosInstance} from 'axios';
 import { getContentServiceApi } from '../api-provider';
 import { getHttpClient } from '../../../http-client-provider';
 import { getMockFunctionReturnValue } from '../../../utils';
-import {imageSizes} from "../../constants/image-sizes";
+import { imageSizes } from '../../constants/image-sizes';
 import { pathSettings } from '../../constants/path-settings';
 import { EntityType, ImageOrientation } from '../../typings';
 import { Environment } from '../../../shared/typings';
@@ -94,14 +94,14 @@ describe('Content service API', () => {
       images
         .filter(image => image.screenSize !== 'default')
         .forEach((image, index) => {
-        const imageSizeSettings = (imageSizes[ImageOrientation.Landscape] || imageSizes[ImageOrientation.Default])[index];
-        const { imageSize, screenSize } = imageSizeSettings;
-        const imagesBaseUrl = pathSettings[Environment.Dev].images;
+          const imageSizeSettings = (imageSizes[ImageOrientation.Landscape] || imageSizes[ImageOrientation.Default])[index];
+          const { imageSize, screenSize } = imageSizeSettings;
+          const imagesBaseUrl = pathSettings[Environment.Dev].images;
 
-        expect(image).toEqual({
-          screenSize,
-          url: `${imagesBaseUrl}/${productEntity}/${entityId}/${ImageOrientation.Landscape}?width=${imageSize}`,
-        });
+          expect(image).toEqual({
+            screenSize,
+            url: `${imagesBaseUrl}/${productEntity}/${entityId}/${ImageOrientation.Landscape}?width=${imageSize}`,
+          });
       });
     });
 
@@ -117,13 +117,13 @@ describe('Content service API', () => {
       images
         .filter(image => image.screenSize !== 'default')
         .forEach((image, index) => {
-        const imageSizeSettings = imageSizes[ImageOrientation.Default][index];
-        const { imageSize, screenSize } = imageSizeSettings;
+          const imageSizeSettings = imageSizes[ImageOrientation.Default][index];
+          const { imageSize, screenSize } = imageSizeSettings;
 
-        expect(image).toEqual({
-          screenSize,
-          url: `${settings.contentImagesUrl}/${productEntity}/${entityId}/${ImageOrientation.Default}?width=${imageSize}`,
-        });
+          expect(image).toEqual({
+            screenSize,
+            url: `${settings.contentImagesUrl}/${productEntity}/${entityId}/${ImageOrientation.Default}?width=${imageSize}`,
+          });
       });
     });
 
