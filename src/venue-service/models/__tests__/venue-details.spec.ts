@@ -13,6 +13,30 @@ describe('Venue details', () => {
     jest.restoreAllMocks();
   });
 
+  describe('constructor', () => {
+    it('should return object without errors if seatSettings and address provided', () => {
+      expect(new VenueDetails({ seatSettings: {}, address: {} } as any)).toEqual({
+        address: new VenueAddress({} as any),
+        createdAt: undefined,
+        description: undefined,
+        facilities: [],
+        internalId: undefined,
+        seatSettings: new SeatSettings({} as any),
+        title: undefined,
+        transportAttributes: [],
+        venueTerminals: [],
+      });
+    });
+
+    it('should throw an error if seatSettings isn\'t provided', () => {
+      expect(() => new VenueDetails({ address: {} } as any)).toThrow(new Error('Seat settings is required'));
+    });
+
+    it('should throw an error if address isn\'t provided', () => {
+      expect(() => new VenueDetails({ seatSettings: {} } as any)).toThrow(new Error('Venue Address: address data is required'));
+    });
+  });
+
   describe('getSeatSettings method', () => {
     it('should return valid info', () => {
       expect(getVenueDetails().getSeatSettings()).toEqual(new SeatSettings(venueDetailsMock.seatSettings));
@@ -53,17 +77,35 @@ describe('Venue details', () => {
     it('should return valid info', () => {
       expect(getVenueDetails().getVenueTerminals()).toEqual(venueDetailsMock.venueTerminals.map(item => new VenueTerminal(item)));
     });
+
+    it('should return empty array if getVenueTerminals not provided', () => {
+      const details = new VenueDetails({...venueDetailsMock, venueTerminals: undefined });
+
+      expect(details.getVenueTerminals()).toEqual([]);
+    });
   });
 
   describe('getFacilities method', () => {
     it('should return valid info', () => {
       expect(getVenueDetails().getFacilities()).toEqual(venueDetailsMock.facilities.map(item => new Facility(item)));
     });
+
+    it('should return empty array if facilities not provided', () => {
+      const details = new VenueDetails({...venueDetailsMock, facilities: undefined });
+
+      expect(details.getFacilities()).toEqual([]);
+    });
   });
 
   describe('getTransportAttributes method', () => {
     it('should return valid info', () => {
-      expect(getVenueDetails().getTransportAttributes()).toEqual(venueDetailsMock.transportAttributes.map(item => item?.description));
+      expect(getVenueDetails().getTransportAttributes()).toEqual(venueDetailsMock.transportAttributes.map(item => item.description));
+    });
+
+    it('should return empty array if transportAttributes not provided', () => {
+      const details = new VenueDetails({...venueDetailsMock, transportAttributes: undefined });
+
+      expect(details.getTransportAttributes()).toEqual([]);
     });
   });
 });
