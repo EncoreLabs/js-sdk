@@ -29,7 +29,9 @@ export class VenueDetails {
     this.createdAt = venueDetails.createdAt;
     this.venueTerminals = venueTerminals.map(item => new VenueTerminal(item));
     this.facilities = facilities.map(item => new Facility(item));
-    this.transportAttributes = transportAttributes.map(item => item.description);
+    this.transportAttributes = transportAttributes
+      .map(item => item?.description)
+      .filter(item => item);
   }
 
   getSeatSettings () {

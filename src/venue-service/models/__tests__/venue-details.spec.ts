@@ -107,5 +107,11 @@ describe('Venue details', () => {
 
       expect(details.getTransportAttributes()).toEqual([]);
     });
+
+    it('should return empty array if transportAttributes items lacks of description property', () => {
+      const details = new VenueDetails({...venueDetailsMock, transportAttributes: [{} as any, undefined, 'someString'] as any });
+
+      expect(details.getTransportAttributes()).toEqual([]);
+    });
   });
 });
