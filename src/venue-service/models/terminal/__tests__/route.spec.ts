@@ -20,5 +20,13 @@ describe('Route', () => {
     it('should return valid info', () => {
       expect(getRoute().getTransportModeName()).toEqual(route.transportMode.name);
     });
+
+    it('should return undefined if transportMode undefined', () => {
+      const updatedObj = { ...venueDetailsMock };
+      const updatedRoute = updatedObj.venueTerminals[0].terminal.routes[0];
+      updatedRoute.transportMode = undefined;
+
+      expect(new Route(updatedRoute).getTransportModeName()).toBe(undefined);
+    });
   });
 });
