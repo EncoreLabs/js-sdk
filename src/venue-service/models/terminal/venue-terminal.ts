@@ -8,7 +8,7 @@ export class VenueTerminal {
   private readonly terminal: TerminalItem;
 
   constructor (data: ApiVenueTerminal) {
-    checkRequiredProperty(data, 'VenueTerminal settings');
+    checkRequiredProperty(data, 'VenueTerminal: terminal data');
 
     this.directions = data.directions;
     this.journeyTime = data.journeyTime;

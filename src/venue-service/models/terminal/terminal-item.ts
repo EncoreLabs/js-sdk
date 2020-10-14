@@ -7,7 +7,7 @@ export class TerminalItem {
   private readonly routes: Route[];
 
   constructor (data: ApiTerminal) {
-    checkRequiredProperty(data, 'TerminalItem settings');
+    checkRequiredProperty(data, 'TerminalItem: terminal item data');
 
     this.name = data.name;
     this.routes = (data.routes || []).map(item => new Route(item));

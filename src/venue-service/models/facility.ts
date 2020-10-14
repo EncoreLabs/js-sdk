@@ -6,7 +6,7 @@ export class Facility {
   private readonly path: string;
 
   constructor (data: ApiFacility) {
-    checkRequiredProperty(data, 'Facility settings');
+    checkRequiredProperty(data, 'Facility: facility data');
 
     this.description = data.description;
     this.path = data.path;

@@ -6,7 +6,7 @@ export class Route {
   private readonly transportModeName: string;
 
   constructor (data: ApiTerminalRoute) {
-    checkRequiredProperty(data, 'Route settings');
+    checkRequiredProperty(data, 'Route: route data');
 
     this.description = data.description;
     this.transportModeName = data.transportMode?.name;
