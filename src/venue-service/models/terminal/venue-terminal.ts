@@ -9,7 +9,7 @@ export class VenueTerminal {
   constructor (data: ApiVenueTerminal) {
     this.directions = data.directions;
     this.journeyTime = data.journeyTime;
-    this.terminal = data.terminal && new TerminalItem(data.terminal);
+    this.terminal = data.terminal ? new TerminalItem(data.terminal) : null;
   }
 
   getDirections () {

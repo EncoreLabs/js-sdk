@@ -29,5 +29,9 @@ describe('Venue Terminal', () => {
       expect(getVenueTerminal().getTerminal())
         .toEqual(new TerminalItem(venueDetailsMock.venueTerminals[0].terminal));
     });
+
+    it('should return null if terminal is not provided', () => {
+      expect(new VenueTerminal({} as any).getTerminal()).toBe(null);
+    });
   });
 });

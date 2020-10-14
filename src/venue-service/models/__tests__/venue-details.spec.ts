@@ -16,12 +16,12 @@ describe('Venue details', () => {
   describe('constructor', () => {
     it('should return valid object if seatSettings and address provided', () => {
       expect(new VenueDetails({} as any)).toEqual({
-        address: undefined,
+        address: null,
         createdAt: undefined,
         description: undefined,
         facilities: [],
         internalId: undefined,
-        seatSettings: undefined,
+        seatSettings: null,
         title: undefined,
         transportAttributes: [],
         venueTerminals: [],
