@@ -9,7 +9,7 @@ export const venueDetailsMock: VenueDetailsApi = {
     secondLine: 'Parkside',
     thirdLine: 'thirdLine',
     city: 'London',
-    postCode: 'postCode',
+    postcode: 'postCode',
     region: {
       name: 'Westminster',
       isoCode: 'GB_WSM',
@@ -18,6 +18,8 @@ export const venueDetailsMock: VenueDetailsApi = {
       name: 'United Kingdom',
       isoCode: 'GB',
     },
+    latitude: '51.5102',
+    longitude: '-0.131986',
   },
   seatSettings: {
     seatsSupplied: true,

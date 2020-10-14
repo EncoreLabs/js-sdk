@@ -1,25 +1,37 @@
 import { checkRequiredProperty } from '../../utils';
-import { VenueAddress } from '../../content-service/models';
+import { AddressModel } from './address';
 import { SeatSettings } from './seat-settings';
 import { VenueDetailsApi } from '../typings';
+import { VenueTerminal } from './terminal';
+import { Facility } from './facility';
 
 export class VenueDetails {
   private readonly seatSettings: SeatSettings;
-  private readonly address: VenueAddress;
+  private readonly address: AddressModel;
   private readonly title: string;
   private readonly internalId: string;
   private readonly description: string;
   private readonly createdAt: string;
+  private readonly venueTerminals: VenueTerminal[];
+  private readonly facilities: Facility[];
+  private readonly transportAttributes: string[];
 
   constructor (venueDetails: VenueDetailsApi) {
     checkRequiredProperty(venueDetails, 'Venue details: api settings');
 
-    this.seatSettings = new SeatSettings(venueDetails.seatSettings);
-    this.address = new VenueAddress(venueDetails.address);
+    const { venueTerminals = [], facilities = [], transportAttributes = [] } = venueDetails;
+
+    this.seatSettings = venueDetails.seatSettings ? new SeatSettings(venueDetails.seatSettings) : null;
+    this.address = venueDetails.address ? new AddressModel(venueDetails.address) : null;
     this.title = venueDetails.title;
     this.internalId = venueDetails.internalId;
     this.description = venueDetails.description;
     this.createdAt = venueDetails.createdAt;
+    this.venueTerminals = venueTerminals.map(item => new VenueTerminal(item));
+    this.facilities = facilities.map(item => new Facility(item));
+    this.transportAttributes = transportAttributes
+      .map(item => item?.description)
+      .filter(item => item);
   }
 
   getSeatSettings () {
@@ -44,5 +56,17 @@ export class VenueDetails {
 
   getCreatedAt () {
     return this.createdAt;
+  }
+
+  getVenueTerminals () {
+    return this.venueTerminals;
+  }
+
+  getFacilities () {
+    return this.facilities;
+  }
+
+  getTransportAttributes () {
+    return this.transportAttributes;
   }
 }

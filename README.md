@@ -594,6 +594,9 @@ interface SourceInformation {
 | [performanceDate] | string |
 | [performanceTime] | string |
 
+performanceDate should have format YYYY-MM-DD, e.g. 2021-12-24
+performanceTime should have format HH:MM e.g. 12:30
+
 #### ➥ getSeatAttributesBySeatIds(venueId, seatIdCollection) ⇒ Array&lt;SeatAttributes&gt;
 *Get list of seat attributes by seat id*
 **Returns**: Array&lt;SeatAttributes&gt; - *seat attribute models*
@@ -602,6 +605,8 @@ interface SourceInformation {
 | --- | --- |
 | venueId | string |
 | seatIdCollection | array<string> |
+
+seatIdCollection should contain array with seat identifier e.g. [STALLS-A13, STALLS-R24]
 
 #### ➥ getDetails(venueId) ⇒ Array&lt;VenueDetails&gt;
 *Get venue details*
