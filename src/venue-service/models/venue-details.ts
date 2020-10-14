@@ -21,8 +21,8 @@ export class VenueDetails {
 
     const { venueTerminals = [], facilities = [], transportAttributes = [] } = venueDetails;
 
-    this.seatSettings = new SeatSettings(venueDetails.seatSettings);
-    this.address = new AddressModel(venueDetails.address);
+    this.seatSettings = venueDetails.seatSettings && new SeatSettings(venueDetails.seatSettings);
+    this.address = venueDetails.address && new AddressModel(venueDetails.address);
     this.title = venueDetails.title;
     this.internalId = venueDetails.internalId;
     this.description = venueDetails.description;
