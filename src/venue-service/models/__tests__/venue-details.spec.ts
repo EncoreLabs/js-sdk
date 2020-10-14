@@ -1,5 +1,5 @@
 import { VenueDetails } from '../venue-details';
-import { VenueAddress } from '../../../content-service/models';
+import { AddressModel } from '../address';
 import { SeatSettings } from '../seat-settings';
 import { VenueTerminal } from '../terminal';
 import { Facility } from '../facility';
@@ -16,7 +16,7 @@ describe('Venue details', () => {
   describe('constructor', () => {
     it('should return valid object if seatSettings and address provided', () => {
       expect(new VenueDetails({ seatSettings: {}, address: {} } as any)).toEqual({
-        address: new VenueAddress({} as any),
+        address: new AddressModel({} as any),
         createdAt: undefined,
         description: undefined,
         facilities: [],
@@ -45,7 +45,7 @@ describe('Venue details', () => {
 
   describe('getAddress method', () => {
     it('should return valid info', () => {
-      expect(getVenueDetails().getAddress()).toEqual(new VenueAddress(venueDetailsMock.address));
+      expect(getVenueDetails().getAddress()).toEqual(new AddressModel(venueDetailsMock.address));
     });
   });
 

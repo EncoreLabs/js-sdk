@@ -1,5 +1,5 @@
 import { checkRequiredProperty } from '../../utils';
-import { VenueAddress } from '../../content-service/models';
+import { AddressModel } from './address';
 import { SeatSettings } from './seat-settings';
 import { VenueDetailsApi } from '../typings';
 import { VenueTerminal } from './terminal';
@@ -7,7 +7,7 @@ import { Facility } from './facility';
 
 export class VenueDetails {
   private readonly seatSettings: SeatSettings;
-  private readonly address: VenueAddress;
+  private readonly address: AddressModel;
   private readonly title: string;
   private readonly internalId: string;
   private readonly description: string;
@@ -22,7 +22,7 @@ export class VenueDetails {
     const { venueTerminals = [], facilities = [], transportAttributes = [] } = venueDetails;
 
     this.seatSettings = new SeatSettings(venueDetails.seatSettings);
-    this.address = new VenueAddress(venueDetails.address);
+    this.address = new AddressModel(venueDetails.address);
     this.title = venueDetails.title;
     this.internalId = venueDetails.internalId;
     this.description = venueDetails.description;
