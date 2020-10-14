@@ -1,17 +1,19 @@
-import { checkRequiredProperty } from '../../utils/validator';
-import { Region, Country } from '.';
-import { ApiAddressData } from '../typings';
+import { checkRequiredProperty } from '../../../utils';
+import { VenueRegion, VenueCountry } from '.';
+import { VenueApiAddressData } from '../../typings';
 
-export class VenueAddress {
+export class AddressModel {
   private readonly firstLine: string;
   private readonly secondLine: string;
   private readonly thirdLine: string;
   private readonly city: string;
   private readonly postCode: string;
-  private readonly region: Region;
-  private readonly country: Country;
+  private readonly region: VenueRegion;
+  private readonly country: VenueCountry;
+  private readonly latitude: string;
+  private readonly longitude: string;
 
-  constructor (addressData: ApiAddressData) {
+  constructor (addressData: VenueApiAddressData) {
     checkRequiredProperty(addressData, 'Venue Address: address data');
 
     const {
@@ -21,16 +23,20 @@ export class VenueAddress {
       city,
       region,
       country,
-      postCode
-    } = addressData as ApiAddressData;
+      latitude,
+      longitude,
+      postcode,
+    } = addressData as VenueApiAddressData;
 
     this.firstLine = firstLine;
     this.secondLine = secondLine;
     this.thirdLine = thirdLine;
     this.city = city;
-    this.postCode = postCode;
-    this.region = region ? new Region(region) : null;
-    this.country = country ? new Country(country) : null;
+    this.postCode = postcode;
+    this.region = region ? new VenueRegion(region) : null;
+    this.country = country ? new VenueCountry(country) : null;
+    this.latitude = latitude;
+    this.longitude = longitude;
   }
 
   getFirstLine () {
@@ -59,5 +65,12 @@ export class VenueAddress {
 
   getCountry () {
     return this.country;
+  }
+
+  getCoordinates () {
+    return {
+      latitude: this.latitude,
+      longitude: this.longitude,
+    };
   }
 }

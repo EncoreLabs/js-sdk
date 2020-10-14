@@ -61,7 +61,7 @@ export const getBasketServiceApi = (
       requestUrl,
       {
         headers: additionalHeaders,
-      }
+      },
     );
 
     return data;
@@ -75,7 +75,7 @@ export const getBasketServiceApi = (
       requestUrl,
       {
         headers: additionalHeaders,
-      }
+      },
     );
 
     return data;

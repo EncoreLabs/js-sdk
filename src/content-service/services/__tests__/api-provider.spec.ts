@@ -2,7 +2,7 @@ import {AxiosInstance} from 'axios';
 import { getContentServiceApi } from '../api-provider';
 import { getHttpClient } from '../../../http-client-provider';
 import { getMockFunctionReturnValue } from '../../../utils';
-import {imageSizes} from "../../constants/image-sizes";
+import { imageSizes } from '../../constants/image-sizes';
 import { pathSettings } from '../../constants/path-settings';
 import { EntityType, ImageOrientation } from '../../typings';
 import { Environment } from '../../../shared/typings';
@@ -86,20 +86,22 @@ describe('Content service API', () => {
   });
 
   describe('getImages function', () => {
-    it('should get images', () => {
+    it('should get images with specific size', () => {
       const productEntity = EntityType.Products;
       const entityId = 'test';
       const images = contentServiceApi.getImages(productEntity, entityId, ImageOrientation.Landscape);
 
-      images.forEach((image, index) => {
-        const imageSizeSettings = (imageSizes[ImageOrientation.Landscape] || imageSizes[ImageOrientation.Default])[index];
-        const { imageSize, screenSize } = imageSizeSettings;
-        const imagesBaseUrl = pathSettings[Environment.Dev].images;
+      images
+        .filter(image => image.screenSize !== 'default')
+        .forEach((image, index) => {
+          const imageSizeSettings = (imageSizes[ImageOrientation.Landscape] || imageSizes[ImageOrientation.Default])[index];
+          const { imageSize, screenSize } = imageSizeSettings;
+          const imagesBaseUrl = pathSettings[Environment.Dev].images;
 
-        expect(image).toEqual({
-          screenSize,
-          url: `${imagesBaseUrl}/${productEntity}/${entityId}/${ImageOrientation.Landscape}?width=${imageSize}`,
-        });
+          expect(image).toEqual({
+            screenSize,
+            url: `${imagesBaseUrl}/${productEntity}/${entityId}/${ImageOrientation.Landscape}?width=${imageSize}`,
+          });
       });
     });
 
@@ -112,14 +114,16 @@ describe('Content service API', () => {
       };
       const images = getContentServiceApi(Environment.Dev, settings).getImages(productEntity, entityId);
 
-      images.forEach((image, index) => {
-        const imageSizeSettings = imageSizes[ImageOrientation.Default][index];
-        const { imageSize, screenSize } = imageSizeSettings;
+      images
+        .filter(image => image.screenSize !== 'default')
+        .forEach((image, index) => {
+          const imageSizeSettings = imageSizes[ImageOrientation.Default][index];
+          const { imageSize, screenSize } = imageSizeSettings;
 
-        expect(image).toEqual({
-          screenSize,
-          url: `${settings.contentImagesUrl}/${productEntity}/${entityId}/${ImageOrientation.Default}?width=${imageSize}`,
-        });
+          expect(image).toEqual({
+            screenSize,
+            url: `${settings.contentImagesUrl}/${productEntity}/${entityId}/${ImageOrientation.Default}?width=${imageSize}`,
+          });
       });
     });
 
@@ -140,6 +144,23 @@ describe('Content service API', () => {
           screenSize: 'custom',
           url: `${imagesBaseUrl}/${productEntity}/${entityId}/${ImageOrientation.Default}?width=${customSize}`,
         });
+      });
+    });
+
+    it('should get image with default size', () => {
+      const productEntity = EntityType.Products;
+      const entityId = 'test';
+      const imagesBaseUrl = pathSettings[Environment.Dev].images;
+      const images = getContentServiceApi(Environment.Dev).getImages(
+        productEntity,
+        entityId,
+        ImageOrientation.Default,
+      );
+      const image = images.find(item => item.screenSize === 'default');
+
+      expect(image).toEqual({
+        screenSize: 'default',
+        url: `${imagesBaseUrl}/${productEntity}/${entityId}/${ImageOrientation.Default}`,
       });
     });
   });

@@ -1,7 +1,7 @@
 import { getHttpClient } from '../../http-client-provider';
 import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
 import { pathSettings } from '../constants/path-settings';
-import { ApiSeatAttributes, ChartDetails, VenueDetails } from '../typings';
+import { ApiSeatAttributes, ChartDetails, VenueDetailsApi } from '../typings';
 import { Environment, SourceInformation } from '../../shared/typings';
 
 interface Params {
@@ -62,7 +62,7 @@ export const getVenueServiceApi = (
     return data;
   };
 
-  const getDetails = async (venueId: string): Promise<VenueDetails> => {
+  const getDetails = async (venueId: string): Promise<VenueDetailsApi> => {
     const requestUrl = `${venuesPath}/${venueId}`;
     const { data } = await httpClient.get(
       requestUrl,

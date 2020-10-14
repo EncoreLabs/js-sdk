@@ -1,11 +1,11 @@
 import { getVenueServiceRepository } from '../repository-provider';
 import { getVenueServiceApi } from '../api-provider';
 import { Environment } from '../../../shared/typings'
-import { seatAttributesMock } from '../../__mocks__';
+import { chartInfoMock, seatAttributesMock, venueDetailsMock } from '../../__mocks__';
 
 const getSeatsData = jest.fn().mockImplementation(() => Promise.resolve(seatAttributesMock));
-const getDetailsMock = jest.fn();
-const getChartDetailsMock = jest.fn();
+const getDetailsMock = jest.fn().mockImplementation(() => Promise.resolve(venueDetailsMock));
+const getChartDetailsMock = jest.fn().mockImplementation(() => Promise.resolve(chartInfoMock));
 
 jest.mock('../api-provider', () => ({
   getVenueServiceApi: jest.fn().mockImplementation(() => ({

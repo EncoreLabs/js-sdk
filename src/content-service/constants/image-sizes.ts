@@ -22,5 +22,9 @@ export const imageSizes = {
       screenSize: 'sm',
       imageSize: 64,
     },
+    {
+      screenSize: 'default',
+      imageSize: null,
+    },
   ],
 };
