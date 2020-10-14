@@ -2,7 +2,6 @@ import { VenueAddress } from '../venue-address';
 import { Country } from '../country';
 import { Region } from '../region';
 import { apiProductDataMock } from '../../../__mocks__/product-data';
-import { venueDetailsMock } from '../../../venue-service/__mocks__';
 
 describe('Venue Address model', () => {
   const getAddress = (customData: any = {}) => {
@@ -77,17 +76,6 @@ describe('Venue Address model', () => {
       const address = getAddress({ country: null });
 
       expect(address.getCountry()).toBeNull();
-    });
-  });
-
-  describe('getCoordinates method', () => {
-    it('should get coordinates', () => {
-      const address = new VenueAddress(venueDetailsMock.address);
-
-      expect(address.getCoordinates()).toEqual({
-        latitude: venueDetailsMock.address.latitude,
-        longitude: venueDetailsMock.address.longitude,
-      });
     });
   });
 });
