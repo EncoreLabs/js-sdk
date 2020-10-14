@@ -1,3 +1,4 @@
+import { checkRequiredProperty } from '../../../utils';
 import { Route } from './route';
 import { ApiTerminal } from '../../typings';
 
@@ -6,6 +7,8 @@ export class TerminalItem {
   private readonly routes: Route[];
 
   constructor (data: ApiTerminal) {
+    checkRequiredProperty(data, 'TerminalItem settings');
+
     this.name = data.name;
     this.routes = (data.routes || []).map(item => new Route(item));
   }

@@ -1,3 +1,4 @@
+import { checkRequiredProperty } from '../../../utils';
 import { TerminalItem } from './terminal-item';
 import { ApiVenueTerminal } from '../../typings';
 
@@ -7,6 +8,8 @@ export class VenueTerminal {
   private readonly terminal: TerminalItem;
 
   constructor (data: ApiVenueTerminal) {
+    checkRequiredProperty(data, 'VenueTerminal settings');
+
     this.directions = data.directions;
     this.journeyTime = data.journeyTime;
     this.terminal = data.terminal ? new TerminalItem(data.terminal) : null;
