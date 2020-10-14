@@ -15,25 +15,17 @@ describe('Venue details', () => {
 
   describe('constructor', () => {
     it('should return valid object if seatSettings and address provided', () => {
-      expect(new VenueDetails({ seatSettings: {}, address: {} } as any)).toEqual({
-        address: new AddressModel({} as any),
+      expect(new VenueDetails({} as any)).toEqual({
+        address: undefined,
         createdAt: undefined,
         description: undefined,
         facilities: [],
         internalId: undefined,
-        seatSettings: new SeatSettings({} as any),
+        seatSettings: undefined,
         title: undefined,
         transportAttributes: [],
         venueTerminals: [],
       });
-    });
-
-    it('should throw an error if seatSettings isn\'t provided', () => {
-      expect(() => new VenueDetails({ address: {} } as any)).toThrow(new Error('Seat settings is required'));
-    });
-
-    it('should throw an error if address isn\'t provided', () => {
-      expect(() => new VenueDetails({ seatSettings: {} } as any)).toThrow(new Error('Venue Address: address data is required'));
     });
   });
 
