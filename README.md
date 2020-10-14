@@ -603,6 +603,8 @@ interface SourceInformation {
 | venueId | string |
 | seatIdCollection | array<string> |
 
+seatIdCollection should contain array with seat identifier e.g. [STALLS-A13, STALLS-R24]
+
 #### ➥ getDetails(venueId) ⇒ Array&lt;VenueDetails&gt;
 *Get venue details*
 **Returns**: Object&lt;VenueDetails&gt; - *venue details models*
