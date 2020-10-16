@@ -1,9 +1,9 @@
-import {getHttpClient} from '../../http-client-provider';
-import {checkRequiredProperty, getAdditionalHeaders} from '../../utils';
-import {pathSettings} from '../constants/path-settings';
-import {BasketData, DeliveryData, RequestBasketData} from '../typings';
-import {ApiError, Environment, SourceInformation} from '../../shared/typings';
-import {getRequestHeadersByChannel} from '../../utils/headers';
+import { getHttpClient } from '../../http-client-provider';
+import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
+import { pathSettings } from '../constants/path-settings';
+import { BasketData, DeliveryData, RequestBasketData } from '../typings';
+import { ApiError, Environment, SourceInformation } from '../../shared/typings';
+import { getRequestHeadersByChannel } from '../../utils/headers';
 
 export const getBasketServiceApi = (
   environment: Environment,

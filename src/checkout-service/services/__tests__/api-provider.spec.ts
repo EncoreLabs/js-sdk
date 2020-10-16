@@ -28,7 +28,7 @@ describe('Checkout Api', () => {
     'x-ttg-client-version': 'Source version',
   };
   const headersWithAffiliate = {
-    ...{affiliateId: 'encoretickets'},
+    ...{ affiliateId: 'encoretickets' },
     ...additionalHeaders,
   }
 

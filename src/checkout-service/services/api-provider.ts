@@ -12,7 +12,7 @@ import {
   ApiConfirmBooking,
   ApiConfirmBookingAgentDetails,
 } from '../typings';
-import {getRequestHeadersByChannel} from '../../utils/headers';
+import { getRequestHeadersByChannel } from '../../utils/headers';
 
 export const getCheckoutServiceApi = (
   environment: Environment,
