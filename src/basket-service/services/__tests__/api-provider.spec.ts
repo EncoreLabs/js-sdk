@@ -25,10 +25,15 @@ describe('Basket API', () => {
     sourceVersion: 'Source version',
   };
   const basketApi = getBasketServiceApi(Environment.Dev, null, sourceInformation);
+  const testChannelId = 'test-qa-encoretickets';
   const additionalHeaders = {
     'x-ttg-client': 'Source name | View name using JS SDK',
     'x-ttg-client-version': 'Source version',
   };
+  const headersWithAffiliate = {
+    ...{affiliateId: 'encoretickets'},
+    ...additionalHeaders,
+  }
 
   beforeEach(() => {
     httpClient = getMockFunctionReturnValue(getHttpClient);
@@ -57,6 +62,18 @@ describe('Basket API', () => {
         },
       );
     });
+
+    it('should get basket with affiliateId header', async () => {
+      const reference = 'test';
+      await basketApi.getBasket(reference, testChannelId);
+
+      expect(httpClient.get).toBeCalledWith(
+        `/baskets/${reference}`,
+        {
+          headers: headersWithAffiliate,
+        },
+      );
+    });
   });
 
   describe('getDeliveries function', () => {
@@ -68,6 +85,18 @@ describe('Basket API', () => {
         `/baskets/${reference}/deliveryOptions`,
         {
           headers: additionalHeaders,
+        },
+      );
+    });
+
+    it('should get deliveriesMock with affiliateId header', async () => {
+      const reference = 'test';
+      await basketApi.getDeliveries(reference, testChannelId);
+
+      expect(httpClient.get).toBeCalledWith(
+        `/baskets/${reference}/deliveryOptions`,
+        {
+          headers: headersWithAffiliate,
         },
       );
     });
@@ -84,6 +113,20 @@ describe('Basket API', () => {
         { delivery },
         {
           headers: additionalHeaders,
+        },
+      );
+    });
+
+    it('should apply delivery with affiliateId header', async () => {
+      const reference = 'test';
+      const delivery = deliveriesMock[0];
+      await basketApi.applyDelivery(reference, delivery, testChannelId);
+
+      expect(httpClient.patch).toBeCalledWith(
+        `/baskets/${reference}/applyDelivery`,
+        { delivery },
+        {
+          headers: headersWithAffiliate,
         },
       );
     });
@@ -113,7 +156,7 @@ describe('Basket API', () => {
           shopperCurrency,
         },
         {
-          headers: additionalHeaders,
+          headers: headersWithAffiliate,
         },
       );
     });
@@ -137,6 +180,19 @@ describe('Basket API', () => {
         `/baskets/${reference}/reservations/${reservationsId}`,
         {
           headers: additionalHeaders,
+        },
+      );
+    });
+
+    it('should delete item with affiliateId header', async () => {
+      const reference = 'reference';
+      const reservationsId = 1;
+      await basketApi.deleteItem(reference, reservationsId, testChannelId);
+
+      expect(httpClient.delete).toBeCalledWith(
+        `/baskets/${reference}/reservations/${reservationsId}`,
+        {
+          headers: headersWithAffiliate,
         },
       );
     });

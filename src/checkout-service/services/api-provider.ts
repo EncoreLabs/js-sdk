@@ -12,6 +12,7 @@ import {
   ApiConfirmBooking,
   ApiConfirmBookingAgentDetails,
 } from '../typings';
+import {getRequestHeadersByChannel} from '../../utils/headers';
 
 export const getCheckoutServiceApi = (
   environment: Environment,
@@ -26,12 +27,15 @@ export const getCheckoutServiceApi = (
   const bookingConfirmationPath = (reference: string) => `/bookings/${reference}/confirm`;
   const additionalHeaders = getAdditionalHeaders(sourceInformation);
 
-  const createOrder = async (bookingData: ApiBookingData): Promise<ApiPaymentDetails> => {
+  const createOrder = async (bookingData: ApiBookingData, channelId?: string): Promise<ApiPaymentDetails> => {
     const { data } = await httpClient.post(
       checkoutPath,
       bookingData,
       {
-        headers: additionalHeaders,
+        headers: {
+          ...getRequestHeadersByChannel(channelId),
+          ...additionalHeaders,
+        },
       },
     );
 
@@ -45,6 +49,7 @@ export const getCheckoutServiceApi = (
     agentDetails?: ApiConfirmBookingAgentDetails
   ): Promise<ApiConfirmBooking> => {
     const headers = {
+      ...getRequestHeadersByChannel(channelId),
       ...getRequestHeadersForConfirmBooking(agentDetails),
       ...additionalHeaders,
     };
