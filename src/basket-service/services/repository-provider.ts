@@ -16,10 +16,10 @@ export const getBasketServiceRepository = (
 
   basketDetailsRepositoryProvider.setEnvironment(environment, settings, sourceInformation);
 
-  const getBasket = async (reference: string) => {
+  const getBasket = async (reference: string, channelId?: string) => {
     checkRequiredProperty(reference, 'getBasket: basket reference');
 
-    const basketData = await basketApi.getBasket(reference);
+    const basketData = await basketApi.getBasket(reference, channelId);
 
     return new Basket(basketData);
   };
@@ -32,11 +32,11 @@ export const getBasketServiceRepository = (
     return new Basket(responseBasketData as BasketData);
   };
 
-  const getDeliveries = async (basketReference: string, basketItems: BasketItemsCollection) => {
+  const getDeliveries = async (basketReference: string, basketItems: BasketItemsCollection, channelId?: string) => {
     checkRequiredProperty(basketReference, 'getDeliveries: basket reference');
     checkRequiredProperty(basketItems, 'getDeliveries: basket items collection');
 
-    const deliveries = await basketApi.getDeliveries(basketReference);
+    const deliveries = await basketApi.getDeliveries(basketReference, channelId);
 
     return deliveries.map(deliveryData => new Delivery(deliveryData, basketItems));
   };
@@ -81,11 +81,11 @@ export const getBasketServiceRepository = (
     return new Basket(responseBasketData as BasketData);
   };
 
-  const removeItem = async (basketReference: string, itemId: number) => {
+  const removeItem = async (basketReference: string, itemId: number, channelId?: string) => {
     checkRequiredProperty(basketReference, 'removeItem: basket reference');
     checkRequiredProperty(itemId, 'removeItem: item id');
 
-    const responseBasketData = await basketApi.deleteItem(basketReference, itemId);
+    const responseBasketData = await basketApi.deleteItem(basketReference, itemId, channelId);
 
     return new Basket(responseBasketData);
   };

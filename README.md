@@ -56,23 +56,24 @@ interface SourceInformation {
 }
 ```
 
-* getBasket(reference) ⇒ Basket
+* getBasket(reference, [channelId]) ⇒ Basket
 * createBasket(basketData) ⇒ Basket
-* getDeliveries(basketReference, basketItems) ⇒ Array&lt;Delivery&gt;
+* getDeliveries(basketReference, basketItems, [channelId]) ⇒ Array&lt;Delivery&gt;
 * setSelectedDelivery(basket, selectedDelivery) ⇒ Basket
 * addItems(basket, basketItems) ⇒ Basket
 * replaceItems(basket, basketItems) ⇒ Basket
-* removeItem(basketReference, itemId) ⇒ Basket
+* removeItem(basketReference, itemId, [channelId]) ⇒ Basket
 * addPromoCode(basket, promoCode) ⇒ Basket
 * removePromoCode(basket) ⇒ Basket
 
-#### ➥ getBasket(reference) ⇒ Basket
+#### ➥ getBasket(reference, [channelId]) ⇒ Basket
 *Get basket by reference*
 **Returns**: Basket - *basket model*  
 
 | Param | Type |
 | --- | --- |
 | reference | string | 
+| [channelId] | string | 
 
 #### ➥ createBasket(basketData) ⇒ Basket
 *Create new basket*
@@ -138,7 +139,7 @@ enum ProductType {
 }
 ```
 
-#### ➥ getDeliveries(basketReference, basketItems) ⇒ Array&lt;Delivery&gt;
+#### ➥ getDeliveries(basketReference, basketItems, [channelId]) ⇒ Array&lt;Delivery&gt;
 *Get delivery options available for basket*
 **Returns**: Array&lt;Delivery&gt; - *delivery models*  
 
@@ -146,6 +147,7 @@ enum ProductType {
 | --- | --- |
 | basketReference | string | 
 | basketItems | BasketItemsCollection | 
+| [channelId] | string | 
 
 #### ➥ setSelectedDelivery(basket, selectedDelivery) ⇒ Basket
 *Set delivery option*
@@ -280,7 +282,7 @@ interface Amount {
 }
 ```
 
-#### ➥ removeItem(basketReference, itemId) ⇒ Basket
+#### ➥ removeItem(basketReference, itemId, [channelId]) ⇒ Basket
 *Remove item from the basket*
 **Returns**: Basket - *basket*  
 
@@ -288,6 +290,7 @@ interface Amount {
 | --- | --- |
 | basketReference | string | 
 | itemId | number | 
+| [channelId] | string | 
 
 #### ➥ addPromoCode(basket, promoCode) ⇒ Basket
 *Apply promo code*
@@ -327,16 +330,17 @@ interface SourceInformation {
 }
 ```
 
-* createOrder(bookingData) ⇒ Order;
+* createOrder(bookingData, [channelId]) ⇒ Order;
 * confirmBooking(reference, channelId, paymentId, [agentDetails]) ⇒ ApiConfirmBooking;
 
-#### ➥ createOrder(bookingData) ⇒ Order;
+#### ➥ createOrder(bookingData, [channelId]) ⇒ Order;
 *create new Order*
 **Returns**: Order - *new order model* 
 
 | Param | Type |
 | --- | --- |
 | bookingData | ApiBookingData |
+| [channelId] | string | 
 
 ```typescript
 interface ApiBookingData {
