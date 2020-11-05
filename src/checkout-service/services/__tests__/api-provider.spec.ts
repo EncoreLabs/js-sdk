@@ -27,6 +27,10 @@ describe('Checkout Api', () => {
     'x-ttg-client': 'Source name | View name using JS SDK',
     'x-ttg-client-version': 'Source version',
   };
+  const headersWithAffiliate = {
+    ...{ affiliateId: 'encoretickets' },
+    ...additionalHeaders,
+  }
 
   beforeEach(() => {
     httpClient = getMockFunctionReturnValue(getHttpClient);
@@ -55,6 +59,18 @@ describe('Checkout Api', () => {
     );
   });
 
+  it('should call booking request with proper props and affiliate', async () => {
+    await checkoutApi.createOrder(bookingDataMock, 'test-qa-encoretickets');
+
+    expect(httpClient.post).toBeCalledWith(
+      '/checkout',
+      bookingDataMock,
+      {
+        headers: headersWithAffiliate,
+      },
+    );
+  });
+
   it('should call confirm booking request with proper props', async () => {
     const reference = bookingDataMock.reference;
     const channelId = bookingDataMock.channelId;
@@ -67,9 +83,7 @@ describe('Checkout Api', () => {
       requestUrl,
       { channelId, paymentId },
       {
-        headers: {
-          ...additionalHeaders,
-        },
+        headers: headersWithAffiliate,
       },
     );
   });

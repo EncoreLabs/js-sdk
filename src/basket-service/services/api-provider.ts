@@ -2,7 +2,8 @@ import { getHttpClient } from '../../http-client-provider';
 import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
 import { pathSettings } from '../constants/path-settings';
 import { BasketData, DeliveryData, RequestBasketData } from '../typings';
-import { Environment, ApiError, SourceInformation } from '../../shared/typings';
+import { ApiError, Environment, SourceInformation } from '../../shared/typings';
+import { getRequestHeadersByChannel } from '../../utils/headers';
 
 export const getBasketServiceApi = (
   environment: Environment,
@@ -41,7 +42,10 @@ export const getBasketServiceApi = (
       shopperCurrency,
       hasFlexiTickets,
     }, {
-      headers: additionalHeaders,
+      headers: {
+        ...getRequestHeadersByChannel(channelId),
+        ...additionalHeaders
+      },
     })
     .then((result) => {
       if (!result.data) {
@@ -52,7 +56,7 @@ export const getBasketServiceApi = (
     });
   };
 
-  const deleteItem = async (reference: string, reservationsId: number): Promise<BasketData> => {
+  const deleteItem = async (reference: string, reservationsId: number, channelId?: string): Promise<BasketData> => {
     checkRequiredProperty(reference, 'deleteItem: basket reference');
     checkRequiredProperty(reservationsId, 'deleteItem: reservation id');
 
@@ -60,42 +64,55 @@ export const getBasketServiceApi = (
     const { data } = await httpClient.delete(
       requestUrl,
       {
-        headers: additionalHeaders,
-      },
+        headers: {
+          ...getRequestHeadersByChannel(channelId),
+          ...additionalHeaders
+        },
+      }
     );
 
     return data;
   };
 
-  const getBasket = async (reference: string): Promise<BasketData> => {
+  const getBasket = async (reference: string, channelId?: string): Promise<BasketData> => {
     checkRequiredProperty(reference, 'getBasket: basket reference');
 
     const requestUrl = `${basketsPath}/${reference}`;
     const { data } = await httpClient.get(
       requestUrl,
       {
-        headers: additionalHeaders,
-      },
+        headers: {
+          ...getRequestHeadersByChannel(channelId),
+          ...additionalHeaders
+        },
+      }
     );
 
     return data;
   };
 
-  const getDeliveries = async (reference: string): Promise<DeliveryData[]> => {
+  const getDeliveries = async (reference: string, channelId?: string): Promise<DeliveryData[]> => {
     checkRequiredProperty(reference, 'getDeliveries: basket reference');
 
     const requestUrl = `${basketsPath}/${reference}${deliveriesPath}`;
     const { data } = await httpClient.get(
       requestUrl,
       {
-        headers: additionalHeaders,
+        headers: {
+          ...getRequestHeadersByChannel(channelId),
+          ...additionalHeaders
+        },
       },
     );
 
     return data.results;
   };
 
-  const applyDelivery = async (reference: string, delivery: DeliveryData): Promise<BasketData> => {
+  const applyDelivery = async (
+    reference: string,
+    delivery: DeliveryData,
+    channelId?: string
+  ): Promise<BasketData> => {
     checkRequiredProperty(reference, 'applyDelivery: basket reference');
     checkRequiredProperty(delivery, 'applyDelivery: delivery data');
 
@@ -104,7 +121,10 @@ export const getBasketServiceApi = (
       requestUrl,
       { delivery },
       {
-        headers: additionalHeaders,
+        headers: {
+          ...getRequestHeadersByChannel(channelId),
+          ...additionalHeaders
+        },
       },
     );
 

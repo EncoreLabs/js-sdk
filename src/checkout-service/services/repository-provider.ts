@@ -13,10 +13,10 @@ export const getCheckoutServiceRepository = (
 
   const checkoutServiceApi = getCheckoutServiceApi(environment, checkoutApiUrl, sourceInformation);
 
-  const createOrder = async (bookingData: ApiBookingData) => {
+  const createOrder = async (bookingData: ApiBookingData, channelId?: string) => {
     checkRequiredProperty(bookingData, 'createOrder: booking data');
 
-    const responseBookingData =  await checkoutServiceApi.createOrder(bookingData);
+    const responseBookingData =  await checkoutServiceApi.createOrder(bookingData, channelId);
 
     return new PaymentDetails(responseBookingData as ApiBookingData);
   };

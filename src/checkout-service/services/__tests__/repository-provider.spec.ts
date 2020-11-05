@@ -38,7 +38,7 @@ describe('Checkout repository', () => {
     it('should return order details', async () => {
       await createOrder(bookingDataMock);
 
-      expect(createOrderData).toBeCalledWith(bookingDataMock);
+      expect(createOrderData).toBeCalledWith(bookingDataMock, undefined);
       expect(PaymentDetails).toBeCalledWith(paymentDataMock);
     });
 

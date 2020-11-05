@@ -78,7 +78,16 @@ describe('Basket repository', () => {
     const reference = 'test';
     await getBasket(reference);
 
-    expect(getBasketData).toBeCalledWith(reference);
+    expect(getBasketData).toBeCalledWith(reference, undefined);
+    expect(Basket).toBeCalledWith(basketDataMock);
+  });
+
+  it('should return basket with channel id', async () => {
+    const reference = 'test';
+    const channelId = 'channel';
+    await getBasket(reference, channelId);
+
+    expect(getBasketData).toBeCalledWith(reference, channelId);
     expect(Basket).toBeCalledWith(basketDataMock);
   });
 
@@ -93,7 +102,25 @@ describe('Basket repository', () => {
 
     const [ deliveryData, itemsToDeliver ] = getMockFunctionArguments(Delivery);
 
-    expect(getDeliveriesData).toBeCalledWith(reference);
+    expect(getDeliveriesData).toBeCalledWith(reference, undefined);
+    expect(Delivery).toBeCalledTimes(2);
+    expect(deliveryData).toEqual(deliveriesMock[0]);
+    expect(itemsToDeliver).toEqual(basketCollection);
+  });
+
+  it('should return deliveriesMock', async () => {
+    mockBasket();
+
+    const basket = new Basket(basketDataMock);
+    const reference = basket.getReference();
+    const channelId = 'channel';
+    const basketCollection = basket.getItemsCollection();
+
+    await getDeliveries(reference, basketCollection, channelId);
+
+    const [ deliveryData, itemsToDeliver ] = getMockFunctionArguments(Delivery);
+
+    expect(getDeliveriesData).toBeCalledWith(reference, channelId);
     expect(Delivery).toBeCalledTimes(2);
     expect(deliveryData).toEqual(deliveriesMock[0]);
     expect(itemsToDeliver).toEqual(basketCollection);
@@ -107,15 +134,15 @@ describe('Basket repository', () => {
     expect(Basket).toBeCalledWith(basketDataMock);
   });
 
-  it('should add item', async () => {
+  it('should add items', async () => {
     mockBasket();
 
     const basket = new Basket(basketDataMock);
-    await addItems(basket, [basketItemDataMock]);
+    await addItems(basket, [basketItemDataMock, basketItemDataMock]);
     const callArguments = getMockFunctionArguments(upsertBasketData);
 
     expect(callArguments.length).toBe(1);
-    expect((callArguments[0] as BasketData).reservations.length).toBe(3);
+    expect((callArguments[0] as BasketData).reservations.length).toBe(4);
   });
 
   it('should remove item', async () => {
@@ -128,9 +155,27 @@ describe('Basket repository', () => {
 
     const callArguments = getMockFunctionArguments(deleteItem);
 
-    expect(callArguments.length).toBe(2);
+    expect(callArguments.length).toBe(3);
     expect(callArguments[0]).toBe(basketDataMock.reference);
     expect(callArguments[1]).toBe(itemId);
+    expect(callArguments[2]).toBe(undefined);
+  });
+
+  it('should remove item with channel id', async () => {
+    mockBasket();
+
+    const basket = new Basket(basketDataMock);
+    const channelId = 'channel';
+    const itemId = 2;
+
+    await removeItem(basket.getReference(), itemId, channelId);
+
+    const callArguments = getMockFunctionArguments(deleteItem);
+
+    expect(callArguments.length).toBe(3);
+    expect(callArguments[0]).toBe(basketDataMock.reference);
+    expect(callArguments[1]).toBe(itemId);
+    expect(callArguments[2]).toBe(channelId);
   });
 
   it('should replace item', async () => {
