@@ -103,7 +103,11 @@ export class Basket {
 
   async getDeliveries () {
     if (!this.deliveries) {
-      this.deliveries = this.repository.getDeliveries(this.getReference(), this.getItemsCollection());
+      this.deliveries = this.repository.getDeliveries(
+        this.getReference(),
+        this.getItemsCollection(),
+        this.basketData.channelId,
+      );
     }
 
    return this.deliveries;
