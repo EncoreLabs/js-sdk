@@ -151,7 +151,11 @@ describe('Basket', () => {
       await getBasket().getDeliveries();
 
       expect(getDeliveriesData).toHaveBeenCalledTimes(1);
-      expect(getDeliveriesData).toHaveBeenCalledWith(basketDataMock.reference, new BasketItemsCollection(basketDataMock.reservations));
+      expect(getDeliveriesData).toHaveBeenCalledWith(
+        basketDataMock.reference,
+        new BasketItemsCollection(basketDataMock.reservations),
+        basketDataMock.channelId,
+      );
     });
 
     it('should not request deliveries on second call', async () => {
