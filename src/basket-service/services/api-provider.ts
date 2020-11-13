@@ -131,11 +131,29 @@ export const getBasketServiceApi = (
     return data;
   };
 
+  const clearBasket = async (reference: string, channelId?: string): Promise<BasketData> => {
+    checkRequiredProperty(reference, 'clearBasket: basket reference');
+
+    const requestUrl = `${basketsPath}/${reference}/clear`;
+    const { data } = await httpClient.patch(
+      requestUrl,
+      {
+        headers: {
+          ...getRequestHeadersByChannel(channelId),
+          ...additionalHeaders
+        },
+      }
+    );
+
+    return data;
+  };
+
   return {
     upsertBasket,
     getBasket,
     getDeliveries,
     applyDelivery,
     deleteItem,
+    clearBasket,
   };
 };

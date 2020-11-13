@@ -197,4 +197,30 @@ describe('Basket API', () => {
       );
     });
   });
+
+  describe('clearBasket function', () => {
+    it('should clear basket', async () => {
+      const reference = 'reference';
+      await basketApi.clearBasket(reference);
+
+      expect(httpClient.delete).toBeCalledWith(
+        `/baskets/${reference}/clear`,
+        {
+          headers: additionalHeaders,
+        },
+      );
+    });
+
+    it('should clear basket with affiliateId header', async () => {
+      const reference = 'reference';
+      await basketApi.clearBasket(reference, testChannelId);
+
+      expect(httpClient.delete).toBeCalledWith(
+        `/baskets/${reference}/clear`,
+        {
+          headers: headersWithAffiliate,
+        },
+      );
+    });
+  });
 });

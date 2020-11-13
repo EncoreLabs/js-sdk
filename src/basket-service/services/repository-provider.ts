@@ -73,12 +73,18 @@ export const getBasketServiceRepository = (
     checkRequiredProperty(basket, 'replaceItems: basket');
     checkRequiredProperty(basketItems, 'replaceItems: basket items collection');
 
+    await clearBasket(basket.getReference());
+
     let requestBasketData = basket.getBasketData();
 
-    requestBasketData = { ...requestBasketData, ...basket.replaceBasketData(basketItems) };
-    const responseBasketData = await basketApi.upsertBasket(requestBasketData);
+    requestBasketData = {
+      ...requestBasketData,
+      ...basket.replaceBasketData(basketItems),
+    };
 
-    return new Basket(responseBasketData as BasketData);
+    delete requestBasketData.reference;
+
+    return await createBasket(requestBasketData);
   };
 
   const removeItem = async (basketReference: string, itemId: number, channelId?: string) => {
@@ -138,6 +144,18 @@ export const getBasketServiceRepository = (
     return new Basket(responseBasketData as BasketData);
   };
 
+  const clearBasket = async (basketReference: string, channelId?: string) => {
+    checkRequiredProperty(basketReference, 'clearBasket: basket reference');
+
+    const responseBasketData = await basketApi.clearBasket(basketReference, channelId);
+
+    if (!responseBasketData) {
+      return null;
+    }
+
+    return new Basket(responseBasketData);
+  };
+
   return {
     getBasket,
     createBasket,
@@ -149,6 +167,7 @@ export const getBasketServiceRepository = (
     removePromoCode,
     replaceItems,
     upsertBasket,
+    clearBasket,
 
     _unstable_: {
       setUpsellProducts,
