@@ -65,6 +65,7 @@ interface SourceInformation {
 * removeItem(basketReference, itemId, [channelId]) ⇒ Basket
 * addPromoCode(basket, promoCode) ⇒ Basket
 * removePromoCode(basket) ⇒ Basket
+* clearBasket(basketReference, [channelId]) ⇒ Basket
 
 #### ➥ getBasket(reference, [channelId]) ⇒ Basket
 *Get basket by reference*
@@ -308,6 +309,15 @@ interface Amount {
 | Param | Type |
 | --- | --- |
 | basket | Basket |
+
+#### ➥ clearBasket(basketReference, [channelId]) ⇒ Basket
+*Remove all items from basket*
+**Returns**: Basket - *basket*  
+
+| Param | Type |
+| --- | --- |
+| basketReference | string | 
+| [channelId] | string | 
 
 ------------------------------------------------------------------------
 

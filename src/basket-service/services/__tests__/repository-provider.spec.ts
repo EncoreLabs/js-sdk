@@ -14,6 +14,7 @@ const deleteItem = jest.fn().mockImplementation(() => {
 
   return basketDataMock;
 });
+const clearBasketData = jest.fn().mockImplementation(() => null);
 
 const mockBasket = (forUpsells?: boolean) => {
   (Basket as any).mockImplementation(() => ({
@@ -32,6 +33,7 @@ jest.mock('../api-provider', () => ({
     getDeliveries: getDeliveriesData,
     upsertBasket: upsertBasketData,
     deleteItem,
+    clearBasket: clearBasketData,
   })),
 }));
 jest.mock('../../models/delivery');
@@ -55,6 +57,7 @@ describe('Basket repository', () => {
     addPromoCode,
     removePromoCode,
     upsertBasket,
+    clearBasket,
     _unstable_,
   } = getBasketServiceRepository(environment);
   const { setUpsellProducts } = _unstable_;
@@ -263,5 +266,32 @@ describe('Basket repository', () => {
       expect(callArguments.length).toBe(1);
       expect((callArguments[0] as BasketData).reservations.length).toBe(2);
     })
+  });
+
+  describe('clearBasket function', () => {
+    it('should clear basket', async () => {
+      mockBasket();
+
+      const basket = new Basket(basketDataMock);
+
+      await clearBasket(basket.getReference());
+
+      const callArguments = getMockFunctionArguments(clearBasketData);
+
+      expect(callArguments.length).toBe(2);
+      expect(callArguments[0]).toBe(basketDataMock.reference);
+      expect(callArguments[1]).toBe(undefined);
+    });
+
+    it('should return basket model if basket still exist after delete', async () => {
+      mockBasket();
+      clearBasketData.mockImplementationOnce(() => basketDataMock);
+
+      const basket = new Basket(basketDataMock);
+
+      await clearBasket(basket.getReference());
+
+      expect(Basket).toHaveBeenCalledWith(basketDataMock);
+    });
   });
 });
