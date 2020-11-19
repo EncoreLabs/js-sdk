@@ -20,6 +20,7 @@ const mockBasket = (forUpsells?: boolean) => {
   (Basket as any).mockImplementation(() => ({
     getBasketData: () => basketDataMock,
     getReference: () => basketDataMock.reference,
+    getChannelId: () => basketDataMock.channelId,
     getItemsCollection: () => new BasketItemsCollection(basketDataMock.reservations),
     prepareBasketData: forUpsells ? jest.fn() : () => basketDataMock,
     replaceBasketData: () => basketDataMock,
