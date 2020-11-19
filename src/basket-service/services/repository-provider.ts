@@ -73,7 +73,7 @@ export const getBasketServiceRepository = (
     checkRequiredProperty(basket, 'replaceItems: basket');
     checkRequiredProperty(basketItems, 'replaceItems: basket items collection');
 
-    await clearBasket(basket.getReference());
+    await clearBasket(basket.getReference(), basket.getChannelId());
 
     let requestBasketData = basket.getBasketData();
 
