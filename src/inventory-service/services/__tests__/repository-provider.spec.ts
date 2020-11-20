@@ -107,9 +107,9 @@ describe('Inventory repository', () => {
 
   describe('getMaxQuantity function', () => {
     it('should return max quantity', async () => {
-      await getMaxQuantity(productId);
+      await getMaxQuantity(productId, affiliateId);
 
-      expect(getMaxQuantityMock).toBeCalledWith(productId);
+      expect(getMaxQuantityMock).toBeCalledWith(productId, affiliateId);
     });
   });
 

@@ -81,12 +81,15 @@ export const getInventoryServiceApi = (
     return data;
   };
 
-  const getMaxQuantity = async (productId: string): Promise<ApiMaxNumberOfTickets> => {
+  const getMaxQuantity = async (productId: string, affiliateId?: string): Promise<ApiMaxNumberOfTickets> => {
     const requestUrl = `${availabilityPath}/${productId}/max`;
     const { data } = await httpClient.get(
       requestUrl,
       {
-        headers: additionalHeaders,
+        headers: {
+          affiliateId,
+          ...additionalHeaders,
+        },
       },
     );
 

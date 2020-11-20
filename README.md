@@ -508,7 +508,7 @@ interface SourceInformation {
 ```
 
 * getPerformanceAvailability(affiliateId, productId, quantity, date, time) ⇒ Availability
-* getMaxQuantity(productId) ⇒ number
+* getMaxQuantity(productId, [affiliateId]) ⇒ number
 * getSummaryAvailability(affiliateId, productId, quantity, fromDate, toDate) ⇒ SummaryAvailability
 
 #### ➥ getPerformanceAvailability(affiliateId, productId, quantity, date, time) ⇒ Availability
@@ -523,13 +523,14 @@ interface SourceInformation {
 | date | string (YYYYMMDD) |
 | time | string (HHmm) |
 
-#### ➥ getMaxQuantity(productId) ⇒ number
+#### ➥ getMaxQuantity(productId, affiliateId) ⇒ number
 *Get max quantity*
 **Returns**: number - *max quantity* 
 
 | Param | Type |
 | --- | --- |
 | productId | string | 
+| [affiliateId] | string | 
 
 #### ➥ getSummaryAvailability(affiliateId, productId, quantity, fromDate, toDate) ⇒ SummaryAvailability
 *Get summary availability*

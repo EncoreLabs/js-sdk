@@ -35,10 +35,10 @@ export const getInventoryServiceRepository = (
     return new Availability(availability);
   };
 
-  const getMaxQuantity = async (productId: string) => {
+  const getMaxQuantity = async (productId: string, affiliateId?: string) => {
     checkRequiredProperty(productId, 'getMaxQuantity: product id');
 
-    const response = await inventoryServiceApi.getMaxQuantity(productId);
+    const response = await inventoryServiceApi.getMaxQuantity(productId, affiliateId);
 
     return response && response.MaxNumberOfTickets;
   };
