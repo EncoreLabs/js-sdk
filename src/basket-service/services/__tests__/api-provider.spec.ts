@@ -203,8 +203,9 @@ describe('Basket API', () => {
       const reference = 'reference';
       await basketApi.clearBasket(reference);
 
-      expect(httpClient.delete).toBeCalledWith(
+      expect(httpClient.patch).toBeCalledWith(
         `/baskets/${reference}/clear`,
+        {},
         {
           headers: additionalHeaders,
         },
@@ -215,8 +216,9 @@ describe('Basket API', () => {
       const reference = 'reference';
       await basketApi.clearBasket(reference, testChannelId);
 
-      expect(httpClient.delete).toBeCalledWith(
+      expect(httpClient.patch).toBeCalledWith(
         `/baskets/${reference}/clear`,
+        {},
         {
           headers: headersWithAffiliate,
         },
