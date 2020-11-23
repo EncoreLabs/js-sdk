@@ -137,6 +137,7 @@ export const getBasketServiceApi = (
     const requestUrl = `${basketsPath}/${reference}/clear`;
     const { data } = await httpClient.patch(
       requestUrl,
+      {},
       {
         headers: {
           ...getRequestHeadersByChannel(channelId),
