@@ -42,6 +42,7 @@ export enum PaymentType {
   Account = 'account',
   Alipay = 'alipay',
   Wechatpay = 'wechatpay',
+  NoPayment = 'no_payment',
 }
 
 export interface ApiPaymentDetails {
