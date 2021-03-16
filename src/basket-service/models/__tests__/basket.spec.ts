@@ -190,6 +190,12 @@ describe('Basket', () => {
     });
   });
 
+  describe('isTotalPriceZero function', () => {
+    it('should get if total price is zero', () => {
+      expect(getBasket().isTotalPriceZero()).toBe(false);
+    });
+  });
+
   describe('getTotalDiscount function', () => {
     it('should get total discount', () => {
       expect(getBasket().getTotalDiscount()).toBe(600);

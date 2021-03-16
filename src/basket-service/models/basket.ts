@@ -125,6 +125,10 @@ export class Basket {
     return this.reduceBasketItemsAmount((totalPrice, item) => totalPrice + item.getDiscount());
   }
 
+  isTotalPriceZero () {
+    return this.getTotalDiscount() === 0;
+  }
+
   getTotalPromotionDiscount () {
     return this.reduceBasketItemsAmount((totalPrice, item) => totalPrice + item.getPromotionDiscount());
   }
