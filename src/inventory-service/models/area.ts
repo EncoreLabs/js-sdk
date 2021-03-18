@@ -8,6 +8,7 @@ export class Area {
   private readonly date: Moment;
   private readonly partTwoDate: Moment | null;
   private readonly rawDate: string;
+  private readonly rawPartTwoDate: string | null;
   private groupings: Grouping[];
   private readonly mode: string;
   private readonly name: string;
@@ -20,6 +21,7 @@ export class Area {
     this.date = moment(areaData.date);
     this.partTwoDate = areaData.partTwoDate ? moment(areaData.partTwoDate) : null;
     this.rawDate = areaData.date;
+    this.rawPartTwoDate = areaData.partTwoDate || null;
     this.groupings = areaData.groupings.map(grouping => new Grouping(grouping));
     this.mode = areaData.mode;
     this.name = areaData.name;
@@ -40,6 +42,10 @@ export class Area {
 
   getRawDate () {
     return this.rawDate;
+  }
+
+  getRawPartTwoDate () {
+    return this.rawPartTwoDate;
   }
 
   getGroupings () {

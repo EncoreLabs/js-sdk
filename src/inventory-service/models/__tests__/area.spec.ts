@@ -44,6 +44,16 @@ describe('Area', () => {
     });
   });
 
+  describe('getRawPartTwoDate function', () => {
+    it('should get raw date in string format for part two', () => {
+      expect(getArea().getRawPartTwoDate()).toBe(areaMock.partTwoDate);
+    });
+
+    it('should return null if there is no date for part two', () => {
+      expect(getAreaWithoutPartTwo().getRawPartTwoDate()).toBeNull();
+    });
+  });
+
   describe('getGroupings function', () => {
     it('should set area groupings', () => {
       const newGrouping = getGrouping();

@@ -7,6 +7,7 @@ export class SummaryAvailabilityItem {
   private readonly datetime: Moment;
   private readonly partTwoDatetime: Moment | null;
   private readonly rawDateTime: string;
+  private readonly rawPartTwoDateTime: string | null;
   private readonly discount: boolean;
   private readonly largestLumpOfTickets: number;
   private readonly maxPrice: number;
@@ -30,6 +31,7 @@ export class SummaryAvailabilityItem {
     this.datetime = moment(datetime);
     this.partTwoDatetime = partTwoDatetime ? moment(partTwoDatetime) : null;
     this.rawDateTime = datetime;
+    this.rawPartTwoDateTime = partTwoDatetime || null;
     this.discount = discount;
     this.largestLumpOfTickets = largestLumpOfTickets;
     this.maxPrice = maxPrice;
@@ -51,6 +53,10 @@ export class SummaryAvailabilityItem {
 
   getRawDateTime () {
     return this.rawDateTime;
+  }
+
+  getRawPartTwoDateTime () {
+    return this.rawPartTwoDateTime;
   }
 
   getDiscount () {

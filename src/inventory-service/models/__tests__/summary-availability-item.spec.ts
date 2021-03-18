@@ -46,6 +46,16 @@ describe('Summary Availability Item', () => {
     });  
   });
 
+  describe('getRawPartTwoDateTime function', () => {
+    it('should get raw date and time in string format for part two', () => {
+      expect(getSummaryAvailabilityItem().getRawPartTwoDateTime()).toBe(summaryAvailabilityItem.partTwoDatetime);
+    });
+
+    it('should return null if there is no datetime for part two', () => {
+      expect(getSummaryAvailabilityItemWithoutPartTwo().getRawPartTwoDateTime()).toBeNull();
+    });
+  });
+
   describe('getDiscount function', () => {
     it('should get discount', () => {
       expect(getSummaryAvailabilityItem().getDiscount()).toBe(summaryAvailabilityItem.discount);
