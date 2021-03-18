@@ -5,6 +5,7 @@ import { ApiSummaryAvailabilityItemData } from '../typings';
 export class SummaryAvailabilityItem {
   private readonly availableSeatCount: number;
   private readonly datetime: Moment;
+  private readonly partTwoDatetime: Moment | null;
   private readonly rawDateTime: string;
   private readonly discount: boolean;
   private readonly largestLumpOfTickets: number;
@@ -18,6 +19,7 @@ export class SummaryAvailabilityItem {
     const {
       availableSeatCount,
       datetime,
+      partTwoDatetime,
       discount,
       largestLumpOfTickets,
       maxPrice,
@@ -26,6 +28,7 @@ export class SummaryAvailabilityItem {
     } = summaryAvailabilityItemData;
     this.availableSeatCount = availableSeatCount;
     this.datetime = moment(datetime);
+    this.partTwoDatetime = partTwoDatetime ? moment(partTwoDatetime) : null;
     this.rawDateTime = datetime;
     this.discount = discount;
     this.largestLumpOfTickets = largestLumpOfTickets;
@@ -40,6 +43,10 @@ export class SummaryAvailabilityItem {
 
   getDateTime () {
     return this.datetime;
+  }
+
+  getPartTwoDateTime () {
+    return this.partTwoDatetime;
   }
 
   getRawDateTime () {

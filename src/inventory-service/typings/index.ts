@@ -3,6 +3,7 @@ import { Amount, ApiPricingValue } from '../../shared/typings';
 export interface ApiSummaryAvailabilityItemData {
   availableSeatCount: number;
   datetime: string;
+  partTwoDatetime: string | null;
   discount: boolean;
   largestLumpOfTickets: number;
   maxPrice: number;
@@ -36,6 +37,7 @@ export interface ApiAvailability {
 
 export interface ApiArea {
   date: string;
+  partTwoDate: string | null;
   name: string;
   availableCount: number;
   aggregateReference?: string;

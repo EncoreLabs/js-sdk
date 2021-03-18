@@ -4,8 +4,10 @@ import { Grouping } from '../grouping';
 import { availabilityMock } from '../../__mocks__';
 
 const areaMock = availabilityMock.areas[0];
+const areaMockWithoutPartTwo = { ...areaMock, partTwoDate: null };
 const groupingMock = availabilityMock.areas[0].groupings[0];
 const getArea = () => new Area(areaMock);
+const getAreaWithoutPartTwo = () => new Area(areaMockWithoutPartTwo);
 const getGrouping = () => new Grouping(groupingMock);
 
 describe('Area', () => {
@@ -23,6 +25,16 @@ describe('Area', () => {
   describe('getDate function', () => {
     it('should get date in moment format', () => {
       expect(getArea().getDate()).toEqual(moment(areaMock.date));
+    });
+  });
+
+  describe('getPartTwoDate function', () => {
+    it('should get date in moment format', () => {
+      expect(getArea().getPartTwoDate()).toEqual(moment(areaMock.partTwoDate));
+    });
+
+    it('should return null if there is no date for part two', () => {
+      expect(getAreaWithoutPartTwo().getPartTwoDate()).toBeNull();
     });
   });
 

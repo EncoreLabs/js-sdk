@@ -6,6 +6,7 @@ import { ApiArea } from '../typings';
 export class Area {
   private readonly availableCount: number;
   private readonly date: Moment;
+  private readonly partTwoDate: Moment | null;
   private readonly rawDate: string;
   private groupings: Grouping[];
   private readonly mode: string;
@@ -17,6 +18,7 @@ export class Area {
 
     this.availableCount = areaData.availableCount;
     this.date = moment(areaData.date);
+    this.partTwoDate = areaData.partTwoDate ? moment(areaData.partTwoDate) : null;
     this.rawDate = areaData.date;
     this.groupings = areaData.groupings.map(grouping => new Grouping(grouping));
     this.mode = areaData.mode;
@@ -30,6 +32,10 @@ export class Area {
 
   getDate () {
     return this.date;
+  }
+
+  getPartTwoDate () {
+    return this.partTwoDate;
   }
 
   getRawDate () {

@@ -7,6 +7,7 @@ export const availabilityMock = {
     isAvailable: true,
     availableCount: 257,
     date: '2019-08-30T19:30:00+0000',
+    partTwoDate: '2019-08-30T19:30:00+0000',
     name: 'Circle',
     mode: 'allocated',
     groupings: [{
