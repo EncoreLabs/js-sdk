@@ -20,6 +20,7 @@ export class Basket {
   private readonly status: BasketStatus;
   private readonly reference: string;
   private readonly checksum: string;
+  private readonly orderConfirmationNumber: string;
   private basketData: BasketData;
   private deliveries: Promise<Delivery[]>;
   private repository = basketDetailsRepositoryProvider.getRepository();
@@ -34,7 +35,8 @@ export class Basket {
       expiredAt,
       status,
       reference,
-      checksum
+      checksum,
+      orderConfirmationNumber,
     } = this.basketData;
 
     if (!reservations) {
@@ -46,6 +48,7 @@ export class Basket {
     this.status = status;
     this.reference = reference;
     this.checksum = checksum;
+    this.orderConfirmationNumber = orderConfirmationNumber;
   }
 
   // for supporting IE11
@@ -67,6 +70,10 @@ export class Basket {
 
   getReference () {
     return this.reference;
+  }
+
+  getOrderConfirmationNumber () {
+    return this.orderConfirmationNumber;
   }
 
   getChecksum () {

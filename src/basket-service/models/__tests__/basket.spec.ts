@@ -92,6 +92,12 @@ describe('Basket', () => {
     });
   });
 
+  describe('getOrderConfirmationNumber function', () => {
+    it('should return basket reference', () => {
+      expect(getBasket().getOrderConfirmationNumber()).toEqual(basketDataMock.orderConfirmationNumber);
+    });
+  });
+
   describe('getReference function', () => {
     it('should return basket reference', () => {
       expect(getBasket().getReference()).toEqual(basketDataMock.reference);

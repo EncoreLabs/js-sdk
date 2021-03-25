@@ -7,6 +7,7 @@ tomorrow.setDate(today.getDate() + 1);
 
 export const basketDataMock = {
   reference: '1010101',
+  orderConfirmationNumber: 'OCN1010101',
   checksum: '123123',
   channelId: 'encoretickets',
   delivery: {

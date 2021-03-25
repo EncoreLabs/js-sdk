@@ -68,6 +68,7 @@ export interface BasketData {
   channelId: string;
   reservations: BasketItemData[];
   reference?: string;
+  orderConfirmationNumber?: string;
   checksum?: string;
   delivery?: DeliveryData;
   createdAt?: string;
