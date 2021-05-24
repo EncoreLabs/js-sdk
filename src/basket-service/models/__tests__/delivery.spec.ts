@@ -71,4 +71,20 @@ describe('Delivery', () => {
       expect(delivery.getName()).toBe(deliverySettings[postageCode].name);
     });
   });
+
+  describe('getPrePurchaseText function', () => {
+    it('should return pre-purchase text', () => {
+      const delivery = getDelivery();
+
+      expect(delivery.getPrePurchaseText()).toBe(deliveryData.prePurchaseText);
+    });
+  });
+
+  describe('getPostPurchaseText function', () => {
+    it('should return post-purchase text', () => {
+      const delivery = getDelivery();
+
+      expect(delivery.getPostPurchaseText()).toBe(deliveryData.postPurchaseText);
+    });
+  });
 });

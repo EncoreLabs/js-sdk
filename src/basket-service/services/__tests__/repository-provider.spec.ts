@@ -202,6 +202,8 @@ describe('Basket repository', () => {
         value: 200,
         currency: 'USD',
       },
+      prePurchaseText: 'Your tickets will be available at the box office when you arrive for the show.',
+      postPurchaseText: 'Tickets will be held for {name} at the box office 30 minutes prior to showtime.'
     };
     const basket = new Basket(basketDataMock);
 
