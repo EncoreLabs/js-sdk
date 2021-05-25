@@ -7,6 +7,8 @@ import { checkRequiredProperty } from "../../utils/validator";
 export class Delivery {
   private readonly amount: Amount;
   private readonly method: DeliveryMethod;
+  private readonly prePurchaseText: string;
+  private readonly postPurchaseText: string;
   private name: string;
 
   constructor (
@@ -16,10 +18,12 @@ export class Delivery {
     checkRequiredProperty(deliveryData, 'Delivery: delivery data');
     checkRequiredProperty(itemsToDeliver, 'Delivery: collection with items to deliver');
 
-    const { method, charge } = deliveryData;
+    const { method, charge, prePurchaseText, postPurchaseText } = deliveryData;
 
     this.amount = charge;
     this.method = method;
+    this.prePurchaseText = prePurchaseText;
+    this.postPurchaseText = postPurchaseText;
     this.setName(itemsToDeliver);
   }
 
@@ -33,6 +37,14 @@ export class Delivery {
 
   getName () {
     return this.name;
+  }
+
+  getPrePurchaseText () {
+    return this.prePurchaseText;
+  }
+
+  getPostPurchaseText () {
+    return this.postPurchaseText;
   }
 
   private setName (itemsToDeliver: BasketItemsCollection) {

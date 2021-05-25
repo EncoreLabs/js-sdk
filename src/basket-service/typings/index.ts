@@ -62,6 +62,8 @@ export interface Promotion {
 export interface DeliveryData {
   method: DeliveryMethod;
   charge: Amount;
+  prePurchaseText: string;
+  postPurchaseText: string;
 }
 
 export interface BasketData {
