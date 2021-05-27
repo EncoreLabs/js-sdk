@@ -70,6 +70,48 @@ describe('Delivery', () => {
 
       expect(delivery.getName()).toBe(deliverySettings[postageCode].name);
     });
+
+    it('should get eVoucher name', () => {
+      const eVoucherCode = DeliveryMethod.Evoucher;
+      const delivery = getDelivery(ProductType.Show, eVoucherCode);
+
+      expect(delivery.getName()).toBe(deliverySettings[eVoucherCode].name);
+    });
+
+    it('should get HandDelivered name', () => {
+      const handDeliveredCode = DeliveryMethod.HandDelivered;
+      const delivery = getDelivery(ProductType.Show, handDeliveredCode);
+
+      expect(delivery.getName()).toBe(deliverySettings[handDeliveredCode].name);
+    });
+
+    it('should get PrintBoxOffice name', () => {
+      const printBoxOfficeCode = DeliveryMethod.PrintBoxOffice;
+      const delivery = getDelivery(ProductType.Show, printBoxOfficeCode);
+
+      expect(delivery.getName()).toBe(deliverySettings[printBoxOfficeCode].name);
+    });
+
+    it('should get DelayedBarcode name', () => {
+      const delayedBarcodeCode = DeliveryMethod.DelayedBarcode;
+      const delivery = getDelivery(ProductType.Show, delayedBarcodeCode);
+
+      expect(delivery.getName()).toBe(deliverySettings[delayedBarcodeCode].name);
+    });
+    
+    it('should get Streaming name', () => {
+      const streamingCode = DeliveryMethod.Streaming;
+      const delivery = getDelivery(ProductType.Show, streamingCode);
+
+      expect(delivery.getName()).toBe(deliverySettings[streamingCode].name);
+    });
+
+    it('should get Supplier name', () => {
+      const supplierCode = DeliveryMethod.Supplier;
+      const delivery = getDelivery(ProductType.Show, supplierCode);
+
+      expect(delivery.getName()).toBe(deliverySettings[supplierCode].name);
+    });
   });
 
   describe('getPrePurchaseText function', () => {

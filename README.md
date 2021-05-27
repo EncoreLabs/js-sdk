@@ -169,7 +169,12 @@ enum DeliveryMethod {
     Collection = "collection",
     Postage = "postage",
     Eticket = "eticket",
-    Evoucher = "evoucher"
+    Evoucher = "evoucher",
+    PrintBoxOffice = 'print_box_office',
+    HandDelivered = 'hand_delivered', 
+    DelayedBarcode = 'delayed_barcode',
+    Streaming = 'streaming',
+    Supplier = 'supplier',
 }
 
 interface Amount {
