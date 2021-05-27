@@ -5,6 +5,11 @@ export enum DeliveryMethod {
   Postage = 'postage',
   Eticket = 'eticket',
   Evoucher = 'evoucher',
+  PrintBoxOffice = 'print_box_office',
+  HandDelivered = 'hand_delivered', 
+  DelayedBarcode = 'delayed_barcode',
+  Streaming = 'streaming',
+  Supplier = 'supplier',
 }
 
 export enum BasketStatus {
