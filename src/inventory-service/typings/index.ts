@@ -69,6 +69,7 @@ export interface ApiAreaPricing {
   salePrice: ApiPricingValue[];
   percentageDiscount: number;
   includesBookingFee: boolean;
+  promotionLabel: string | null;
   priceReference?: string;
   timestamp?: string;
 }
