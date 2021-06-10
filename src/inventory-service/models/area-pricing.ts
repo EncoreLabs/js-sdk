@@ -7,6 +7,7 @@ export class AreaPricing {
   private salePrice: PricingValue[];
   private percentageDiscount: number;
   private includesBookingFee: boolean;
+  private promotionLabel: string | null;
   private readonly priceReference?: string;
   private readonly timestamp?: string;
 
@@ -17,6 +18,7 @@ export class AreaPricing {
     this.salePrice = areaPricing.salePrice.map(pricing => new PricingValue(pricing));
     this.percentageDiscount = areaPricing.percentageDiscount;
     this.includesBookingFee = areaPricing.includesBookingFee;
+    this.promotionLabel = areaPricing.promotionLabel;
     this.priceReference = areaPricing.priceReference;
     this.timestamp = areaPricing.timestamp;
   }
@@ -51,6 +53,10 @@ export class AreaPricing {
 
   setHasBookingFee (includesBookingFee: boolean) {
     this.includesBookingFee = includesBookingFee;
+  }
+
+  getPromotionLabel () {
+    return this.promotionLabel;
   }
 
   getPriceReference () {

@@ -110,6 +110,24 @@ describe('AreaPricing', () => {
     });
   });
 
+  describe('getPromotionLabel function', () => {
+    it('should return null if the promotionLabel is null', () => {
+      const areaPricing = getAreaPricing();
+
+      const promotionLabel = areaPricing.getPromotionLabel();
+
+      expect(promotionLabel).toBeNull();
+    })
+
+    it('should return the label if the promotionLabel exists', () => {
+      const areaPricing = getAreaPricing({ promotionLabel: 'Test' });
+
+      const promotionLabel = areaPricing.getPromotionLabel();
+
+      expect(promotionLabel).toBe('Test');
+    })
+  })
+
   describe('getPriceReference function', () => {
     it('should get price reference', () => {
       expect(getAreaPricing().getPriceReference()).toEqual(areaPricingMock.priceReference);
