@@ -64,21 +64,35 @@ describe('Venue repository', () => {
     it('should throw an error if venue id is not defined', async () => {
       expect.assertions(1);
 
-      await expect(getSeatAttributesBySeatIds(null, null)).rejects.toEqual(new Error('getSeatAttributesBySeatIds: venue id is required'));
+      await expect(getSeatAttributesBySeatIds(null, null, null, null)).rejects.toEqual(new Error('getSeatAttributesBySeatIds: venue id is required'));
     });
 
     it('should throw an error if seat id collection is not defined', async () => {
       expect.assertions(1);
 
-      await expect(getSeatAttributesBySeatIds(venueId, null)).rejects.toEqual(new Error('getSeatAttributesBySeatIds: seat id collection is required'));
+      await expect(getSeatAttributesBySeatIds(venueId, null, null, null)).rejects.toEqual(new Error('getSeatAttributesBySeatIds: seat id collection is required'));
+    });
+
+    it('should throw an error if the performance date is not defined', async () => {
+      expect.assertions(1);
+
+      await expect(getSeatAttributesBySeatIds(venueId, seatIdCollection, null, null)).rejects.toEqual(new Error('getSeatAttributesBySeatIds: performance date is required'));
+    });
+
+    it('should throw an error if the performance time is not defined', async () => {
+      expect.assertions(1);
+
+      await expect(getSeatAttributesBySeatIds(venueId, seatIdCollection, performanceDate, null)).rejects.toEqual(new Error('getSeatAttributesBySeatIds: performance time is required'));
     });
 
     it('should call getSeatAttributes with valid arguments', async () => {
-      await getSeatAttributesBySeatIds(venueId, seatIdCollection);
+      await getSeatAttributesBySeatIds(venueId, seatIdCollection, performanceDate, performanceTime);
 
       expect(getSeatsData).toBeCalledWith({
         seatIdCollection,
         venueId,
+        performanceDate,
+        performanceTime
       });
     });
   });
