@@ -216,6 +216,10 @@ export class Basket {
     return this.basketData.channelId;
   }
 
+  getLocation () {
+    return this.basketData.location;
+  }
+
   prepareBasketData (upsellProducts?: UpsellApiProductData) {
     const { reservations } = this.basketData;
     const itemsCollection = new BasketItemsCollection(reservations);

@@ -37,4 +37,10 @@ export const basketDataMock = {
   },
   shopperReference: 'YmFza2V0QGVuY29yZXRpeC5jby51azpFQzRBIDFFTg==',
   shopperCurrency: 'GBP',
+  location: {
+    id: '2',
+    includeFees: true,
+    name: 'London',
+    regionCode: 'GB'
+  },
 };

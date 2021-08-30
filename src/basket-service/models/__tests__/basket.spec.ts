@@ -319,6 +319,12 @@ describe('Basket', () => {
     });
   });
 
+  describe('getLocation function', () => {
+    it('should get location', () => {
+      expect(getBasket().getLocation()).toEqual(basketDataMock.location);
+    });
+  });
+
   describe('prepareBasketData function', () => {
     it('should map basket items into reservations', () => {
       expect(getBasket().prepareBasketData().reservations).toEqual([
