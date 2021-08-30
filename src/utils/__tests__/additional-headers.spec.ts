@@ -30,10 +30,14 @@ describe('getAdditionalHeaders function', () => {
   });
 
   it('should return right headers when all arguments were provided', () => {
+    const anonymousId = 'anonymous'
     const result = {
       'x-ttg-client': `${sourceName} | ${viewName} using JS SDK`,
       'x-ttg-client-version': sourceVersion,
+      'x-tt-anonymous-id': anonymousId,
     };
+
+    localStorage.setItem('ajs_anonymous_id', anonymousId)
 
     expect(getAdditionalHeaders({ sourceName, sourceVersion, viewName })).toEqual(result);
   });
