@@ -98,7 +98,6 @@ interface RequestBasketData {
     shopperReference?: string;
     shopperCurrency?: string;
     exchangeRate?: number;
-    location: LocationSimpleData;
 }
 
 interface RequestBasketItemData {
@@ -115,7 +114,6 @@ interface RequestBasketItemData {
     faceValueInShopperCurrency?: Amount | null;
     adjustmentAmountInShopperCurrency?: Amount;
     salePriceInShopperCurrency?: Amount;
-    feeInShopperCurrency: Amount | null;
 }
 
 interface RequestSeat {
@@ -210,7 +208,6 @@ interface BasketItemData {
     salePriceInShopperCurrency: Amount;
     faceValueInShopperCurrency: Amount | null;
     adjustmentAmountInShopperCurrency: Amount;
-    feeInShopperCurrency: Amount | null;
     linkedReservationId?: number;
     seats?: ReservationSeat[];
 }
@@ -263,7 +260,6 @@ interface BasketItemData {
     salePriceInShopperCurrency: Amount;
     faceValueInShopperCurrency: Amount | null;
     adjustmentAmountInShopperCurrency: Amount;
-    feeInShopperCurrency: Amount | null;
     linkedReservationId?: number;
     seats?: ReservationSeat[];
 }

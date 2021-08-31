@@ -144,10 +144,6 @@ export class Basket {
     return this.reduceBasketItemsAmount((totalPrice, item) => totalPrice + item.getPriceBeforeDiscount());
   }
 
-  getTotalPriceWithoutFees () {
-    return this.reduceBasketItemsAmount((totalPrice, item) => totalPrice + item.getTotalPriceWithoutFees());
-  }
-
   hasDiscount () {
     return this.itemsCollection.getItems().some(item => item.hasDiscount());
   }

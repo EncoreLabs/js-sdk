@@ -32,11 +32,7 @@ export const basketItemDataMock = {
     currency: 'GBP',
   },
   adjustmentAmountInShopperCurrency: {
-    value: 25,
+    value: 20,
     currency: 'GBP',
   },
-  feeInShopperCurrency: {
-    value: 5,
-    currency: 'GBP',
-  }
 };
