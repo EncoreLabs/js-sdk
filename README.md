@@ -98,6 +98,7 @@ interface RequestBasketData {
     shopperReference?: string;
     shopperCurrency?: string;
     exchangeRate?: number;
+    location: LocationSimpleData;
 }
 
 interface RequestBasketItemData {
