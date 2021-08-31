@@ -210,13 +210,19 @@ describe('Basket', () => {
 
   describe('getTotalPromotionDiscount function', () => {
     it('should get total promotion discount', () => {
-      expect(getBasket().getTotalPromotionDiscount()).toBe(400);
+      expect(getBasket().getTotalPromotionDiscount()).toBe(500);
     });
   });
 
   describe('getTotalPriceBeforeDiscount function', () => {
     it('should get total price before discount', () => {
       expect(getBasket().getTotalPriceBeforeDiscount()).toBe(2000);
+    });
+  });
+
+  describe('getTotalPriceWithoutFees function', () => {
+    it('should get total price before discount', () => {
+      expect(getBasket().getTotalPriceWithoutFees()).toBe(900);
     });
   });
 

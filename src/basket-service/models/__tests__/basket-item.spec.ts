@@ -130,7 +130,7 @@ describe('Basket item', () => {
   describe('getAdjustmentAmount function', () => {
     it('should get adjustment amount', () => {
       expect(getBasketItem().getAdjustmentAmount()).toEqual({
-        value: 20,
+        value: 25,
         currency: 'GBP',
       });
     });
@@ -176,7 +176,7 @@ describe('Basket item', () => {
 
   describe('getPromotionDiscount function', () => {
     it('should get promotion discount', () => {
-      expect(getBasketItem().getPromotionDiscount()).toBe(200);
+      expect(getBasketItem().getPromotionDiscount()).toBe(250);
       expect(getBasketItem({ adjustmentAmountInShopperCurrency: null }).getPromotionDiscount()).toBe(0);
     });
   });
@@ -210,6 +210,12 @@ describe('Basket item', () => {
   describe('getTotalPriceWithoutPromotion function', () => {
     it('should get total price without promotion', () => {
       expect(getBasketItem().getTotalPriceWithoutPromotion()).toBe(700);
+    });
+  });
+
+  describe('getTotalPriceWithoutFees function', () => {
+    it('should get total price without promotion', () => {
+      expect(getBasketItem().getTotalPriceWithoutFees()).toBe(450);
     });
   });
 

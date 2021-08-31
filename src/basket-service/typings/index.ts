@@ -50,6 +50,7 @@ export interface BasketItemData {
   salePriceInShopperCurrency: Amount;
   faceValueInShopperCurrency: Amount | null;
   adjustmentAmountInShopperCurrency: Amount;
+  feeInShopperCurrency: Amount | null;
   linkedReservationId?: number;
   seats?: ReservationSeat[];
 }
@@ -122,6 +123,7 @@ export interface RequestBasketItemData {
   faceValueInShopperCurrency?: Amount | null;
   adjustmentAmountInShopperCurrency?: Amount;
   salePriceInShopperCurrency?: Amount;
+  feeInShopperCurrency: Amount | null;
 }
 
 export interface RequestBasketData {
