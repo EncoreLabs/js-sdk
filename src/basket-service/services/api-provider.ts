@@ -31,7 +31,6 @@ export const getBasketServiceApi = (
       reservations,
       shopperCurrency,
       hasFlexiTickets,
-      location,
     } = basketData;
 
     return httpClient.patch(basketsPath, {
@@ -42,7 +41,6 @@ export const getBasketServiceApi = (
       reservations,
       shopperCurrency,
       hasFlexiTickets,
-      location,
     }, {
       headers: {
         ...getRequestHeadersByChannel(channelId),

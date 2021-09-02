@@ -96,7 +96,7 @@ export interface BasketData {
   missedPromotions?: Promotion[];
   hasFlexiTickets?: boolean;
   allowFlexiTickets?: boolean;
-  location: LocationSimpleData;
+  location?: LocationSimpleData;
 }
 
 interface RequestSeat {
@@ -138,7 +138,6 @@ export interface RequestBasketData {
   shopperCurrency?: string;
   exchangeRate?: number;
   hasFlexiTickets?: boolean;
-  location: LocationSimpleData;
 }
 
 export enum BasketLocationType {
