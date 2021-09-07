@@ -15,6 +15,7 @@ export class BasketItem {
   private readonly salePriceInShopperCurrency: Amount;
   private readonly adjustedSalePriceInShopperCurrency: Amount;
   private readonly adjustmentAmountInShopperCurrency: Amount;
+  private readonly feeInShopperCurrency: Amount | null;
   private readonly date: Date;
   private readonly rawDate: string;
   private readonly seats: ReservationSeat[];
@@ -36,6 +37,7 @@ export class BasketItem {
       adjustedSalePriceInShopperCurrency,
       salePriceInShopperCurrency,
       adjustmentAmountInShopperCurrency,
+      feeInShopperCurrency,
       date,
       items,
       venueId,
@@ -52,6 +54,7 @@ export class BasketItem {
     this.adjustedSalePriceInShopperCurrency = adjustedSalePriceInShopperCurrency;
     this.salePriceInShopperCurrency = salePriceInShopperCurrency;
     this.adjustmentAmountInShopperCurrency = adjustmentAmountInShopperCurrency;
+    this.feeInShopperCurrency = feeInShopperCurrency;
     this.date = date ? new Date(date) : null;
     this.rawDate = date;
     this.seats = items || seats;
@@ -115,6 +118,10 @@ export class BasketItem {
     return this.adjustmentAmountInShopperCurrency;
   }
 
+  getFee () {
+    return this.feeInShopperCurrency;
+  }
+
   getFaceValueAmount () {
     return this.faceValueInShopperCurrency ? this.faceValueInShopperCurrency.value : null;
   }
@@ -125,6 +132,10 @@ export class BasketItem {
 
   getOriginalSalePriceAmount () {
     return this.salePriceInShopperCurrency.value;
+  }
+
+  getFeeAmount() {
+    return this.feeInShopperCurrency ? this.feeInShopperCurrency.value : null;
   }
 
   hasDiscount () {

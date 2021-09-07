@@ -109,6 +109,15 @@ describe('Basket item', () => {
     });
   });
 
+  describe('getFee function', () => {
+    it('should get fee details', () => {
+      expect(getBasketItem().getFee()).toEqual({
+        value: 0,
+        currency: 'GBP',
+      });
+    });
+  });
+
   describe('getSalePrice function', () => {
     it('should get sale price details', () => {
       expect(getBasketItem().getSalePrice()).toEqual({
@@ -139,6 +148,12 @@ describe('Basket item', () => {
   describe('getFaceValueAmount function', () => {
     it('should get product face value amount', () => {
       expect(getBasketItem().getFaceValueAmount()).toBe(100);
+    });
+  });
+
+  describe('getFeeAmount function', () => {
+    it('should get fee amount', () => {
+      expect(getBasketItem().getFeeAmount()).toBe(0);
     });
   });
 

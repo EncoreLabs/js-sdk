@@ -50,6 +50,7 @@ export interface BasketItemData {
   salePriceInShopperCurrency: Amount;
   faceValueInShopperCurrency: Amount | null;
   adjustmentAmountInShopperCurrency: Amount;
+  feeInShopperCurrency: Amount | null;
   linkedReservationId?: number;
   seats?: ReservationSeat[];
 }
@@ -71,6 +72,13 @@ export interface DeliveryData {
   postPurchaseText: string;
 }
 
+export interface LocationSimpleData {
+  id: string;
+  name: string;
+  regionCode: string;
+  includeFees: boolean;
+}
+
 export interface BasketData {
   channelId: string;
   reservations: BasketItemData[];
@@ -89,6 +97,7 @@ export interface BasketData {
   missedPromotions?: Promotion[];
   hasFlexiTickets?: boolean;
   allowFlexiTickets?: boolean;
+  location?: LocationSimpleData;
 }
 
 interface RequestSeat {
@@ -114,6 +123,7 @@ export interface RequestBasketItemData {
   faceValueInShopperCurrency?: Amount | null;
   adjustmentAmountInShopperCurrency?: Amount;
   salePriceInShopperCurrency?: Amount;
+  feeInShopperCurrency?: Amount | null;
 }
 
 export interface RequestBasketData {
