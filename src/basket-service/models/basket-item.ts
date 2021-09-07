@@ -134,7 +134,7 @@ export class BasketItem {
     return this.salePriceInShopperCurrency.value;
   }
 
-  getFeeAmount() {
+  getFeeAmount () {
     return this.feeInShopperCurrency ? this.feeInShopperCurrency.value : null;
   }
 
