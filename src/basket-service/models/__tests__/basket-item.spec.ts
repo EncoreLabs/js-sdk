@@ -155,6 +155,10 @@ describe('Basket item', () => {
     it('should get fee amount', () => {
       expect(getBasketItem().getFeeAmount()).toBe(0);
     });
+
+    it('should get null fee amount if fee is null', () => {
+      expect(getBasketItem({ feeInShopperCurrency: null }).getFeeAmount()).toBe(null);
+    })
   });
 
   describe('getSalePriceAmount function', () => {
