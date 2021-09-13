@@ -25,7 +25,8 @@
     "test-watch": "jest --watch",
     "audit": "npm audit",
     "check": "npm-run-all lint test-coverage audit build-info",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "prepare": "husky install"
   },
   "dependencies": {
     "axios": "0.19.2",
@@ -44,7 +45,8 @@
     "webpack": "4.43.0",
     "webpack-cli": "3.3.11",
     "webpack-dev-server": "3.11.0",
-    "webpack-global-object-x": "1.0.1"
+    "webpack-global-object-x": "1.0.1",
+    "husky": "^7.0.0"
   },
   "browserslist": [
     "Chrome >= 58",
