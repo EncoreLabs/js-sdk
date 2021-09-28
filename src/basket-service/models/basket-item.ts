@@ -16,6 +16,7 @@ export class BasketItem {
   private readonly adjustedSalePriceInShopperCurrency: Amount;
   private readonly adjustmentAmountInShopperCurrency: Amount;
   private readonly feeInShopperCurrency: Amount | null;
+  private readonly deliveryFeeInShopperCurrency: Amount | null;
   private readonly date: Date;
   private readonly rawDate: string;
   private readonly seats: ReservationSeat[];
@@ -38,6 +39,7 @@ export class BasketItem {
       salePriceInShopperCurrency,
       adjustmentAmountInShopperCurrency,
       feeInShopperCurrency,
+      deliveryFeeInShopperCurrency,
       date,
       items,
       venueId,
@@ -55,6 +57,7 @@ export class BasketItem {
     this.salePriceInShopperCurrency = salePriceInShopperCurrency;
     this.adjustmentAmountInShopperCurrency = adjustmentAmountInShopperCurrency;
     this.feeInShopperCurrency = feeInShopperCurrency;
+    this.deliveryFeeInShopperCurrency = deliveryFeeInShopperCurrency;
     this.date = date ? new Date(date) : null;
     this.rawDate = date;
     this.seats = items || seats;
@@ -122,6 +125,10 @@ export class BasketItem {
     return this.feeInShopperCurrency;
   }
 
+  getDeliveryFee () {
+    return this.deliveryFeeInShopperCurrency;
+  }
+
   getFaceValueAmount () {
     return this.faceValueInShopperCurrency ? this.faceValueInShopperCurrency.value : null;
   }
@@ -138,6 +145,18 @@ export class BasketItem {
     return this.feeInShopperCurrency ? this.feeInShopperCurrency.value : null;
   }
 
+  getDeliveryAmount () {
+    return this.deliveryFeeInShopperCurrency ? this.deliveryFeeInShopperCurrency.value : null;
+  }
+
+  getSalePriceWithoutDeliveryFee () {
+    return this.getOriginalSalePriceAmount() - this.getDeliveryAmount();
+  }
+
+  getSalePriceWithoutFees () {
+    return this.getSalePriceWithoutDeliveryFee() - this.getFeeAmount();
+  }
+
   hasDiscount () {
     const faceValueAmount = this.getFaceValueAmount();
 
@@ -145,7 +164,17 @@ export class BasketItem {
       return false;
     }
 
-    return faceValueAmount > this.getOriginalSalePriceAmount();
+    return faceValueAmount > this.getSalePriceWithoutDeliveryFee();
+  }
+
+  hasDiscountWithoutFees () {
+    const faceValueAmount = this.getFaceValueAmount();
+
+    if (!faceValueAmount) {
+      return false;
+    }
+
+    return faceValueAmount > this.getSalePriceWithoutFees();
   }
 
   getPromotionDiscount () {
@@ -160,7 +189,15 @@ export class BasketItem {
     const hasDiscount = this.hasDiscount();
 
     return hasDiscount
-      ? this.quantity * (this.getFaceValueAmount() - this.getOriginalSalePriceAmount())
+      ? this.quantity * (this.getFaceValueAmount() - this.getSalePriceWithoutDeliveryFee())
+      : 0;
+  }
+
+  getDiscountWithoutFees () {
+    const hasDiscount = this.hasDiscountWithoutFees();
+
+    return hasDiscount
+      ? this.quantity * (this.getFaceValueAmount() - this.getSalePriceWithoutFees())
       : 0;
   }
 
@@ -170,6 +207,14 @@ export class BasketItem {
 
   getTotalPriceWithoutPromotion () {
     return this.quantity * this.getOriginalSalePriceAmount();
+  }
+
+  getTotalPriceWithoutDeliveryFee() {
+    return this.quantity * this.getSalePriceWithoutDeliveryFee();
+  }
+
+  getTotalPriceWithoutFees() {
+    return this.quantity * this.getSalePriceWithoutFees();
   }
 
   getPriceBeforeDiscount () {
