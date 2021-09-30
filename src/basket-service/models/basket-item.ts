@@ -145,16 +145,16 @@ export class BasketItem {
     return this.feeInShopperCurrency ? this.feeInShopperCurrency.value : null;
   }
 
-  getDeliveryAmount () {
+  getDeliveryFeeAmount () {
     return this.deliveryFeeInShopperCurrency ? this.deliveryFeeInShopperCurrency.value : null;
   }
 
-  getSalePriceWithoutDeliveryFee () {
-    return this.getOriginalSalePriceAmount() - this.getDeliveryAmount();
+  getSalePriceAmountWithoutDeliveryFee () {
+    return this.getOriginalSalePriceAmount() - this.getDeliveryFeeAmount();
   }
 
-  getSalePriceWithoutFees () {
-    return this.getSalePriceWithoutDeliveryFee() - this.getFeeAmount();
+  getSalePriceAmountWithoutFees () {
+    return this.getSalePriceAmountWithoutDeliveryFee() - this.getFeeAmount();
   }
 
   hasDiscount () {
@@ -164,7 +164,7 @@ export class BasketItem {
       return false;
     }
 
-    return faceValueAmount > this.getSalePriceWithoutDeliveryFee();
+    return faceValueAmount > this.getSalePriceAmountWithoutDeliveryFee();
   }
 
   hasDiscountWithoutFees () {
@@ -174,7 +174,7 @@ export class BasketItem {
       return false;
     }
 
-    return faceValueAmount > this.getSalePriceWithoutFees();
+    return faceValueAmount > this.getSalePriceAmountWithoutFees();
   }
 
   getPromotionDiscount () {
@@ -189,7 +189,7 @@ export class BasketItem {
     const hasDiscount = this.hasDiscount();
 
     return hasDiscount
-      ? this.quantity * (this.getFaceValueAmount() - this.getSalePriceWithoutDeliveryFee())
+      ? this.quantity * (this.getFaceValueAmount() - this.getSalePriceAmountWithoutDeliveryFee())
       : 0;
   }
 
@@ -197,7 +197,7 @@ export class BasketItem {
     const hasDiscount = this.hasDiscountWithoutFees();
 
     return hasDiscount
-      ? this.quantity * (this.getFaceValueAmount() - this.getSalePriceWithoutFees())
+      ? this.quantity * (this.getFaceValueAmount() - this.getSalePriceAmountWithoutFees())
       : 0;
   }
 
@@ -209,12 +209,12 @@ export class BasketItem {
     return this.quantity * this.getOriginalSalePriceAmount();
   }
 
-  getTotalPriceWithoutDeliveryFee() {
-    return this.quantity * this.getSalePriceWithoutDeliveryFee();
+  getTotalPriceWithoutDeliveryFee () {
+    return this.quantity * this.getSalePriceAmountWithoutDeliveryFee();
   }
 
-  getTotalPriceWithoutFees() {
-    return this.quantity * this.getSalePriceWithoutFees();
+  getTotalPriceWithoutFees () {
+    return this.quantity * this.getSalePriceAmountWithoutFees();
   }
 
   getPriceBeforeDiscount () {
