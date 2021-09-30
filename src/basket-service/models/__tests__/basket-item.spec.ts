@@ -192,20 +192,20 @@ describe('Basket item', () => {
     });
   });
 
-  describe('getSalePriceAmountWithoutDeliveryFee function', () => {
-    it('should get sale price amount without delivery fee', () => {
-      expect(getBasketItem().getSalePriceAmountWithoutDeliveryFee()).toBe(60);
+  describe('getOriginalSalePriceAmountWithoutDeliveryFee function', () => {
+    it('should get original sale price amount without delivery fee', () => {
+      expect(getBasketItem().getOriginalSalePriceAmountWithoutDeliveryFee()).toBe(60);
     });
   });
 
-  describe('getSalePriceAmountWithoutFees function', () => {
-    it('should get sale price amount without any fees', () => {
+  describe('getOriginalSalePriceAmountWithoutFees function', () => {
+    it('should get original sale price amount without any fees', () => {
       expect(getBasketItem({
         feeInShopperCurrency: {
           value: 10,
           currency: 'GBP',
         },
-      }).getSalePriceAmountWithoutFees()).toBe(50);
+      }).getOriginalSalePriceAmountWithoutFees()).toBe(50);
     });
   });
 
