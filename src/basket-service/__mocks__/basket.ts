@@ -13,7 +13,7 @@ export const basketDataMock = {
   delivery: {
     method: DeliveryMethod.Collection,
     charge: {
-      value: 100,
+      value: 10,
       currency: 'GBP',
     },
     prePurchaseText: 'Your tickets will be available at the box office when you arrive for the show.',

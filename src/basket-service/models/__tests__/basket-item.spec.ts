@@ -118,6 +118,15 @@ describe('Basket item', () => {
     });
   });
 
+  describe('getDeliveryFee function', () => {
+    it('should get delivery fee details', () => {
+      expect(getBasketItem().getDeliveryFee()).toEqual({
+        value: 10,
+        currency: 'GBP',
+      });
+    });
+  });
+
   describe('getSalePrice function', () => {
     it('should get sale price details', () => {
       expect(getBasketItem().getSalePrice()).toEqual({
@@ -161,6 +170,16 @@ describe('Basket item', () => {
     });
   });
 
+  describe('getDeliveryFeeAmount function', () => {
+    it('should get delivery fee amount', () => {
+      expect(getBasketItem().getDeliveryFeeAmount()).toBe(10);
+    });
+
+    it('should get null delivery fee amount if delivery fee is null', () => {
+      expect(getBasketItem({ deliveryFeeInShopperCurrency: null }).getDeliveryFeeAmount()).toBeNull();
+    });
+  });
+
   describe('getSalePriceAmount function', () => {
     it('should get product sale price amount', () => {
       expect(getBasketItem().getSalePriceAmount()).toBe(50);
@@ -173,13 +192,30 @@ describe('Basket item', () => {
     });
   });
 
+  describe('getOriginalSalePriceAmountWithoutDeliveryFee function', () => {
+    it('should get original sale price amount without delivery fee', () => {
+      expect(getBasketItem().getOriginalSalePriceAmountWithoutDeliveryFee()).toBe(60);
+    });
+  });
+
+  describe('getOriginalSalePriceAmountWithoutFees function', () => {
+    it('should get original sale price amount without any fees', () => {
+      expect(getBasketItem({
+        feeInShopperCurrency: {
+          value: 10,
+          currency: 'GBP',
+        },
+      }).getOriginalSalePriceAmountWithoutFees()).toBe(50);
+    });
+  });
+
   describe('hasDiscount function', () => {
     it('should get discount availability', () => {
       expect(getBasketItem().hasDiscount()).toBe(true);
       expect(getBasketItem({
         productType: ProductType.Show,
         salePriceInShopperCurrency: {
-          value: 100,
+          value: 110,
           currency: 'GBP',
         },
       }).hasDiscount()).toBe(false);
@@ -190,6 +226,30 @@ describe('Basket item', () => {
         productType: ProductType.Show,
         faceValueInShopperCurrency: null,
       }).hasDiscount()).toBe(false);
+    });
+  });
+
+  describe('hasDiscountWithoutFees function', () => {
+    it('should get discount availability without any fees', () => {
+      expect(getBasketItem().hasDiscountWithoutFees()).toBe(true);
+      expect(getBasketItem({
+        productType: ProductType.Show,
+        salePriceInShopperCurrency: {
+          value: 120,
+          currency: 'GBP',
+        },
+        feeInShopperCurrency: {
+          value: 10,
+          currency: 'GBP',
+        },
+      }).hasDiscountWithoutFees()).toBe(false);
+    });
+
+    it('should return false if face value is not defined', () => {
+      expect(getBasketItem({
+        productType: ProductType.Show,
+        faceValueInShopperCurrency: null,
+      }).hasDiscountWithoutFees()).toBe(false);
     });
   });
 
@@ -209,14 +269,28 @@ describe('Basket item', () => {
 
   describe('getDiscount function', () => {
     it('should get discount', () => {
-      expect(getBasketItem().getDiscount()).toBe(300);
+      expect(getBasketItem().getDiscount()).toBe(400);
     });
 
     it('should return 0 if there is no discount', () => {
       expect(getBasketItem({
         faceValueInShopperCurrency: { value: 100, currency: 'GBP' },
-        salePriceInShopperCurrency: { value: 100, currency: 'GBP' },
+        salePriceInShopperCurrency: { value: 110, currency: 'GBP' },
       }).getDiscount()).toBe(0);
+    });
+  });
+
+  describe('getDiscountWithoutFees function', () => {
+    it('should get discount without any fees', () => {
+      expect(getBasketItem().getDiscountWithoutFees()).toBe(400);
+    });
+
+    it('should return 0 if there is no discount', () => {
+      expect(getBasketItem({
+        faceValueInShopperCurrency: { value: 100, currency: 'GBP' },
+        salePriceInShopperCurrency: { value: 120, currency: 'GBP' },
+        feeInShopperCurrency: { value: 10, currency: 'GBP' },
+      }).getDiscountWithoutFees()).toBe(0);
     });
   });
 
@@ -229,6 +303,23 @@ describe('Basket item', () => {
   describe('getTotalPriceWithoutPromotion function', () => {
     it('should get total price without promotion', () => {
       expect(getBasketItem().getTotalPriceWithoutPromotion()).toBe(700);
+    });
+  });
+
+  describe('getTotalPriceWithoutDeliveryFee function', () => {
+    it('should get total price without delivery fee', () => {
+      expect(getBasketItem().getTotalPriceWithoutDeliveryFee()).toBe(600);
+    });
+  });
+
+  describe('getTotalPriceWithoutFees function', () => {
+    it('should get total price without any fees', () => {
+      expect(getBasketItem({
+        feeInShopperCurrency: {
+          value: 10,
+          currency: 'GBP'
+        },
+      }).getTotalPriceWithoutFees()).toBe(500);
     });
   });
 

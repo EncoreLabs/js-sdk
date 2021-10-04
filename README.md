@@ -115,6 +115,7 @@ interface RequestBasketItemData {
     adjustmentAmountInShopperCurrency?: Amount;
     salePriceInShopperCurrency?: Amount;
     feeInShopperCurrency?: Amount | null;
+    deliveryFeeInShopperCurrency?: Amount | null;
 }
 
 interface RequestSeat {
@@ -210,6 +211,7 @@ interface BasketItemData {
     faceValueInShopperCurrency: Amount | null;
     adjustmentAmountInShopperCurrency: Amount;
     feeInShopperCurrency: Amount | null;
+    deliveryFeeInShopperCurrency: Amount | null;
     linkedReservationId?: number;
     seats?: ReservationSeat[];
 }
@@ -263,6 +265,7 @@ interface BasketItemData {
     faceValueInShopperCurrency: Amount | null;
     adjustmentAmountInShopperCurrency: Amount;
     feeInShopperCurrency: Amount | null;
+    deliveryFeeInShopperCurrency: Amount | null;
     linkedReservationId?: number;
     seats?: ReservationSeat[];
 }

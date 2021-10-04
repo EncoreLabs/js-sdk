@@ -38,5 +38,9 @@ export const basketItemDataMock = {
   feeInShopperCurrency: {
     value: 0,
     currency: 'GBP',
+  },
+  deliveryFeeInShopperCurrency: {
+    value: 10,
+    currency: 'GBP',
   }
 };

@@ -204,7 +204,7 @@ describe('Basket', () => {
 
   describe('getTotalDiscount function', () => {
     it('should get total discount', () => {
-      expect(getBasket().getTotalDiscount()).toBe(600);
+      expect(getBasket().getTotalDiscount()).toBe(800);
     });
   });
 
