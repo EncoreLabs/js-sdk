@@ -53,6 +53,7 @@ export interface ApiPaymentDetails {
 export interface ApiConfirmBooking {
   nextPaymentId?: string;
   result?: string;
+  isFirstOrder?: boolean;
 }
 
 export interface ApiConfirmBookingAgentDetails {
