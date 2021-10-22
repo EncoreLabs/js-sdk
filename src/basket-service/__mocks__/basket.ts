@@ -43,4 +43,5 @@ export const basketDataMock = {
     name: 'London',
     regionCode: 'GB'
   },
+  paymentCaptureType: 'IMMEDIATE',
 };
