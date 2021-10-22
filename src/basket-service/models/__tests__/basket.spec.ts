@@ -92,6 +92,18 @@ describe('Basket', () => {
     });
   });
 
+  describe('isPaymentCaptureDeferred function', () => {
+    it('should return false if the paymentCaptureType is IMMEDIATE', () => {
+      const basket = getBasket();
+      const basketDataMockWithPendingCapture = basketDataMock;
+      basketDataMockWithPendingCapture.paymentCaptureType = 'PENDING';
+      const basketWithPending = new Basket(basketDataMockWithPendingCapture);
+
+      expect(basket.isPaymentCaptureDeferred()).toBe(false);
+      expect(basketWithPending.isPaymentCaptureDeferred()).toBe(true);
+    })
+  })
+
   describe('getOrderConfirmationNumber function', () => {
     it('should return basket reference', () => {
       expect(getBasket().getOrderConfirmationNumber()).toEqual(basketDataMock.orderConfirmationNumber);

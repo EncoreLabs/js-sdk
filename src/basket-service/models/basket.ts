@@ -12,6 +12,7 @@ import {
   UpsellApiProductData,
   ProductType,
   BasketItemData,
+  PaymentCaptureType,
 } from '../typings';
 
 export class Basket {
@@ -21,6 +22,7 @@ export class Basket {
   private readonly reference: string;
   private readonly checksum: string;
   private readonly orderConfirmationNumber: string;
+  private readonly paymentCaptureType?: string;
   private basketData: BasketData;
   private deliveries: Promise<Delivery[]>;
   private repository = basketDetailsRepositoryProvider.getRepository();
@@ -37,6 +39,7 @@ export class Basket {
       reference,
       checksum,
       orderConfirmationNumber,
+      paymentCaptureType
     } = this.basketData;
 
     if (!reservations) {
@@ -49,6 +52,7 @@ export class Basket {
     this.reference = reference;
     this.checksum = checksum;
     this.orderConfirmationNumber = orderConfirmationNumber;
+    this.paymentCaptureType = paymentCaptureType;
   }
 
   // for supporting IE11
@@ -66,6 +70,10 @@ export class Basket {
 
   isCancelled () {
     return this.status === BasketStatus.Cancelled;
+  }
+
+  isPaymentCaptureDeferred () {
+    return this.paymentCaptureType === PaymentCaptureType.Pending; 
   }
 
   getReference () {

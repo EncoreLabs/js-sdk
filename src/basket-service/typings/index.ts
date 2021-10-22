@@ -98,6 +98,7 @@ export interface BasketData {
   missedPromotions?: Promotion[];
   hasFlexiTickets?: boolean;
   allowFlexiTickets?: boolean;
+  paymentCaptureType?: string;
   location?: LocationSimpleData;
 }
 
@@ -148,6 +149,11 @@ export enum BasketLocationType {
   USA = 'USA',
   UK = 'GBR',
   Mixed = 'Mixed',
+}
+
+export enum PaymentCaptureType {
+  Immediate = 'IMMEDIATE',
+  Pending = 'PENDING',
 }
 
 export interface UpsellApiProductDataItem {
