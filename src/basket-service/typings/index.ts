@@ -6,7 +6,7 @@ export enum DeliveryMethod {
   Eticket = 'eticket',
   Evoucher = 'evoucher',
   PrintBoxOffice = 'print_box_office',
-  HandDelivered = 'hand_delivered', 
+  HandDelivered = 'hand_delivered',
   DelayedBarcode = 'delayed_barcode',
   Streaming = 'streaming',
   Supplier = 'supplier',
@@ -100,6 +100,7 @@ export interface BasketData {
   allowFlexiTickets?: boolean;
   paymentCaptureType?: string;
   location?: LocationSimpleData;
+  pubId?: string;
 }
 
 interface RequestSeat {
