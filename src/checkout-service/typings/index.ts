@@ -55,7 +55,7 @@ export interface ApiConfirmBooking {
   result?: string;
   isFirstOrder?: boolean;
   confirmationNumber?: string;
-  showId?: string;
+  showId?: number;
   showName?: string;
 }
 
