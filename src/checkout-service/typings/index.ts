@@ -54,6 +54,9 @@ export interface ApiConfirmBooking {
   nextPaymentId?: string;
   result?: string;
   isFirstOrder?: boolean;
+  confirmationNumber?: string;
+  showId?: number;
+  showName?: string;
 }
 
 export interface ApiConfirmBookingAgentDetails {
