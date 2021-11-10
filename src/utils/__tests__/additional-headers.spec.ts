@@ -33,7 +33,7 @@ describe('getAdditionalHeaders function', () => {
   it('should return right headers for affiliateId', () => {
     const result = {
       'x-ttg-client': 'JS SDK',
-      'x-tt-affiliate-id': affiliateId,
+      'affiliateId': affiliateId,
     };
 
     expect(getAdditionalHeaders({ affiliateId })).toEqual(result);

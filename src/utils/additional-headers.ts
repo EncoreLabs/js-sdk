@@ -24,7 +24,7 @@ export const getAdditionalHeaders = ({
   }
 
   if (affiliateId) {
-    header['x-tt-affiliate-id'] = affiliateId
+    header['affiliateId'] = affiliateId
   }
 
   return header;
