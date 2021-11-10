@@ -4,6 +4,7 @@ export const getAdditionalHeaders = ({
   sourceName,
   sourceVersion,
   viewName,
+  affiliateId,
 }: SourceInformation = {}) => {
   const sourceNamePart = sourceName ? `${sourceName} | ` : '';
   const viewNamePart = viewName ? `${viewName} using ` : '';
@@ -20,6 +21,10 @@ export const getAdditionalHeaders = ({
 
   if (anonymousId) {
     header['x-tt-anonymous-id'] = anonymousId
+  }
+
+  if (affiliateId) {
+    header['x-tt-affiliate-id'] = affiliateId
   }
 
   return header;

@@ -3,6 +3,7 @@ import { getAdditionalHeaders } from '../additional-headers';
 const sourceName = 'Source name';
 const sourceVersion = 'v1';
 const viewName = 'View name';
+const affiliateId = 'mockretailer';
 
 describe('getAdditionalHeaders function', () => {
   it('should return right headers', () => {
@@ -27,6 +28,15 @@ describe('getAdditionalHeaders function', () => {
     };
 
     expect(getAdditionalHeaders({ sourceName, viewName })).toEqual(result);
+  });
+
+  it('should return right headers for affiliateId', () => {
+    const result = {
+      'x-ttg-client': 'JS SDK',
+      'x-tt-affiliate-id': affiliateId,
+    };
+
+    expect(getAdditionalHeaders({ affiliateId })).toEqual(result);
   });
 
   it('should return right headers when all arguments were provided', () => {
