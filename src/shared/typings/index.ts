@@ -43,6 +43,7 @@ export interface ApiPricingValue {
 }
 
 export interface SourceInformation {
+  affiliateId?: string;
   sourceName?: string;
   viewName?: string;
   sourceVersion?: string;
