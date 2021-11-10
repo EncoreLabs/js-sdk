@@ -11,7 +11,7 @@ export const getAdditionalHeaders = ({
   const requestInformation = `${sourceNamePart}${viewNamePart}JS SDK`;
   const anonymousId = getAnonymousId();
 
-  const header = {
+  const header: { [key:string]: string } = {
     'x-ttg-client': requestInformation,
   };
 
@@ -24,7 +24,7 @@ export const getAdditionalHeaders = ({
   }
 
   if (affiliateId) {
-    header['affiliateId'] = affiliateId
+    header.affiliateId = affiliateId
   }
 
   return header;
