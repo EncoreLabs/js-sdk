@@ -5,3 +5,4 @@
 ## Checklist
 - [ ] Updated documentation (if required, see README.md)
 - [ ] Ran locally: `npm run lint && npm run test-coverage`
+- [ ] Bumped version on package.json
