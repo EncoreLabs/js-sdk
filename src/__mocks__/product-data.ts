@@ -26,4 +26,5 @@ export const apiProductDataMock = {
     },
   },
   showFaceValue: false,
+  posterImageUrl: 'http://cdn.media.tix/1',
 };

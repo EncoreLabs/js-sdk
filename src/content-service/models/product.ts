@@ -11,6 +11,7 @@ export class Product {
   private readonly showType: ShowType;
   private readonly venue: Venue;
   private readonly showFaceValue: boolean;
+  private readonly posterImageUrl: string;
 
   constructor (productData: ApiProductData) {
     checkRequiredProperty(productData, 'Product: product data');
@@ -21,12 +22,14 @@ export class Product {
       venue,
       id,
       showFaceValue,
+      posterImageUrl,
     } = productData;
     this.name = name;
     this.showType = showType ? new ShowType(showType) : null;
     this.venue = venue ? new Venue(venue) : null;
     this.id = id;
     this.showFaceValue = showFaceValue;
+    this.posterImageUrl = posterImageUrl;
   }
 
   getId () {
@@ -43,6 +46,10 @@ export class Product {
 
   getVenue () {
     return this.venue;
+  }
+  
+  getPosterImageUrl () {
+    return this.posterImageUrl;
   }
 
   needShowFaceValue () {
