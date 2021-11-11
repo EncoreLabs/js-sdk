@@ -16,6 +16,7 @@ export interface ApiProductData {
   showType: ApiShowTypeData;
   venue: ApiVenueData;
   showFaceValue: boolean;
+  posterImageUrl?: string;
 }
 
 export interface ApiRegionData {

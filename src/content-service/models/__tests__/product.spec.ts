@@ -55,6 +55,20 @@ describe('Product model', () => {
     });
   });
 
+  describe('getPosterImage function', () => {
+    it('should get product posterimage', () => {
+      const product = getProduct();
+
+      expect(product.getPosterImageUrl()).toEqual(apiProductDataMock.posterImageUrl);
+    });
+
+    it('should return null if poster imageUrl is not defined', () => {
+      const product = getProduct({ posterImageUrl: null });
+
+      expect(product.getPosterImageUrl()).toBeNull();
+    });
+  });
+
   describe('needShowFaceValue function', () => {
     it('should check that product should show face value', () => {
       const product = getProduct();
