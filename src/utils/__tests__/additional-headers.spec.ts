@@ -51,4 +51,12 @@ describe('getAdditionalHeaders function', () => {
 
     expect(getAdditionalHeaders({ sourceName, sourceVersion, viewName })).toEqual(result);
   });
+
+  it('should remove quotes from anonymous id before setting the header', () => {
+    localStorage.setItem('ajs_anonymous_id', '"anonymous"')
+
+    const headers = getAdditionalHeaders({ sourceName, sourceVersion, viewName })
+
+    expect(headers['x-tt-anonymous-id']).toEqual('anonymous');
+  });
 })

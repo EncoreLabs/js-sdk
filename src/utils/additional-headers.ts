@@ -31,5 +31,5 @@ export const getAdditionalHeaders = ({
 }
 
 export const getAnonymousId = () => {
-  return localStorage.getItem('ajs_anonymous_id');
+  return localStorage.getItem('ajs_anonymous_id')?.replace(/"/g, '');
 }
