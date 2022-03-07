@@ -14,7 +14,6 @@ import {
   BasketItemData,
   PaymentCaptureType,
 } from '../typings';
-import { Amount } from 'src/shared/typings';
 
 export class Basket {
   private readonly itemsCollection: BasketItemsCollection;
@@ -23,7 +22,6 @@ export class Basket {
   private readonly reference: string;
   private readonly checksum: string;
   private readonly orderConfirmationNumber: string;
-  private readonly orderFee: Amount | null;
   private readonly paymentCaptureType?: string;
   private basketData: BasketData;
   private deliveries: Promise<Delivery[]>;
@@ -41,8 +39,7 @@ export class Basket {
       reference,
       checksum,
       orderConfirmationNumber,
-      paymentCaptureType,
-      orderFee,
+      paymentCaptureType
     } = this.basketData;
 
     if (!reservations) {
@@ -55,7 +52,6 @@ export class Basket {
     this.reference = reference;
     this.checksum = checksum;
     this.orderConfirmationNumber = orderConfirmationNumber;
-    this.orderFee = orderFee;
     this.paymentCaptureType = paymentCaptureType;
   }
 
@@ -65,10 +61,7 @@ export class Basket {
   }
 
   isExpired () {
-    return (
-      this.status === BasketStatus.Expired ||
-      this.getExpiredDate().valueOf() < moment().valueOf()
-    );
+    return this.status === BasketStatus.Expired || this.getExpiredDate().valueOf() < moment().valueOf();
   }
 
   isPaid () {
@@ -80,7 +73,7 @@ export class Basket {
   }
 
   isPaymentCaptureDeferred () {
-    return this.paymentCaptureType === PaymentCaptureType.Pending;
+    return this.paymentCaptureType === PaymentCaptureType.Pending; 
   }
 
   getReference () {
@@ -128,11 +121,11 @@ export class Basket {
       this.deliveries = this.repository.getDeliveries(
         this.getReference(),
         this.getItemsCollection(),
-        this.basketData.channelId
+        this.basketData.channelId,
       );
     }
 
-    return this.deliveries;
+   return this.deliveries;
   }
 
   isEmpty () {
@@ -140,9 +133,7 @@ export class Basket {
   }
 
   getTotalPrice () {
-    return this.reduceBasketItemsAmount(
-      (totalPrice, item) => totalPrice + item.getTotalPrice()
-    );
+    return this.reduceBasketItemsAmount((totalPrice, item) => totalPrice + item.getTotalPrice());
   }
 
   isTotalPriceZero () {
@@ -150,25 +141,19 @@ export class Basket {
   }
 
   getTotalDiscount () {
-    return this.reduceBasketItemsAmount(
-      (totalPrice, item) => totalPrice + item.getDiscount()
-    );
+    return this.reduceBasketItemsAmount((totalPrice, item) => totalPrice + item.getDiscount());
   }
 
   getTotalPromotionDiscount () {
-    return this.reduceBasketItemsAmount(
-      (totalPrice, item) => totalPrice + item.getPromotionDiscount()
-    );
+    return this.reduceBasketItemsAmount((totalPrice, item) => totalPrice + item.getPromotionDiscount());
   }
 
   getTotalPriceBeforeDiscount () {
-    return this.reduceBasketItemsAmount(
-      (totalPrice, item) => totalPrice + item.getPriceBeforeDiscount()
-    );
+    return this.reduceBasketItemsAmount((totalPrice, item) => totalPrice + item.getPriceBeforeDiscount());
   }
 
   hasDiscount () {
-    return this.itemsCollection.getItems().some((item) => item.hasDiscount());
+    return this.itemsCollection.getItems().some(item => item.hasDiscount());
   }
 
   getBasketData () {
@@ -177,9 +162,7 @@ export class Basket {
 
   getUKShows () {
     const tickets = this.itemsCollection.getTickets();
-    const countryCodePromises = tickets.map((ticket) =>
-      ticket.getCountryCode()
-    );
+    const countryCodePromises = tickets.map(ticket => ticket.getCountryCode());
 
     return Promise.all(countryCodePromises).then((countryCodes) => {
       return countryCodes.filter((countryCode) => {
@@ -190,9 +173,7 @@ export class Basket {
 
   getUSShows () {
     const tickets = this.itemsCollection.getTickets();
-    const countryCodePromises = tickets.map((ticket) =>
-      ticket.getCountryCode()
-    );
+    const countryCodePromises = tickets.map(ticket => ticket.getCountryCode());
 
     return Promise.all(countryCodePromises).then((countryCodes) => {
       return countryCodes.filter((countryCode) => {
@@ -211,6 +192,10 @@ export class Basket {
 
   getAppliedPromotion () {
     return this.basketData.appliedPromotion;
+  }
+
+  getOrderFee () {
+    return this.basketData.orderFee;
   }
 
   getMissedPromotion () {
@@ -247,54 +232,32 @@ export class Basket {
     return this.basketData.location;
   }
 
-  getOrderFee () {
-    return this.orderFee;
-  }
-
   prepareBasketData (upsellProducts?: UpsellApiProductData) {
     const { reservations } = this.basketData;
     const itemsCollection = new BasketItemsCollection(reservations);
-    const filteredReservations = itemsCollection
-      .getItems()
-      .filter((basketItem) => basketItem.isTicket());
+    const filteredReservations = itemsCollection.getItems().filter(basketItem => basketItem.isTicket());
     const flexiTickets = itemsCollection.getFlexitickets();
 
     return {
       ...this.basketData,
-      reservations: this.prepareBasketReservation(
-        filteredReservations,
-        flexiTickets,
-        upsellProducts
-      ),
+      reservations: this.prepareBasketReservation(filteredReservations, flexiTickets, upsellProducts),
     };
-  }
+  };
 
   replaceBasketData (basketItems: BasketItemData[]) {
-    checkRequiredProperty(
-      basketItems,
-      'replaceBasketData: basket items collection'
-    );
+    checkRequiredProperty(basketItems, 'replaceBasketData: basket items collection');
 
     const itemsCollection = new BasketItemsCollection(basketItems);
-    const filteredReservations = itemsCollection
-      .getItems()
-      .filter((basketItem) => basketItem.isTicket());
+    const filteredReservations = itemsCollection.getItems().filter(basketItem => basketItem.isTicket());
     const flexiTickets = itemsCollection.getFlexitickets();
 
     return {
       ...this.basketData,
-      reservations: this.prepareBasketReservation(
-        filteredReservations,
-        flexiTickets
-      ),
+      reservations: this.prepareBasketReservation(filteredReservations, flexiTickets),
     };
   }
 
-  private prepareBasketReservation (
-    filteredReservations: any,
-    flexiTickets: BasketItem[],
-    upsellProducts?: UpsellApiProductData
-  ) {
+  private prepareBasketReservation (filteredReservations: any, flexiTickets: BasketItem[], upsellProducts?: UpsellApiProductData) {
     return filteredReservations.map((basketItem: BasketItem) => {
       const items = basketItem.getSeats();
 
@@ -302,22 +265,17 @@ export class Basket {
         return;
       }
 
-      items.map((item: any) => ({
-        aggregateReference: item.aggregateReference,
-      }));
+      items.map((item: any) => ({ aggregateReference: item.aggregateReference }));
       let flexiItems = [];
-      const upsellProductForItem =
-        upsellProducts && upsellProducts[basketItem.getId()];
+      const upsellProductForItem = upsellProducts && upsellProducts[basketItem.getId()];
 
       if (upsellProductForItem) {
-        const flexiTicketsForItem = upsellProductForItem.filter(
-          (upsellProduct) =>
+        const flexiTicketsForItem = upsellProductForItem
+          .filter(upsellProduct =>
             upsellProduct.productType === ProductType.Flexitickets
-        );
+          );
 
-        flexiItems = flexiTicketsForItem.map((item) => ({
-          aggregateReference: item.aggregateReference,
-        }));
+        flexiItems = flexiTicketsForItem.map(item => ({ aggregateReference: item.aggregateReference }));
       } else {
         flexiItems = this.getLinkedFlexiItems(flexiTickets, basketItem);
       }
@@ -333,33 +291,28 @@ export class Basket {
     });
   }
 
-  private getLinkedFlexiItems (
-    flexiTickets: BasketItem[],
-    parentBasketItem: BasketItem
-  ) {
-    const linkedFlexiTickets = flexiTickets.find((item) => {
-      const linkedReservationId = item.getLinkedReservationId();
-      const parentBasketItemId = parentBasketItem.getId();
+  private getLinkedFlexiItems (flexiTickets: BasketItem[], parentBasketItem: BasketItem) {
+    const linkedFlexiTickets = flexiTickets
+      .find(item => {
+        const linkedReservationId = item.getLinkedReservationId();
+        const parentBasketItemId = parentBasketItem.getId();
 
-      if (!linkedReservationId || !parentBasketItemId) {
-        return false;
-      }
+        if (!linkedReservationId || !parentBasketItemId) {
+          return false;
+        }
 
-      return linkedReservationId.toString() === parentBasketItemId.toString();
-    });
+        return linkedReservationId.toString() === parentBasketItemId.toString();
+      });
 
     if (!linkedFlexiTickets) {
       return [];
     }
 
-    return (linkedFlexiTickets.getSeats() || []).map((item: any) => ({
-      aggregateReference: item.aggregateReference,
-    }));
+    return (linkedFlexiTickets.getSeats() || [])
+      .map((item: any) => ({ aggregateReference: item.aggregateReference }));
   }
 
-  private reduceBasketItemsAmount (
-    reducer: (accumulator: number, currentValue: BasketItem) => number
-  ) {
+  private reduceBasketItemsAmount (reducer: (accumulator: number, currentValue: BasketItem) => number) {
     return this.itemsCollection.getItems().reduce(reducer, 0);
   }
 }
