@@ -85,6 +85,7 @@ export interface BasketData {
   reservations: BasketItemData[];
   reference?: string;
   orderConfirmationNumber?: string;
+  orderFee?: Amount;
   checksum?: string;
   delivery?: DeliveryData;
   createdAt?: string;

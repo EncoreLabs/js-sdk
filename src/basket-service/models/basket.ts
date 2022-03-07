@@ -194,6 +194,10 @@ export class Basket {
     return this.basketData.appliedPromotion;
   }
 
+  getOrderFee () {
+    return this.basketData.orderFee;
+  }
+
   getMissedPromotion () {
     return this.basketData.missedPromotions;
   }

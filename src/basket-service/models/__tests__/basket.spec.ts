@@ -232,6 +232,12 @@ describe('Basket', () => {
     });
   });
 
+  describe('getOrderFee function', () => {
+    it('should get order fee price', () => {
+      expect(getBasket().getOrderFee().value).toBe(10);
+    });
+  });
+
   describe('hasDiscount function', () => {
     it('should get if basket has discount', () => {
       expect(getBasket().hasDiscount()).toBe(true);
