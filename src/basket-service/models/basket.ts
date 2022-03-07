@@ -29,7 +29,7 @@ export class Basket {
   private deliveries: Promise<Delivery[]>;
   private repository = basketDetailsRepositoryProvider.getRepository();
 
-  constructor(basketData: BasketData) {
+  constructor (basketData: BasketData) {
     checkRequiredProperty(basketData, 'Basket: basket data');
 
     this.basketData = basketData;
@@ -60,70 +60,70 @@ export class Basket {
   }
 
   // for supporting IE11
-  getExpiredDate() {
+  getExpiredDate () {
     return this.expiredAt;
   }
 
-  isExpired() {
+  isExpired () {
     return (
       this.status === BasketStatus.Expired ||
       this.getExpiredDate().valueOf() < moment().valueOf()
     );
   }
 
-  isPaid() {
+  isPaid () {
     return this.status === BasketStatus.Confirmed;
   }
 
-  isCancelled() {
+  isCancelled () {
     return this.status === BasketStatus.Cancelled;
   }
 
-  isPaymentCaptureDeferred() {
+  isPaymentCaptureDeferred () {
     return this.paymentCaptureType === PaymentCaptureType.Pending;
   }
 
-  getReference() {
+  getReference () {
     return this.reference;
   }
 
-  getOrderConfirmationNumber() {
+  getOrderConfirmationNumber () {
     return this.orderConfirmationNumber;
   }
 
-  getChecksum() {
+  getChecksum () {
     return this.checksum;
   }
 
-  getItemsCollection() {
+  getItemsCollection () {
     return this.itemsCollection;
   }
 
-  setShopperCurrency(currency: string) {
+  setShopperCurrency (currency: string) {
     checkRequiredProperty(currency, 'setShopperCurrency: currency');
 
     this.basketData.shopperCurrency = currency;
   }
 
-  getShopperCurrency() {
+  getShopperCurrency () {
     return this.basketData.shopperCurrency;
   }
 
-  setChosenDelivery(delivery: DeliveryData | null) {
+  setChosenDelivery (delivery: DeliveryData | null) {
     this.basketData.delivery = delivery;
   }
 
-  getChosenDelivery() {
+  getChosenDelivery () {
     return this.basketData.delivery;
   }
 
-  setDeliveries(deliveries: Promise<Delivery[]>) {
+  setDeliveries (deliveries: Promise<Delivery[]>) {
     checkRequiredProperty(deliveries, 'setDeliveries: promise with deliveries');
 
     this.deliveries = deliveries;
   }
 
-  async getDeliveries() {
+  async getDeliveries () {
     if (!this.deliveries) {
       this.deliveries = this.repository.getDeliveries(
         this.getReference(),
@@ -135,47 +135,47 @@ export class Basket {
     return this.deliveries;
   }
 
-  isEmpty() {
+  isEmpty () {
     return !this.itemsCollection.getLength();
   }
 
-  getTotalPrice() {
+  getTotalPrice () {
     return this.reduceBasketItemsAmount(
       (totalPrice, item) => totalPrice + item.getTotalPrice()
     );
   }
 
-  isTotalPriceZero() {
+  isTotalPriceZero () {
     return this.getTotalPrice() === 0;
   }
 
-  getTotalDiscount() {
+  getTotalDiscount () {
     return this.reduceBasketItemsAmount(
       (totalPrice, item) => totalPrice + item.getDiscount()
     );
   }
 
-  getTotalPromotionDiscount() {
+  getTotalPromotionDiscount () {
     return this.reduceBasketItemsAmount(
       (totalPrice, item) => totalPrice + item.getPromotionDiscount()
     );
   }
 
-  getTotalPriceBeforeDiscount() {
+  getTotalPriceBeforeDiscount () {
     return this.reduceBasketItemsAmount(
       (totalPrice, item) => totalPrice + item.getPriceBeforeDiscount()
     );
   }
 
-  hasDiscount() {
+  hasDiscount () {
     return this.itemsCollection.getItems().some((item) => item.hasDiscount());
   }
 
-  getBasketData() {
+  getBasketData () {
     return this.basketData;
   }
 
-  getUKShows() {
+  getUKShows () {
     const tickets = this.itemsCollection.getTickets();
     const countryCodePromises = tickets.map((ticket) =>
       ticket.getCountryCode()
@@ -188,7 +188,7 @@ export class Basket {
     });
   }
 
-  getUSShows() {
+  getUSShows () {
     const tickets = this.itemsCollection.getTickets();
     const countryCodePromises = tickets.map((ticket) =>
       ticket.getCountryCode()
@@ -201,57 +201,57 @@ export class Basket {
     });
   }
 
-  isMixedBasket() {
+  isMixedBasket () {
     return !!this.basketData.mixed;
   }
 
-  areFlexiTicketsAllowed() {
+  areFlexiTicketsAllowed () {
     return this.basketData.allowFlexiTickets;
   }
 
-  getAppliedPromotion() {
+  getAppliedPromotion () {
     return this.basketData.appliedPromotion;
   }
 
-  getMissedPromotion() {
+  getMissedPromotion () {
     return this.basketData.missedPromotions;
   }
 
-  getCouponForPromotion() {
+  getCouponForPromotion () {
     return this.basketData.coupon;
   }
 
-  hasCouponForPromotion() {
+  hasCouponForPromotion () {
     return !!this.getCouponForPromotion();
   }
 
-  hasAppliedPromotion() {
+  hasAppliedPromotion () {
     return !!this.getAppliedPromotion();
   }
 
-  getPromotionCode() {
+  getPromotionCode () {
     return this.basketData.coupon ? this.basketData.coupon.code : '';
   }
 
-  setChannelId(channelId: string) {
+  setChannelId (channelId: string) {
     checkRequiredProperty(channelId, 'setChannelId: channel id');
 
     this.basketData.channelId = channelId;
   }
 
-  getChannelId() {
+  getChannelId () {
     return this.basketData.channelId;
   }
 
-  getLocation() {
+  getLocation () {
     return this.basketData.location;
   }
 
-  getOrderFee() {
+  getOrderFee () {
     return this.orderFee;
   }
 
-  prepareBasketData(upsellProducts?: UpsellApiProductData) {
+  prepareBasketData (upsellProducts?: UpsellApiProductData) {
     const { reservations } = this.basketData;
     const itemsCollection = new BasketItemsCollection(reservations);
     const filteredReservations = itemsCollection
@@ -269,7 +269,7 @@ export class Basket {
     };
   }
 
-  replaceBasketData(basketItems: BasketItemData[]) {
+  replaceBasketData (basketItems: BasketItemData[]) {
     checkRequiredProperty(
       basketItems,
       'replaceBasketData: basket items collection'
@@ -290,7 +290,7 @@ export class Basket {
     };
   }
 
-  private prepareBasketReservation(
+  private prepareBasketReservation (
     filteredReservations: any,
     flexiTickets: BasketItem[],
     upsellProducts?: UpsellApiProductData
@@ -333,7 +333,7 @@ export class Basket {
     });
   }
 
-  private getLinkedFlexiItems(
+  private getLinkedFlexiItems (
     flexiTickets: BasketItem[],
     parentBasketItem: BasketItem
   ) {
@@ -357,7 +357,7 @@ export class Basket {
     }));
   }
 
-  private reduceBasketItemsAmount(
+  private reduceBasketItemsAmount (
     reducer: (accumulator: number, currentValue: BasketItem) => number
   ) {
     return this.itemsCollection.getItems().reduce(reducer, 0);

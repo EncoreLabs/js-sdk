@@ -16,8 +16,10 @@ export const basketDataMock = {
       value: 10,
       currency: 'GBP',
     },
-    prePurchaseText: 'Your tickets will be available at the box office when you arrive for the show.',
-    postPurchaseText: 'Tickets will be held for {name} at the box office 30 minutes prior to showtime.'
+    prePurchaseText:
+      'Your tickets will be available at the box office when you arrive for the show.',
+    postPurchaseText:
+      'Tickets will be held for {name} at the box office 30 minutes prior to showtime.',
   },
   allowFlexiTickets: true,
   status: BasketStatus.Active,
@@ -27,6 +29,10 @@ export const basketDataMock = {
     { ...basketItemDataMock, id: '1' },
     { ...basketItemDataMock, id: '2' },
   ],
+  orderFee: {
+    value: 10,
+    currency: 'GBP',
+  },
   coupon: {
     code: 'SAMPLE_SOURCE_CODE',
   },
@@ -41,7 +47,7 @@ export const basketDataMock = {
     id: '2',
     includeFees: true,
     name: 'London',
-    regionCode: 'GB'
+    regionCode: 'GB',
   },
   paymentCaptureType: 'IMMEDIATE',
 };
