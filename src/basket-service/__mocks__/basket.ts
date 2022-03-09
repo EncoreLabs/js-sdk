@@ -29,6 +29,10 @@ export const basketDataMock = {
     { ...basketItemDataMock, id: '1' },
     { ...basketItemDataMock, id: '2' },
   ],
+  orderFee: {
+    value: 10,
+    currency: 'GBP',
+  },
   coupon: {
     code: 'SAMPLE_SOURCE_CODE',
   },
