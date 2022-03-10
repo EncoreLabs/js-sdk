@@ -133,7 +133,10 @@ export class Basket {
   }
 
   getTotalPrice () {
-    return this.reduceBasketItemsAmount((totalPrice, item) => totalPrice + item.getTotalPrice());
+    const itemsTotalPrice = this.reduceBasketItemsAmount((totalPrice, item) => totalPrice + item.getTotalPrice());
+    const orderFee = this.basketData.orderFee?.value || 0;
+
+    return itemsTotalPrice + orderFee;
   }
 
   isTotalPriceZero () {

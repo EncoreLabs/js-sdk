@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { Basket } from '../basket';
 import { BasketItemsCollection } from '../basket-items-collection';
-import { BasketItemData, BasketStatus, DeliveryMethod, ProductType } from '../../typings';
+import { BasketData, BasketItemData, BasketStatus, DeliveryMethod, ProductType } from '../../typings';
 import { Delivery } from '../delivery';
 import { basketDataMock, basketItemDataMock } from '../../__mocks__';
 
@@ -17,10 +17,10 @@ jest.mock('../../services/basket-details-repository-provider', () => ({
 }));
 
 const basketItemsData = basketDataMock.reservations;
-const getBasket = (basketItems?: BasketItemData[]) => {
+const getBasket = (basketItems?: BasketItemData[], basketData?: Partial<BasketData>) => {
   basketDataMock.reservations = typeof basketItems === 'undefined' ? basketItemsData : basketItems;
 
-  return new Basket({ ...basketDataMock });
+  return new Basket({ ...basketDataMock, ...basketData ? basketData : {} });
 };
 
 describe('Basket', () => {
@@ -206,6 +206,15 @@ describe('Basket', () => {
     it('should get total price', () => {
       expect(getBasket().getTotalPrice()).toBe(1000);
     });
+
+    it('should get total price without fee', () => {
+      const orderFee = {
+        value: 10,
+        currency: 'GBP',
+      };
+
+      expect(getBasket(undefined, { orderFee }).getTotalPrice()).toBe(1010);
+    });
   });
 
   describe('isTotalPriceZero function', () => {
@@ -233,8 +242,12 @@ describe('Basket', () => {
   });
 
   describe('getOrderFee function', () => {
-    it('should get order fee price', () => {
-      expect(getBasket().getOrderFee().value).toBe(10);
+    it('should get order fee price', () => {const orderFee = {
+      value: 10,
+      currency: 'GBP',
+    };
+
+    expect(getBasket(undefined, { orderFee }).getOrderFee().value).toBe(10);
     });
   });
 
