@@ -1,7 +1,6 @@
 import { checkRequiredProperty } from '../../utils/validator';
 import { PricingValue } from '../../shared/models/pricing-value';
 import { ApiAreaPricing } from '../typings';
-import { Amount } from 'src/shared/typings';
 
 export class AreaPricing {
   private faceValue: PricingValue[] | null;
