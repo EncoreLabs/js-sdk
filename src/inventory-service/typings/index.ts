@@ -67,6 +67,7 @@ export interface ApiAreaGroup {
 export interface ApiAreaPricing {
   faceValue: ApiPricingValue[] | null;
   salePrice: ApiPricingValue[];
+  orderFee?: ApiPricingValue[] | null;
   percentageDiscount: number;
   includesBookingFee: boolean;
   promotionLabel: string | null;
