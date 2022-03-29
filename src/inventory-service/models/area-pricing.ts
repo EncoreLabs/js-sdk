@@ -5,6 +5,7 @@ import { ApiAreaPricing } from '../typings';
 export class AreaPricing {
   private faceValue: PricingValue[] | null;
   private salePrice: PricingValue[];
+  private orderFee: PricingValue[] | null;
   private percentageDiscount: number;
   private includesBookingFee: boolean;
   private promotionLabel: string | null;
@@ -16,6 +17,7 @@ export class AreaPricing {
 
     this.faceValue = areaPricing.faceValue ? areaPricing.faceValue.map(pricing => new PricingValue(pricing)) : null;
     this.salePrice = areaPricing.salePrice.map(pricing => new PricingValue(pricing));
+    this.orderFee = areaPricing.orderFee ? areaPricing.orderFee.map(pricing => new PricingValue(pricing)) : null;
     this.percentageDiscount = areaPricing.percentageDiscount;
     this.includesBookingFee = areaPricing.includesBookingFee;
     this.promotionLabel = areaPricing.promotionLabel;
@@ -53,6 +55,14 @@ export class AreaPricing {
 
   setHasBookingFee (includesBookingFee: boolean) {
     this.includesBookingFee = includesBookingFee;
+  }
+
+  getOrderFees () {
+    return this.orderFee;
+  }
+
+  setOrderFees (orderFee: PricingValue[]) {
+    this.orderFee = orderFee;
   }
 
   getPromotionLabel () {

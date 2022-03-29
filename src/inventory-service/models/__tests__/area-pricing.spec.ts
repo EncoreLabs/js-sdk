@@ -76,6 +76,39 @@ describe('AreaPricing', () => {
     });
   });
 
+  describe('getOrderFees function', () => {
+    it('should not get face values', () => {
+      const orderFees = getAreaPricing().getOrderFees();
+
+      expect(orderFees).toBeNull();
+    });
+
+    it('should get face values', () => {
+      const orderFees = getAreaPricing({orderFee: [{ value: 10, currency: 'GBP', decimalPlaces: 0 }]}).getOrderFees();
+
+      expect(orderFees).toHaveLength(1);
+      orderFees.forEach(value => {
+        expect(value instanceof PricingValue).toBe(true);
+      });
+    });
+  });
+
+  describe('setOrderFee function', () => {
+    it('should set order fee prices', () => {
+      const newOrderFee = new PricingValue({
+        value: 10,
+        currency: 'GBP',
+        decimalPlaces: 0,
+      });
+      const areaPricing = getAreaPricing();
+      areaPricing.setOrderFees([newOrderFee]);
+      const orderFees = areaPricing.getOrderFees();
+
+      expect(orderFees).toHaveLength(1);
+      expect(orderFees[0]).toEqual(newOrderFee);
+    });
+  });
+
   describe('getPercentageDiscount function', () => {
     it('should get percentage discount', () => {
       expect(getAreaPricing().getPercentageDiscount()).toEqual(areaPricingMock.percentageDiscount);

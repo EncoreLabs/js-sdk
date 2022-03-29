@@ -40,6 +40,7 @@ export const availabilityMock = {
           priceReference: 'NDIwMDpHQlB+MzUwMDpHQlB+MjAxOS0wOC0yMVQxMjoxMzoxOSswMDAw',
           salePrice: [{ value: 4200, currency: 'GBP', decimalPlaces: 2 }],
           faceValue: [{ value: 3500, currency: 'GBP', decimalPlaces: 2 }],
+          orderFee: [{ value: 3, currency: 'GBP', decimalPlaces: 0 }],
           percentageDiscount: 0,
           includesBookingFee: true,
           promotionLabel: null,
