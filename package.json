@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "axios": "0.19.2",
-    "moment": "2.26.0"
+    "moment": "2.29.2"
   },
   "devDependencies": {
     "@types/jest": "25.2.3",
