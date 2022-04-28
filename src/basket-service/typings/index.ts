@@ -53,6 +53,7 @@ export interface BasketItemData {
   feeInShopperCurrency: Amount | null;
   deliveryFeeInShopperCurrency: Amount | null;
   linkedReservationId?: number;
+  getContentFromV3?: boolean;
   seats?: ReservationSeat[];
 }
 
