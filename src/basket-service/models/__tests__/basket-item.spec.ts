@@ -366,6 +366,13 @@ describe('Basket item', () => {
       expect(getRepositoryMock.getShowDetails).toHaveBeenCalledWith('1001', false);
     });
 
+    it('should request product details from repository', async () => {
+      await getBasketItem().getProductDetails(true);
+
+      expect(getRepositoryMock.getShowDetails).toHaveBeenCalledTimes(1);
+      expect(getRepositoryMock.getShowDetails).toHaveBeenCalledWith('1001', true);
+    });
+
     it('should not request product details on second call', async () => {
       const basketItem = getBasketItem();
       await basketItem.getProductDetails();

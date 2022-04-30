@@ -22,7 +22,6 @@ export class BasketItem {
   private readonly seats: ReservationSeat[];
   private readonly venueId: string;
   private readonly linkedReservationId: number;
-  private readonly getContentFromV3: boolean;
   private readonly repository = basketDetailsRepositoryProvider.getRepository();
   private productDetails: Promise<Product>;
 
@@ -45,8 +44,7 @@ export class BasketItem {
       items,
       venueId,
       linkedReservationId,
-      seats,
-      getContentFromV3
+      seats
     } = basketItemData;
 
     this.id = id;
@@ -65,7 +63,6 @@ export class BasketItem {
     this.seats = items || seats;
     this.venueId = venueId;
     this.linkedReservationId = linkedReservationId || 0;
-    this.getContentFromV3 = getContentFromV3 || false;
   }
 
   getId () {
@@ -242,13 +239,13 @@ export class BasketItem {
     return this.seats;
   }
 
-  async getProductDetails () {
+  async getProductDetails (getContentFromV3: boolean = false) {
     if (!this.isTicket()) {
       return null;
     }
 
     if (!this.productDetails) {
-      this.productDetails = this.repository.getShowDetails(this.getProductId(), this.getContentFromV3);
+      this.productDetails = this.repository.getShowDetails(this.getProductId(), getContentFromV3);
     }
 
     return this.productDetails;
