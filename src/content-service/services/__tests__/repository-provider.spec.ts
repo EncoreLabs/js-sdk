@@ -70,9 +70,17 @@ describe('Content repository', () => {
 
     it('should return product', async () => {
       const repository = getContentServiceRepository(Environment.Dev);
-      await repository.getProduct(id, false);
+      await repository.getProduct(id);
 
       expect(getProduct).toBeCalledWith(id, false);
+      expect(Product).toBeCalledWith(product);
+    });
+
+    it('should return product', async () => {
+      const repository = getContentServiceRepository(Environment.Dev);
+      await repository.getProduct(id, true);
+
+      expect(getProduct).toBeCalledWith(id, true);
       expect(Product).toBeCalledWith(product);
     });
   });

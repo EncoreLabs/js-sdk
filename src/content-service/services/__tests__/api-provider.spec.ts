@@ -74,7 +74,7 @@ describe('Content service API', () => {
   describe('getProduct function', () => {
     it('should get product', async () => {
       const id = 'test';
-      await contentServiceApi.getProduct(id);
+      await contentServiceApi.getProduct(id, false);
 
       expect(httpClient.get).toBeCalledWith(
         `/products/${id}?getContentFromV3=false`,
