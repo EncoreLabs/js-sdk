@@ -45,7 +45,7 @@ export const getContentServiceApi = (
     return data;
   };
 
-  const getProduct = async (id: string, getContentFromV3: boolean): Promise<ApiProductData> => {
+  const getProduct = async (id: string, getContentFromV3: boolean = false): Promise<ApiProductData> => {
     const requestUrl = `${productsPath}/${id}?getContentFromV3=${getContentFromV3}`;
     const { data } = await httpClient.get(
       requestUrl,
