@@ -53,10 +53,10 @@ describe('Basket API', () => {
   describe('getBasket function', () => {
     it('should get basket', async () => {
       const reference = 'test';
-      await basketApi.getBasket(reference);
+      await basketApi.getBasket(reference, null, false);
 
       expect(httpClient.get).toBeCalledWith(
-        `/baskets/${reference}`,
+        `/baskets/${reference}?returnTTId=false`,
         {
           headers: additionalHeaders,
         },
@@ -68,7 +68,7 @@ describe('Basket API', () => {
       await basketApi.getBasket(reference, testChannelId);
 
       expect(httpClient.get).toBeCalledWith(
-        `/baskets/${reference}`,
+        `/baskets/${reference}?returnTTId=false`,
         {
           headers: headersWithAffiliate,
         },
@@ -143,10 +143,10 @@ describe('Basket API', () => {
         shopperCurrency,
       } = basketDataMock;
 
-      await basketApi.upsertBasket(basketDataMock);
+      await basketApi.upsertBasket(basketDataMock, false);
 
       expect(httpClient.patch).toBeCalledWith(
-        '/baskets',
+        '/baskets?returnTTId=false',
         {
           channelId,
           coupon,

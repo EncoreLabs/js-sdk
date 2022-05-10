@@ -16,18 +16,18 @@ export const getBasketServiceRepository = (
 
   basketDetailsRepositoryProvider.setEnvironment(environment, settings, sourceInformation);
 
-  const getBasket = async (reference: string, channelId?: string) => {
+  const getBasket = async (reference: string, channelId?: string, returnTTId: boolean = false) => {
     checkRequiredProperty(reference, 'getBasket: basket reference');
 
-    const basketData = await basketApi.getBasket(reference, channelId);
+    const basketData = await basketApi.getBasket(reference, channelId, returnTTId);
 
     return new Basket(basketData);
   };
 
-  const createBasket = async (basketData: RequestBasketData) => {
+  const createBasket = async (basketData: RequestBasketData, returnTTId: boolean = false) => {
     checkRequiredProperty(basketData, 'createBasket: basket data');
 
-    const responseBasketData = await basketApi.upsertBasket(basketData);
+    const responseBasketData = await basketApi.upsertBasket(basketData, returnTTId);
 
     return new Basket(responseBasketData as BasketData);
   };
@@ -55,7 +55,7 @@ export const getBasketServiceRepository = (
     return new Basket(responseBasketData as BasketData);
   };
 
-  const addItems = async (basket: Basket, basketItems: BasketItemData[]) => {
+  const addItems = async (basket: Basket, basketItems: BasketItemData[], returnTTId: boolean = false) => {
     checkRequiredProperty(basket, 'addItems: basket');
     checkRequiredProperty(basketItems, 'addItems: basket items collection');
 
@@ -64,12 +64,12 @@ export const getBasketServiceRepository = (
     requestBasketData.reservations = requestBasketData.reservations.concat(basketItems);
     requestBasketData = { ...requestBasketData, ...basket.prepareBasketData()};
 
-    const responseBasketData = await basketApi.upsertBasket(requestBasketData);
+    const responseBasketData = await basketApi.upsertBasket(requestBasketData, returnTTId);
 
     return new Basket(responseBasketData as BasketData);
   };
 
-  const replaceItems = async (basket: Basket, basketItems: BasketItemData[]) => {
+  const replaceItems = async (basket: Basket, basketItems: BasketItemData[], returnTTId: boolean = false) => {
     checkRequiredProperty(basket, 'replaceItems: basket');
     checkRequiredProperty(basketItems, 'replaceItems: basket items collection');
 
@@ -84,7 +84,7 @@ export const getBasketServiceRepository = (
 
     delete requestBasketData.reference;
 
-    return await createBasket(requestBasketData);
+    return await createBasket(requestBasketData, returnTTId);
   };
 
   const removeItem = async (basketReference: string, itemId: number, channelId?: string) => {
@@ -96,7 +96,7 @@ export const getBasketServiceRepository = (
     return new Basket(responseBasketData);
   };
 
-  const addPromoCode = async (basket: Basket, promoCode: string) => {
+  const addPromoCode = async (basket: Basket, promoCode: string, returnTTId: boolean = false) => {
     checkRequiredProperty(basket, 'addPromoCode: basket');
     checkRequiredProperty(promoCode, 'addPromoCode: promo code');
 
@@ -105,12 +105,12 @@ export const getBasketServiceRepository = (
     requestBasketData.coupon = { code: promoCode };
     requestBasketData = { ...requestBasketData, ...basket.prepareBasketData()};
 
-    const responseBasketData = await basketApi.upsertBasket(requestBasketData);
+    const responseBasketData = await basketApi.upsertBasket(requestBasketData, returnTTId);
 
     return new Basket(responseBasketData as BasketData);
   };
 
-  const removePromoCode = async (basket: Basket) => {
+  const removePromoCode = async (basket: Basket, returnTTId: boolean = false) => {
     checkRequiredProperty(basket, 'removePromoCode: basket');
 
     let requestBasketData = basket.getBasketData();
@@ -118,28 +118,28 @@ export const getBasketServiceRepository = (
     requestBasketData.coupon = null;
     requestBasketData = { ...requestBasketData, ...basket.prepareBasketData()};
 
-    const responseBasketData = await basketApi.upsertBasket(requestBasketData);
+    const responseBasketData = await basketApi.upsertBasket(requestBasketData, returnTTId);
 
     return new Basket(responseBasketData as BasketData);
   };
 
-  const setUpsellProducts = async (basket: Basket, upsellProducts: UpsellApiProductData) => {
+  const setUpsellProducts = async (basket: Basket, upsellProducts: UpsellApiProductData, returnTTId: boolean = false) => {
     checkRequiredProperty(basket, 'setUpsellProducts: basket');
     checkRequiredProperty(upsellProducts, 'setUpsellProducts: upsell products data');
 
     let requestBasketData = basket.getBasketData();
     requestBasketData = { ...requestBasketData, ...basket.prepareBasketData(upsellProducts)};
-    const responseBasketData = await basketApi.upsertBasket(requestBasketData);
+    const responseBasketData = await basketApi.upsertBasket(requestBasketData, returnTTId);
 
     return new Basket(responseBasketData as BasketData);
   };
 
-  const upsertBasket = async (basket: Basket, basketData?: BasketData) => {
+  const upsertBasket = async (basket: Basket, basketData?: BasketData, returnTTId: boolean = false) => {
     const requestBasketData = basketData || basket.getBasketData();
     const responseBasketData = await basketApi.upsertBasket({
       ...requestBasketData,
       ...basket.prepareBasketData(),
-    });
+    }, returnTTId);
 
     return new Basket(responseBasketData as BasketData);
   };

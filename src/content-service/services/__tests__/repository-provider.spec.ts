@@ -57,13 +57,13 @@ describe('Content repository', () => {
     it('should throw an error if product id is not defined', async () => {
       const repository = getContentServiceRepository(Environment.Dev);
       expect.assertions(1);
-      await expect(repository.getProduct(null)).rejects.toEqual(new Error('getProduct: product id is required'));
+      await expect(repository.getProduct(null, false)).rejects.toEqual(new Error('getProduct: product id is required'));
     });
 
     it('should return null if product was not found', async () => {
       (getContentServiceApi as jest.Mock).mockImplementationOnce(() => ({ getProduct: jest.fn(() => null) }));
       const repository = getContentServiceRepository(Environment.Dev);
-      const result = await repository.getProduct(id);
+      const result = await repository.getProduct(id, false);
 
       expect(result).toBeNull();
     });
@@ -72,7 +72,15 @@ describe('Content repository', () => {
       const repository = getContentServiceRepository(Environment.Dev);
       await repository.getProduct(id);
 
-      expect(getProduct).toBeCalledWith(id);
+      expect(getProduct).toBeCalledWith(id, false);
+      expect(Product).toBeCalledWith(product);
+    });
+
+    it('should return product', async () => {
+      const repository = getContentServiceRepository(Environment.Dev);
+      await repository.getProduct(id, true);
+
+      expect(getProduct).toBeCalledWith(id, true);
       expect(Product).toBeCalledWith(product);
     });
   });

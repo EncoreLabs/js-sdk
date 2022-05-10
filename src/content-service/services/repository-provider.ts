@@ -24,10 +24,10 @@ export const getContentServiceRepository = (
       return productsData.map(apiProductData => new Product(apiProductData));
     },
 
-    getProduct: async (productId: string) => {
+    getProduct: async (productId: string, getContentFromV3: boolean = false) => {
       checkRequiredProperty(productId, 'getProduct: product id');
 
-      const apiProductData = await getProduct(productId);
+      const apiProductData = await getProduct(productId, getContentFromV3);
 
       if (!apiProductData) {
         return null;

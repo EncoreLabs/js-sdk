@@ -20,7 +20,7 @@ export const getBasketServiceApi = (
   const reservationsPath = '/reservations';
   const additionalHeaders = getAdditionalHeaders(sourceInformation);
 
-  const upsertBasket = async (basketData: RequestBasketData): Promise<BasketData | ApiError> => {
+  const upsertBasket = async (basketData: RequestBasketData, returnTTId: boolean = false): Promise<BasketData | ApiError> => {
     checkRequiredProperty(basketData, 'upsertBasket: basket data');
 
     const {
@@ -33,7 +33,7 @@ export const getBasketServiceApi = (
       hasFlexiTickets,
     } = basketData;
 
-    return httpClient.patch(basketsPath, {
+    return httpClient.patch(`${basketsPath}?returnTTId=${returnTTId}`, {
       channelId,
       coupon,
       delivery,
@@ -74,10 +74,10 @@ export const getBasketServiceApi = (
     return data;
   };
 
-  const getBasket = async (reference: string, channelId?: string): Promise<BasketData> => {
+  const getBasket = async (reference: string, channelId?: string, returnTTId: boolean = false): Promise<BasketData> => {
     checkRequiredProperty(reference, 'getBasket: basket reference');
 
-    const requestUrl = `${basketsPath}/${reference}`;
+    const requestUrl = `${basketsPath}/${reference}?returnTTId=${returnTTId}`;
     const { data } = await httpClient.get(
       requestUrl,
       {

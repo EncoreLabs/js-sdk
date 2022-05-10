@@ -44,7 +44,7 @@ export class BasketItem {
       items,
       venueId,
       linkedReservationId,
-      seats,
+      seats
     } = basketItemData;
 
     this.id = id;
@@ -239,13 +239,13 @@ export class BasketItem {
     return this.seats;
   }
 
-  async getProductDetails () {
+  async getProductDetails (getContentFromV3: boolean = false) {
     if (!this.isTicket()) {
       return null;
     }
 
     if (!this.productDetails) {
-      this.productDetails = this.repository.getShowDetails(this.getProductId());
+      this.productDetails = this.repository.getShowDetails(this.getProductId(), getContentFromV3);
     }
 
     return this.productDetails;
