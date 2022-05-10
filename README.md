@@ -56,33 +56,35 @@ interface SourceInformation {
 }
 ```
 
-* getBasket(reference, [channelId]) ⇒ Basket
-* createBasket(basketData) ⇒ Basket
+* getBasket(reference, [channelId], returnTTId) ⇒ Basket
+* createBasket(basketData, returnTTId) ⇒ Basket
 * getDeliveries(basketReference, basketItems, [channelId]) ⇒ Array&lt;Delivery&gt;
 * setSelectedDelivery(basket, selectedDelivery) ⇒ Basket
-* addItems(basket, basketItems) ⇒ Basket
-* replaceItems(basket, basketItems) ⇒ Basket
+* addItems(basket, basketItems, returnTTId) ⇒ Basket
+* replaceItems(basket, basketItems, returnTTId) ⇒ Basket
 * removeItem(basketReference, itemId, [channelId]) ⇒ Basket
-* addPromoCode(basket, promoCode) ⇒ Basket
-* removePromoCode(basket) ⇒ Basket
+* addPromoCode(basket, promoCode, returnTTId) ⇒ Basket
+* removePromoCode(basket, returnTTId) ⇒ Basket
 * clearBasket(basketReference, [channelId]) ⇒ Basket
 
-#### ➥ getBasket(reference, [channelId]) ⇒ Basket
+#### ➥ getBasket(reference, [channelId], returnTTId) ⇒ Basket
 *Get basket by reference*
 **Returns**: Basket - *basket model*  
 
-| Param | Type |
-| --- | --- |
-| reference | string | 
+| Param       | Type   |
+|-------------|--------|
+| reference   | string | 
 | [channelId] | string | 
+| returnTTId  | bool   | 
 
-#### ➥ createBasket(basketData) ⇒ Basket
+#### ➥ createBasket(basketData, returnTTId) ⇒ Basket
 *Create new basket*
 **Returns**: Basket - *basket model*  
 
-| Param | Type |
-| --- | --- |
+| Param      | Type              |
+|------------|-------------------|
 | basketData | RequestBasketData | 
+| returnTTId | bool              | 
 
 ```typescript
 interface RequestBasketData {
@@ -186,14 +188,15 @@ interface Amount {
 }
 ```
 
-#### ➥ addItems(basket, basketItems) ⇒ Basket
+#### ➥ addItems(basket, basketItems, returnTTId) ⇒ Basket
 *Add item to the basket*
 **Returns**: Basket - *basket*  
 
-| Param | Type |
-| --- | --- |
-| basket | Basket | 
+| Param       | Type                        |
+|-------------|-----------------------------|
+| basket      | Basket                      | 
 | basketItems | Array&lt;BasketItemData&gt; | 
+| returnTTId  | bool                        | 
 
 ```typescript
 interface BasketItemData {
@@ -240,14 +243,15 @@ interface Amount {
 }
 ```
 
-#### ➥ replaceItems(basket, basketItems) ⇒ Basket
+#### ➥ replaceItems(basket, basketItems, returnTTId) ⇒ Basket
 *Replace items in basket with new items*
 **Returns**: Basket - *basket*  
 
-| Param | Type |
-| --- | --- |
-| basket | Basket | 
+| Param       | Type                        |
+|-------------|-----------------------------|
+| basket      | Basket                      | 
 | basketItems | Array&lt;BasketItemData&gt; | 
+| returnTTId  | bool                        | 
 
 ```typescript
 interface BasketItemData {
@@ -304,22 +308,24 @@ interface Amount {
 | itemId | number | 
 | [channelId] | string | 
 
-#### ➥ addPromoCode(basket, promoCode) ⇒ Basket
+#### ➥ addPromoCode(basket, promoCode, returnTTId) ⇒ Basket
 *Apply promo code*
 **Returns**: Basket - *basket*  
 
-| Param | Type |
-| --- | --- |
-| basket | Basket | 
-| promoCode | string | 
+| Param      | Type   |
+|------------|--------|
+| basket     | Basket | 
+| promoCode  | string | 
+| returnTTId | bool   | 
 
-#### ➥ removePromoCode(basket) ⇒ Basket
+#### ➥ removePromoCode(basket, returnTTId) ⇒ Basket
 *Remove promo code*
 **Returns**: Basket - *basket*  
 
-| Param | Type |
-| --- | --- |
-| basket | Basket |
+| Param      | Type   |
+|------------|--------|
+| basket     | Basket |
+| returnTTId | bool   |
 
 #### ➥ clearBasket(basketReference, [channelId]) ⇒ Basket
 *Remove all items from basket*
@@ -455,7 +461,7 @@ interface SourceInformation {
 ```
 
 * getProducts(page, limit) ⇒ Array&lt;Product&gt;
-* getProduct(productId) ⇒ Product
+* getProduct(productId, getContentFromV3) ⇒ Product
 * getImages(entityType, entityId, orientation) ⇒ Array&lt;Image&gt;
 
 #### ➥ getProducts([page], [limit]) ⇒ Array&lt;Product&gt;
@@ -467,13 +473,14 @@ interface SourceInformation {
 | [page] | number | 
 | [limit] | number |
 
-#### ➥ getProduct(productId) ⇒ Product
+#### ➥ getProduct(productId, getContentFromV3) ⇒ Product
 *Get product details*
 **Returns**: Product - *product model* 
 
-| Param | Type |
-| --- | --- |
-| productId | string | 
+| Param            | Type   |
+|------------------|--------|
+| productId        | string | 
+| getContentFromV3 | bool   | 
 
 #### ➥ getImages(entityType, entityId, [orientation]) ⇒ Array&lt;Image&gt;
 *Get list of images*
