@@ -18,7 +18,7 @@ export const getBasketServiceApi = (
   const deliveriesPath = '/deliveryOptions';
   const applyDeliveryPath = '/applyDelivery';
   const reservationsPath = '/reservations';
-  const additionalHeaders = getAdditionalHeaders(sourceInformation);
+  const additionalHeaders = getAdditionalHeaders(sourceInformation, true);
 
   const upsertBasket = async (basketData: RequestBasketData, returnTTId: boolean = false): Promise<BasketData | ApiError> => {
     checkRequiredProperty(basketData, 'upsertBasket: basket data');

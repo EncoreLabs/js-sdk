@@ -1,33 +1,58 @@
 import { SourceInformation } from '../shared/typings';
 
+
+const getCookieValue = (name) => (
+  document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''
+)
+
+export const getAttributionCookies = () => {
+  const allowedCookieNames = ['_ga', '_fbp', '_gcl_au'];
+
+  let cookie = ''
+  for (const cookieName of allowedCookieNames) {
+    const value = getCookieValue(cookieName)
+    if (value) {
+      if (cookie.length > 0) cookie += ' ';
+      cookie += `${cookieName}=${value};`;
+    }
+  }
+
+  return cookie
+};
+
 export const getAdditionalHeaders = ({
   sourceName,
   sourceVersion,
   viewName,
   affiliateId,
-}: SourceInformation = {}) => {
+}: SourceInformation = {}, includeCookie: boolean = false) => {
   const sourceNamePart = sourceName ? `${sourceName} | ` : '';
   const viewNamePart = viewName ? `${viewName} using ` : '';
   const requestInformation = `${sourceNamePart}${viewNamePart}JS SDK`;
   const anonymousId = getAnonymousId();
+  const cookie = getAttributionCookies();
 
-  const header: { [key:string]: string } = {
+  const headers: { [key:string]: string } = {
     'x-ttg-client': requestInformation,
   };
 
   if (sourceVersion) {
-    header['x-ttg-client-version'] = sourceVersion
+    headers['x-ttg-client-version'] = sourceVersion
   }
 
   if (anonymousId) {
-    header['x-tt-anonymous-id'] = anonymousId
+    headers['x-tt-anonymous-id'] = anonymousId
   }
 
   if (affiliateId) {
-    header.affiliateId = affiliateId
+    headers.affiliateId = affiliateId
   }
 
-  return header;
+  if (includeCookie && cookie) {
+    headers['x-ttg-cookie'] = cookie;
+  }
+
+  return headers;
 }
 
 export const getAnonymousId = () => {

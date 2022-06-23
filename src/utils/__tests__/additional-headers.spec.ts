@@ -59,4 +59,15 @@ describe('getAdditionalHeaders function', () => {
 
     expect(headers['x-tt-anonymous-id']).toEqual('anonymous');
   });
+
+  it('should fetch and attache cookie header', () => {
+    document.cookie = '_fbp=fb.1.1635882611934.721450586;'
+    document.cookie = '_ga=GA1.2.1987863969.1635949433;'
+    document.cookie = '_gcl_au=1.1.652822416.1651692668;'
+    document.cookie = '_clsk=12njzoh|1655497229922|2|1|i.clarity.ms/collect;'
+
+    const headers = getAdditionalHeaders({ sourceName, sourceVersion, viewName }, true)
+
+    expect(headers['x-ttg-cookie']).toEqual('_ga=GA1.2.1987863969.1635949433; _fbp=fb.1.1635882611934.721450586; _gcl_au=1.1.652822416.1651692668;');
+  });
 })
