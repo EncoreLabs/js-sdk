@@ -1,4 +1,4 @@
-import { getAdditionalHeaders } from '../additional-headers';
+import {getAdditionalHeaders, getCookieValue} from '../additional-headers';
 
 const sourceName = 'Source name';
 const sourceVersion = 'v1';
@@ -63,11 +63,19 @@ describe('getAdditionalHeaders function', () => {
   it('should fetch and attache cookie header', () => {
     document.cookie = '_fbp=fb.1.1635882611934.721450586;'
     document.cookie = '_ga=GA1.2.1987863969.1635949433;'
-    document.cookie = '_gcl_au=1.1.652822416.1651692668;'
     document.cookie = '_clsk=12njzoh|1655497229922|2|1|i.clarity.ms/collect;'
+    document.cookie = '_gcl_au=1.1.652822416.1651692668;'
+
 
     const headers = getAdditionalHeaders({ sourceName, sourceVersion, viewName }, true)
 
     expect(headers['x-ttg-cookie']).toEqual('_ga=GA1.2.1987863969.1635949433; _fbp=fb.1.1635882611934.721450586; _gcl_au=1.1.652822416.1651692668;');
+  });
+
+  it('Get specify cookie value works', () => {
+    const cookie = '_ga=GA1.2.1987863969.1635949433; _fbp=fb.1.1635882611934.721450586'
+
+    expect(getCookieValue('_ga', cookie)).toEqual('GA1.2.1987863969.1635949433');
+    expect(getCookieValue('_fbp', cookie)).toEqual('fb.1.1635882611934.721450586');
   });
 })

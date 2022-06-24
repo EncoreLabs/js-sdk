@@ -1,9 +1,10 @@
 import { SourceInformation } from '../shared/typings';
 
-
-const getCookieValue = (name) => (
-  document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''
-)
+export function getCookieValue (name: string, cookie: string = document.cookie) {
+  const value = `; ${cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
 export const getAttributionCookies = () => {
   const allowedCookieNames = ['_ga', '_fbp', '_gcl_au'];
