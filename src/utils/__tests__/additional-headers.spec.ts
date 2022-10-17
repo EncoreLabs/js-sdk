@@ -1,4 +1,4 @@
-import {getAdditionalHeaders, getCookieValue} from '../additional-headers';
+import {getAdditionalHeaders, getAuthHeader, getCookieValue} from '../additional-headers';
 
 const sourceName = 'Source name';
 const sourceVersion = 'v1';
@@ -77,5 +77,19 @@ describe('getAdditionalHeaders function', () => {
 
     expect(getCookieValue('_ga', cookie)).toEqual('GA1.2.1987863969.1635949433');
     expect(getCookieValue('_fbp', cookie)).toEqual('fb.1.1635882611934.721450586');
+  });
+})
+
+describe('getAuthHeader function', () => {
+  it('should return right header', () => {
+    const result = {
+      'x-ttg-authorization': 'abc',
+    };
+
+    expect(getAuthHeader('abc')).toEqual(result);
+  });
+
+  it('if there is no jwt, return an empty object', () => {
+    expect(getAuthHeader(undefined)).toEqual({});
   });
 })

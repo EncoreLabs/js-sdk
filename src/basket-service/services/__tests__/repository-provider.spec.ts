@@ -134,15 +134,15 @@ describe('Basket repository', () => {
     jest.mock('../../models/basket');
     await createBasket(basketDataMock);
 
-    expect(upsertBasketData).toBeCalledWith(basketDataMock, false);
+    expect(upsertBasketData).toBeCalledWith(basketDataMock, false, undefined);
     expect(Basket).toBeCalledWith(basketDataMock);
   });
 
   it('should create basket and returnTTId', async () => {
     jest.mock('../../models/basket');
-    await createBasket(basketDataMock, true);
+    await createBasket(basketDataMock, true, 'faketoken');
 
-    expect(upsertBasketData).toBeCalledWith(basketDataMock, true);
+    expect(upsertBasketData).toBeCalledWith(basketDataMock, true, 'faketoken');
     expect(Basket).toBeCalledWith(basketDataMock);
   });
 
@@ -197,7 +197,7 @@ describe('Basket repository', () => {
     await replaceItems(basket, [basketItemDataMock]);
     const callArguments = getMockFunctionArguments(upsertBasketData);
 
-    expect(callArguments.length).toBe(2);
+    expect(callArguments.length).toBe(3);
     expect((callArguments[0] as BasketData).reservations.length).toBe(2);
   });
 
@@ -208,7 +208,7 @@ describe('Basket repository', () => {
     await replaceItems(basket, [basketItemDataMock], true);
     const callArguments = getMockFunctionArguments(upsertBasketData);
 
-    expect(callArguments.length).toBe(2);
+    expect(callArguments.length).toBe(3);
     expect((callArguments[0] as BasketData).reservations.length).toBe(2);
   });
 

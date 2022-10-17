@@ -24,10 +24,10 @@ export const getBasketServiceRepository = (
     return new Basket(basketData);
   };
 
-  const createBasket = async (basketData: RequestBasketData, returnTTId: boolean = false) => {
+  const createBasket = async (basketData: RequestBasketData, returnTTId: boolean = false, jwt?: string) => {
     checkRequiredProperty(basketData, 'createBasket: basket data');
 
-    const responseBasketData = await basketApi.upsertBasket(basketData, returnTTId);
+    const responseBasketData = await basketApi.upsertBasket(basketData, returnTTId, jwt);
 
     return new Basket(responseBasketData as BasketData);
   };
