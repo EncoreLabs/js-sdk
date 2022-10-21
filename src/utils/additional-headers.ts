@@ -59,3 +59,9 @@ export const getAdditionalHeaders = ({
 export const getAnonymousId = () => {
   return localStorage.getItem('ajs_anonymous_id')?.replace(/"/g, '');
 }
+
+export const getAuthHeader = (jwt?: string) => {
+  return jwt ? {
+    'x-ttg-authorization': jwt,
+  } : {};
+}

@@ -1,5 +1,5 @@
 import { getHttpClient } from '../../http-client-provider';
-import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
+import { checkRequiredProperty, getAdditionalHeaders, getAuthHeader } from '../../utils';
 import { pathSettings } from '../constants/path-settings';
 import { BasketData, DeliveryData, RequestBasketData } from '../typings';
 import { ApiError, Environment, SourceInformation } from '../../shared/typings';
@@ -20,7 +20,7 @@ export const getBasketServiceApi = (
   const reservationsPath = '/reservations';
   const additionalHeaders = getAdditionalHeaders(sourceInformation, true);
 
-  const upsertBasket = async (basketData: RequestBasketData, returnTTId: boolean = false): Promise<BasketData | ApiError> => {
+  const upsertBasket = async (basketData: RequestBasketData, returnTTId: boolean = false, jwt?: string): Promise<BasketData | ApiError> => {
     checkRequiredProperty(basketData, 'upsertBasket: basket data');
 
     const {
@@ -44,6 +44,7 @@ export const getBasketServiceApi = (
     }, {
       headers: {
         ...getRequestHeadersByChannel(channelId),
+        ...getAuthHeader(jwt),
         ...additionalHeaders
       },
     })
