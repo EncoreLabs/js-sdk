@@ -26,6 +26,7 @@ describe('Basket API', () => {
   };
   const basketApi = getBasketServiceApi(Environment.Dev, null, sourceInformation);
   const testChannelId = 'test-qa-encoretickets';
+  const testChecksum = 'test-12345-abc';
   const additionalHeaders = {
     'x-ttg-client': 'Source name | View name using JS SDK',
     'x-ttg-client-version': 'Source version',
@@ -33,7 +34,11 @@ describe('Basket API', () => {
   const headersWithAffiliate = {
     ...{ affiliateId: 'encoretickets' },
     ...additionalHeaders,
-  }
+  };
+  const headersWithPassword = {
+    ...{ 'x-ttg-password': testChecksum },
+    ...additionalHeaders,
+  };
 
   beforeEach(() => {
     httpClient = getMockFunctionReturnValue(getHttpClient);
@@ -53,24 +58,24 @@ describe('Basket API', () => {
   describe('getBasket function', () => {
     it('should get basket', async () => {
       const reference = 'test';
-      await basketApi.getBasket(reference, null, false);
+      await basketApi.getBasket(reference, testChecksum, null, false);
 
       expect(httpClient.get).toBeCalledWith(
         `/baskets/${reference}?returnTTId=false`,
         {
-          headers: additionalHeaders,
+          headers: headersWithPassword,
         },
       );
     });
 
     it('should get basket with affiliateId header', async () => {
       const reference = 'test';
-      await basketApi.getBasket(reference, testChannelId);
+      await basketApi.getBasket(reference, testChecksum, testChannelId);
 
       expect(httpClient.get).toBeCalledWith(
         `/baskets/${reference}?returnTTId=false`,
         {
-          headers: headersWithAffiliate,
+          headers: headersWithPassword,
         },
       );
     });
@@ -79,24 +84,24 @@ describe('Basket API', () => {
   describe('getDeliveries function', () => {
     it('should get deliveriesMock', async () => {
       const reference = 'test';
-      await basketApi.getDeliveries(reference);
+      await basketApi.getDeliveries(reference, testChecksum);
 
       expect(httpClient.get).toBeCalledWith(
         `/baskets/${reference}/deliveryOptions`,
         {
-          headers: additionalHeaders,
+          headers: headersWithPassword,
         },
       );
     });
 
     it('should get deliveriesMock with affiliateId header', async () => {
       const reference = 'test';
-      await basketApi.getDeliveries(reference, testChannelId);
+      await basketApi.getDeliveries(reference, testChecksum, testChannelId);
 
       expect(httpClient.get).toBeCalledWith(
         `/baskets/${reference}/deliveryOptions`,
         {
-          headers: headersWithAffiliate,
+          headers: headersWithPassword,
         },
       );
     });
@@ -106,13 +111,13 @@ describe('Basket API', () => {
     it('should apply delivery', async () => {
       const reference = 'test';
       const delivery = deliveriesMock[0];
-      await basketApi.applyDelivery(reference, delivery);
+      await basketApi.applyDelivery(reference, delivery, testChecksum);
 
       expect(httpClient.patch).toBeCalledWith(
         `/baskets/${reference}/applyDelivery`,
         { delivery },
         {
-          headers: additionalHeaders,
+          headers: headersWithPassword,
         },
       );
     });
@@ -120,13 +125,13 @@ describe('Basket API', () => {
     it('should apply delivery with affiliateId header', async () => {
       const reference = 'test';
       const delivery = deliveriesMock[0];
-      await basketApi.applyDelivery(reference, delivery, testChannelId);
+      await basketApi.applyDelivery(reference, delivery, testChecksum, testChannelId);
 
       expect(httpClient.patch).toBeCalledWith(
         `/baskets/${reference}/applyDelivery`,
         { delivery },
         {
-          headers: headersWithAffiliate,
+          headers: { ...headersWithAffiliate, 'x-ttg-password': testChecksum },
         },
       );
     });
@@ -143,7 +148,7 @@ describe('Basket API', () => {
         shopperCurrency,
       } = basketDataMock;
 
-      await basketApi.upsertBasket(basketDataMock, false);
+      await basketApi.upsertBasket(basketDataMock, testChecksum, false);
 
       expect(httpClient.patch).toBeCalledWith(
         '/baskets?returnTTId=false',
@@ -156,7 +161,7 @@ describe('Basket API', () => {
           shopperCurrency,
         },
         {
-          headers: headersWithAffiliate,
+          headers: { ...headersWithAffiliate, 'x-ttg-password': testChecksum },
         },
       );
     });
@@ -164,7 +169,7 @@ describe('Basket API', () => {
     it('should return basket API response if data not set', async () => {
       (httpClient.patch as jest.Mock).mockImplementationOnce(() => Promise.resolve([{}]));
 
-      const result = await basketApi.upsertBasket(basketDataMock);
+      const result = await basketApi.upsertBasket(basketDataMock, undefined);
 
       expect(result).toEqual({});
     });

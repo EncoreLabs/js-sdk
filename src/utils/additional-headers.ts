@@ -65,3 +65,9 @@ export const getAuthHeader = (jwt?: string) => {
     'x-ttg-authorization': jwt,
   } : {};
 }
+
+export const getPasswordHeader = (checksum?: string) => {
+  return checksum ? {
+    'x-ttg-password': checksum,
+  } : {};
+}

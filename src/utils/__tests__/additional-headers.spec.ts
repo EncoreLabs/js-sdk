@@ -1,4 +1,4 @@
-import {getAdditionalHeaders, getAuthHeader, getCookieValue} from '../additional-headers';
+import {getAdditionalHeaders, getAuthHeader, getCookieValue, getPasswordHeader} from '../additional-headers';
 
 const sourceName = 'Source name';
 const sourceVersion = 'v1';
@@ -91,5 +91,19 @@ describe('getAuthHeader function', () => {
 
   it('if there is no jwt, return an empty object', () => {
     expect(getAuthHeader(undefined)).toEqual({});
+  });
+})
+
+describe('getPasswordHeader function', () => {
+  it('should return right header', () => {
+    const result = {
+      'x-ttg-password': 'checksum',
+    };
+
+    expect(getPasswordHeader('checksum')).toEqual(result);
+  });
+
+  it('if no checksum, return empty object', () => {
+    expect(getPasswordHeader(undefined)).toEqual({});
   });
 })

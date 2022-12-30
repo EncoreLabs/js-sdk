@@ -80,18 +80,20 @@ describe('Basket repository', () => {
 
   it('should return basket', async () => {
     const reference = 'test';
-    await getBasket(reference);
+    const checksum = 'checksum';
+    await getBasket(reference, checksum);
 
-    expect(getBasketData).toBeCalledWith(reference, undefined, false);
+    expect(getBasketData).toBeCalledWith(reference, checksum, undefined, false);
     expect(Basket).toBeCalledWith(basketDataMock);
   });
 
   it('should return basket with channel id', async () => {
     const reference = 'test';
     const channelId = 'channel';
-    await getBasket(reference, channelId, true);
+    const checksum = 'checksum';
+    await getBasket(reference, checksum, channelId, true);
 
-    expect(getBasketData).toBeCalledWith(reference, channelId, true);
+    expect(getBasketData).toBeCalledWith(reference, checksum, channelId, true);
     expect(Basket).toBeCalledWith(basketDataMock);
   });
 
@@ -101,12 +103,13 @@ describe('Basket repository', () => {
     const basket = new Basket(basketDataMock);
     const reference = basket.getReference();
     const basketCollection = basket.getItemsCollection();
+    const checksum = 'checksum';
 
-    await getDeliveries(reference, basketCollection);
+    await getDeliveries(reference, basketCollection, checksum);
 
     const [ deliveryData, itemsToDeliver ] = getMockFunctionArguments(Delivery);
 
-    expect(getDeliveriesData).toBeCalledWith(reference, undefined);
+    expect(getDeliveriesData).toBeCalledWith(reference, checksum, undefined);
     expect(Delivery).toBeCalledTimes(2);
     expect(deliveryData).toEqual(deliveriesMock[0]);
     expect(itemsToDeliver).toEqual(basketCollection);
@@ -119,12 +122,13 @@ describe('Basket repository', () => {
     const reference = basket.getReference();
     const channelId = 'channel';
     const basketCollection = basket.getItemsCollection();
+    const checksum = 'checksum';
 
-    await getDeliveries(reference, basketCollection, channelId);
+    await getDeliveries(reference, basketCollection, checksum, channelId);
 
     const [ deliveryData, itemsToDeliver ] = getMockFunctionArguments(Delivery);
 
-    expect(getDeliveriesData).toBeCalledWith(reference, channelId);
+    expect(getDeliveriesData).toBeCalledWith(reference, checksum, channelId);
     expect(Delivery).toBeCalledTimes(2);
     expect(deliveryData).toEqual(deliveriesMock[0]);
     expect(itemsToDeliver).toEqual(basketCollection);
@@ -132,17 +136,17 @@ describe('Basket repository', () => {
 
   it('should create basket', async () => {
     jest.mock('../../models/basket');
-    await createBasket(basketDataMock);
+    await createBasket(basketDataMock, 'checksum');
 
-    expect(upsertBasketData).toBeCalledWith(basketDataMock, false, undefined);
+    expect(upsertBasketData).toBeCalledWith(basketDataMock, 'checksum', false, undefined);
     expect(Basket).toBeCalledWith(basketDataMock);
   });
 
   it('should create basket and returnTTId', async () => {
     jest.mock('../../models/basket');
-    await createBasket(basketDataMock, true, 'faketoken');
+    await createBasket(basketDataMock,'checksum', true, 'faketoken');
 
-    expect(upsertBasketData).toBeCalledWith(basketDataMock, true, 'faketoken');
+    expect(upsertBasketData).toBeCalledWith(basketDataMock, 'checksum', true, 'faketoken');
     expect(Basket).toBeCalledWith(basketDataMock);
   });
 
@@ -150,10 +154,10 @@ describe('Basket repository', () => {
     mockBasket();
 
     const basket = new Basket(basketDataMock);
-    await addItems(basket, [basketItemDataMock, basketItemDataMock]);
+    await addItems(basket, [basketItemDataMock, basketItemDataMock], 'checksum');
     const callArguments = getMockFunctionArguments(upsertBasketData);
 
-    expect(callArguments.length).toBe(2);
+    expect(callArguments.length).toBe(3);
     expect((callArguments[0] as BasketData).reservations.length).toBe(4);
   });
 
@@ -194,10 +198,10 @@ describe('Basket repository', () => {
     mockBasket();
 
     const basket = new Basket(basketDataMock);
-    await replaceItems(basket, [basketItemDataMock]);
+    await replaceItems(basket, [basketItemDataMock], 'checksum');
     const callArguments = getMockFunctionArguments(upsertBasketData);
 
-    expect(callArguments.length).toBe(3);
+    expect(callArguments.length).toBe(4);
     expect((callArguments[0] as BasketData).reservations.length).toBe(2);
   });
 
@@ -205,10 +209,10 @@ describe('Basket repository', () => {
     mockBasket();
 
     const basket = new Basket(basketDataMock);
-    await replaceItems(basket, [basketItemDataMock], true);
+    await replaceItems(basket, [basketItemDataMock], 'checksum', true);
     const callArguments = getMockFunctionArguments(upsertBasketData);
 
-    expect(callArguments.length).toBe(3);
+    expect(callArguments.length).toBe(4);
     expect((callArguments[0] as BasketData).reservations.length).toBe(2);
   });
 
@@ -228,7 +232,7 @@ describe('Basket repository', () => {
 
     expect(basket.getBasketData().delivery).toEqual(basketDataMock.delivery);
 
-    await setSelectedDelivery(basket, deliveryData);
+    await setSelectedDelivery(basket, deliveryData, 'checksum');
 
     expect(basket.getBasketData().delivery).toEqual(deliveryData);
   });
@@ -241,7 +245,7 @@ describe('Basket repository', () => {
 
     expect(basket.getBasketData().coupon).toBe(basketDataMock.coupon);
 
-    await addPromoCode(basket, promoCode);
+    await addPromoCode(basket, promoCode, 'checksum');
 
     expect(basket.getBasketData().coupon).toEqual({ code: promoCode });
   });
@@ -253,7 +257,7 @@ describe('Basket repository', () => {
 
     expect(basket.getBasketData().coupon).toBe(basketDataMock.coupon);
 
-    await removePromoCode(basket);
+    await removePromoCode(basket, 'checksum');
 
     expect(basket.getBasketData().coupon).toBeNull();
   });
@@ -266,7 +270,7 @@ describe('Basket repository', () => {
 
     expect(basket.getBasketData().coupon).toBe(basketDataMock.coupon);
 
-    await addPromoCode(basket, promoCode, true);
+    await addPromoCode(basket, promoCode, 'checksum', true);
 
     expect(basket.getBasketData().coupon).toEqual({ code: promoCode });
   });
@@ -278,7 +282,7 @@ describe('Basket repository', () => {
 
     expect(basket.getBasketData().coupon).toBe(basketDataMock.coupon);
 
-    await removePromoCode(basket, true);
+    await removePromoCode(basket, 'checksum', true);
 
     expect(basket.getBasketData().coupon).toBeNull();
   });
@@ -294,12 +298,12 @@ describe('Basket repository', () => {
     };
     const basket = new Basket(basketDataMock);
 
-    await setUpsellProducts(basket, upsellProducts);
+    await setUpsellProducts(basket, upsellProducts, 'checksum');
 
     const callArguments = getMockFunctionArguments(upsertBasketData);
 
     expect(basket.prepareBasketData).toBeCalledWith(upsellProducts);
-    expect(callArguments.length).toBe(2);
+    expect(callArguments.length).toBe(3);
   });
 
   it('should set upsell products and return TT Id', async () => {
@@ -313,12 +317,12 @@ describe('Basket repository', () => {
     };
     const basket = new Basket(basketDataMock);
 
-    await setUpsellProducts(basket, upsellProducts, true);
+    await setUpsellProducts(basket, upsellProducts, 'checksum', true);
 
     const callArguments = getMockFunctionArguments(upsertBasketData);
 
     expect(basket.prepareBasketData).toBeCalledWith(upsellProducts);
-    expect(callArguments.length).toBe(2);
+    expect(callArguments.length).toBe(3);
   });
 
   describe('upsertBasket function', () => {
@@ -326,10 +330,10 @@ describe('Basket repository', () => {
       mockBasket();
 
       const basket = new Basket(basketDataMock);
-      await upsertBasket(basket);
+      await upsertBasket(basket, 'checksum');
       const callArguments = getMockFunctionArguments(upsertBasketData);
 
-      expect(callArguments.length).toBe(2);
+      expect(callArguments.length).toBe(3);
       expect((callArguments[0] as BasketData).reservations.length).toBe(2);
     })
   });
@@ -339,10 +343,10 @@ describe('Basket repository', () => {
       mockBasket();
 
       const basket = new Basket(basketDataMock);
-      await upsertBasket(basket, null, true);
+      await upsertBasket(basket, 'checksum', null, true);
       const callArguments = getMockFunctionArguments(upsertBasketData);
 
-      expect(callArguments.length).toBe(2);
+      expect(callArguments.length).toBe(3);
       expect((callArguments[0] as BasketData).reservations.length).toBe(2);
     })
   });
@@ -377,10 +381,10 @@ describe('Basket repository', () => {
       mockBasket();
 
       const basket = new Basket(basketDataMock);
-      await addItems(basket, [basketItemDataMock, basketItemDataMock], true);
+      await addItems(basket, [basketItemDataMock, basketItemDataMock], 'checksum', true);
       const callArguments = getMockFunctionArguments(upsertBasketData);
 
-      expect(callArguments.length).toBe(2);
+      expect(callArguments.length).toBe(3);
       expect((callArguments[0] as BasketData).reservations.length).toBe(4);
     });
   });
