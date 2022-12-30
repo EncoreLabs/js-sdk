@@ -67,26 +67,25 @@ interface SourceInformation {
 * removePromoCode(basket, returnTTId, checksum) ⇒ Basket
 * clearBasket(basketReference, [channelId]) ⇒ Basket
 
-#### ➥ getBasket(reference, checksum, [channelId], returnTTId) ⇒ Basket
+#### ➥ getBasket(reference, [channelId], returnTTId, checksum) ⇒ Basket
 *Get basket by reference*
 **Returns**: Basket - *basket model*  
 
 | Param       | Type   |
 |-------------|--------|
 | reference   | string | 
-| checksum    | string |
 | [channelId] | string | 
 | returnTTId  | bool   | 
+| checksum    | string |
 
-#### ➥ createBasket(basketData, checksum, returnTTId) ⇒ Basket
+#### ➥ createBasket(basketData, returnTTId) ⇒ Basket
 *Create new basket*
 **Returns**: Basket - *basket model*  
 
 | Param      | Type              |
 |------------|-------------------|
-| basketData | RequestBasketData | 
-| checksum   | string            |
-| returnTTId | bool              | 
+| basketData | RequestBasketData |
+| returnTTId | bool              |
 
 ```typescript
 interface RequestBasketData {
@@ -146,7 +145,7 @@ enum ProductType {
 }
 ```
 
-#### ➥ getDeliveries(basketReference, basketItems, checksum, [channelId]) ⇒ Array&lt;Delivery&gt;
+#### ➥ getDeliveries(basketReference, basketItems, [channelId], checksum) ⇒ Array&lt;Delivery&gt;
 *Get delivery options available for basket*
 **Returns**: Array&lt;Delivery&gt; - *delivery models*  
 
@@ -154,8 +153,8 @@ enum ProductType {
 | --- | --- |
 | basketReference | string | 
 | basketItems | BasketItemsCollection | 
-| checksum    | string |
 | [channelId] | string | 
+| checksum    | string |
 
 #### ➥ setSelectedDelivery(basket, selectedDelivery, checksum) ⇒ Basket
 *Set delivery option*
@@ -192,7 +191,7 @@ interface Amount {
 }
 ```
 
-#### ➥ addItems(basket, basketItems, checksum, returnTTId) ⇒ Basket
+#### ➥ addItems(basket, basketItems, returnTTId, checksum) ⇒ Basket
 *Add item to the basket*
 **Returns**: Basket - *basket*  
 
@@ -200,8 +199,8 @@ interface Amount {
 |-------------|-----------------------------|
 | basket      | Basket                      | 
 | basketItems | Array&lt;BasketItemData&gt; | 
-| checksum    | string                      |
 | returnTTId  | bool                        | 
+| checksum    | string                      |
 
 ```typescript
 interface BasketItemData {
@@ -248,7 +247,7 @@ interface Amount {
 }
 ```
 
-#### ➥ replaceItems(basket, basketItems, checksum, returnTTId) ⇒ Basket
+#### ➥ replaceItems(basket, basketItems, returnTTId) ⇒ Basket
 *Replace items in basket with new items*
 **Returns**: Basket - *basket*  
 
@@ -256,7 +255,6 @@ interface Amount {
 |-------------|-----------------------------|
 | basket      | Basket                      | 
 | basketItems | Array&lt;BasketItemData&gt; | 
-| checksum    | string                      |
 | returnTTId  | bool                        | 
 
 ```typescript
@@ -314,7 +312,7 @@ interface Amount {
 | itemId | number | 
 | [channelId] | string | 
 
-#### ➥ addPromoCode(basket, promoCode, checksum, returnTTId) ⇒ Basket
+#### ➥ addPromoCode(basket, promoCode, returnTTId, checksum) ⇒ Basket
 *Apply promo code*
 **Returns**: Basket - *basket*  
 
@@ -322,18 +320,18 @@ interface Amount {
 |------------|--------|
 | basket     | Basket | 
 | promoCode  | string | 
-| checksum   | string |
 | returnTTId | bool   | 
+| checksum   | string |
 
-#### ➥ removePromoCode(basket, checksum, returnTTId) ⇒ Basket
+#### ➥ removePromoCode(basket, returnTTId, checksum) ⇒ Basket
 *Remove promo code*
 **Returns**: Basket - *basket*  
 
 | Param      | Type   |
 |------------|--------|
 | basket     | Basket |
-| checksum   | string |
 | returnTTId | bool   |
+| checksum   | string |
 
 #### ➥ clearBasket(basketReference, [channelId]) ⇒ Basket
 *Remove all items from basket*
