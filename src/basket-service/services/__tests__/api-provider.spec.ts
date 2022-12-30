@@ -58,7 +58,19 @@ describe('Basket API', () => {
   describe('getBasket function', () => {
     it('should get basket', async () => {
       const reference = 'test';
-      await basketApi.getBasket(reference, testChecksum, null, false);
+      await basketApi.getBasket(reference);
+
+      expect(httpClient.get).toBeCalledWith(
+        `/baskets/${reference}?returnTTId=false`,
+        {
+          headers: additionalHeaders,
+        },
+      );
+    });
+
+    it('should get basket with password', async () => {
+      const reference = 'test';
+      await basketApi.getBasket(reference, null, false, testChecksum);
 
       expect(httpClient.get).toBeCalledWith(
         `/baskets/${reference}?returnTTId=false`,
@@ -70,12 +82,12 @@ describe('Basket API', () => {
 
     it('should get basket with affiliateId header', async () => {
       const reference = 'test';
-      await basketApi.getBasket(reference, testChecksum, testChannelId);
+      await basketApi.getBasket(reference, testChannelId, false, testChecksum);
 
       expect(httpClient.get).toBeCalledWith(
         `/baskets/${reference}?returnTTId=false`,
         {
-          headers: headersWithPassword,
+          headers: { ...headersWithAffiliate, 'x-ttg-password': testChecksum },
         },
       );
     });
@@ -84,24 +96,24 @@ describe('Basket API', () => {
   describe('getDeliveries function', () => {
     it('should get deliveriesMock', async () => {
       const reference = 'test';
-      await basketApi.getDeliveries(reference, testChecksum);
+      await basketApi.getDeliveries(reference);
 
       expect(httpClient.get).toBeCalledWith(
         `/baskets/${reference}/deliveryOptions`,
         {
-          headers: headersWithPassword,
+          headers: additionalHeaders,
         },
       );
     });
 
     it('should get deliveriesMock with affiliateId header', async () => {
       const reference = 'test';
-      await basketApi.getDeliveries(reference, testChecksum, testChannelId);
+      await basketApi.getDeliveries(reference, testChannelId, testChecksum);
 
       expect(httpClient.get).toBeCalledWith(
         `/baskets/${reference}/deliveryOptions`,
         {
-          headers: headersWithPassword,
+          headers: { ...headersWithAffiliate, 'x-ttg-password': testChecksum },
         },
       );
     });
@@ -111,21 +123,21 @@ describe('Basket API', () => {
     it('should apply delivery', async () => {
       const reference = 'test';
       const delivery = deliveriesMock[0];
-      await basketApi.applyDelivery(reference, delivery, testChecksum);
+      await basketApi.applyDelivery(reference, delivery);
 
       expect(httpClient.patch).toBeCalledWith(
         `/baskets/${reference}/applyDelivery`,
         { delivery },
         {
-          headers: headersWithPassword,
+          headers: additionalHeaders,
         },
       );
     });
 
-    it('should apply delivery with affiliateId header', async () => {
+    it('should apply delivery with password and affiliateId header', async () => {
       const reference = 'test';
       const delivery = deliveriesMock[0];
-      await basketApi.applyDelivery(reference, delivery, testChecksum, testChannelId);
+      await basketApi.applyDelivery(reference, delivery, testChannelId, testChecksum);
 
       expect(httpClient.patch).toBeCalledWith(
         `/baskets/${reference}/applyDelivery`,
@@ -148,7 +160,7 @@ describe('Basket API', () => {
         shopperCurrency,
       } = basketDataMock;
 
-      await basketApi.upsertBasket(basketDataMock, testChecksum, false);
+      await basketApi.upsertBasket(basketDataMock, false, undefined, testChecksum);
 
       expect(httpClient.patch).toBeCalledWith(
         '/baskets?returnTTId=false',
@@ -169,7 +181,7 @@ describe('Basket API', () => {
     it('should return basket API response if data not set', async () => {
       (httpClient.patch as jest.Mock).mockImplementationOnce(() => Promise.resolve([{}]));
 
-      const result = await basketApi.upsertBasket(basketDataMock, undefined);
+      const result = await basketApi.upsertBasket(basketDataMock);
 
       expect(result).toEqual({});
     });

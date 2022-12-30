@@ -16,32 +16,32 @@ export const getBasketServiceRepository = (
 
   basketDetailsRepositoryProvider.setEnvironment(environment, settings, sourceInformation);
 
-  const getBasket = async (reference: string, checksum: string, channelId?: string, returnTTId: boolean = false) => {
+  const getBasket = async (reference: string, channelId?: string, returnTTId: boolean = false, checksum?: string) => {
     checkRequiredProperty(reference, 'getBasket: basket reference');
 
-    const basketData = await basketApi.getBasket(reference, checksum, channelId, returnTTId);
+    const basketData = await basketApi.getBasket(reference, channelId, returnTTId, checksum);
 
     return new Basket(basketData);
   };
 
-  const createBasket = async (basketData: RequestBasketData, checksum: string, returnTTId: boolean = false, jwt?: string) => {
+  const createBasket = async (basketData: RequestBasketData, returnTTId: boolean = false, jwt?: string) => {
     checkRequiredProperty(basketData, 'createBasket: basket data');
 
-    const responseBasketData = await basketApi.upsertBasket(basketData, checksum, returnTTId, jwt);
+    const responseBasketData = await basketApi.upsertBasket(basketData, returnTTId, jwt);
 
     return new Basket(responseBasketData as BasketData);
   };
 
-  const getDeliveries = async (basketReference: string, basketItems: BasketItemsCollection, checksum: string, channelId?: string) => {
+  const getDeliveries = async (basketReference: string, basketItems: BasketItemsCollection, channelId?: string, checksum?: string) => {
     checkRequiredProperty(basketReference, 'getDeliveries: basket reference');
     checkRequiredProperty(basketItems, 'getDeliveries: basket items collection');
 
-    const deliveries = await basketApi.getDeliveries(basketReference, checksum, channelId);
+    const deliveries = await basketApi.getDeliveries(basketReference, channelId, checksum);
 
     return deliveries.map(deliveryData => new Delivery(deliveryData, basketItems));
   };
 
-  const setSelectedDelivery = async (basket: Basket, selectedDelivery: DeliveryData, checksum: string) => {
+  const setSelectedDelivery = async (basket: Basket, selectedDelivery: DeliveryData, checksum?: string) => {
     checkRequiredProperty(basket, 'setSelectedDelivery: basket');
     checkRequiredProperty(selectedDelivery, 'setSelectedDelivery: selected delivery data');
 
@@ -50,12 +50,12 @@ export const getBasketServiceRepository = (
     requestBasketData.delivery = selectedDelivery;
     requestBasketData = { ...requestBasketData, ...basket.prepareBasketData()};
 
-    const responseBasketData = await basketApi.upsertBasket(requestBasketData, checksum);
+    const responseBasketData = await basketApi.upsertBasket(requestBasketData, false, undefined, checksum);
 
     return new Basket(responseBasketData as BasketData);
   };
 
-  const addItems = async (basket: Basket, basketItems: BasketItemData[], checksum: string, returnTTId: boolean = false) => {
+  const addItems = async (basket: Basket, basketItems: BasketItemData[], returnTTId: boolean = false, checksum?: string) => {
     checkRequiredProperty(basket, 'addItems: basket');
     checkRequiredProperty(basketItems, 'addItems: basket items collection');
 
@@ -64,12 +64,12 @@ export const getBasketServiceRepository = (
     requestBasketData.reservations = requestBasketData.reservations.concat(basketItems);
     requestBasketData = { ...requestBasketData, ...basket.prepareBasketData()};
 
-    const responseBasketData = await basketApi.upsertBasket(requestBasketData, checksum, returnTTId);
+    const responseBasketData = await basketApi.upsertBasket(requestBasketData, returnTTId, undefined, checksum);
 
     return new Basket(responseBasketData as BasketData);
   };
 
-  const replaceItems = async (basket: Basket, basketItems: BasketItemData[], checksum: string, returnTTId: boolean = false) => {
+  const replaceItems = async (basket: Basket, basketItems: BasketItemData[], returnTTId: boolean = false) => {
     checkRequiredProperty(basket, 'replaceItems: basket');
     checkRequiredProperty(basketItems, 'replaceItems: basket items collection');
 
@@ -84,7 +84,7 @@ export const getBasketServiceRepository = (
 
     delete requestBasketData.reference;
 
-    return await createBasket(requestBasketData, checksum, returnTTId);
+    return await createBasket(requestBasketData, returnTTId);
   };
 
   const removeItem = async (basketReference: string, itemId: number, channelId?: string) => {
@@ -96,7 +96,7 @@ export const getBasketServiceRepository = (
     return new Basket(responseBasketData);
   };
 
-  const addPromoCode = async (basket: Basket, promoCode: string, checksum: string, returnTTId: boolean = false) => {
+  const addPromoCode = async (basket: Basket, promoCode: string, returnTTId: boolean = false, checksum?: string) => {
     checkRequiredProperty(basket, 'addPromoCode: basket');
     checkRequiredProperty(promoCode, 'addPromoCode: promo code');
 
@@ -105,12 +105,12 @@ export const getBasketServiceRepository = (
     requestBasketData.coupon = { code: promoCode };
     requestBasketData = { ...requestBasketData, ...basket.prepareBasketData()};
 
-    const responseBasketData = await basketApi.upsertBasket(requestBasketData, checksum, returnTTId);
+    const responseBasketData = await basketApi.upsertBasket(requestBasketData, returnTTId, undefined, checksum);
 
     return new Basket(responseBasketData as BasketData);
   };
 
-  const removePromoCode = async (basket: Basket, checksum: string, returnTTId: boolean = false) => {
+  const removePromoCode = async (basket: Basket, returnTTId: boolean = false, checksum?: string) => {
     checkRequiredProperty(basket, 'removePromoCode: basket');
 
     let requestBasketData = basket.getBasketData();
@@ -118,28 +118,28 @@ export const getBasketServiceRepository = (
     requestBasketData.coupon = null;
     requestBasketData = { ...requestBasketData, ...basket.prepareBasketData()};
 
-    const responseBasketData = await basketApi.upsertBasket(requestBasketData, checksum, returnTTId);
+    const responseBasketData = await basketApi.upsertBasket(requestBasketData, returnTTId, undefined, checksum);
 
     return new Basket(responseBasketData as BasketData);
   };
 
-  const setUpsellProducts = async (basket: Basket, upsellProducts: UpsellApiProductData, checksum: string, returnTTId: boolean = false) => {
+  const setUpsellProducts = async (basket: Basket, upsellProducts: UpsellApiProductData, returnTTId: boolean = false, checksum?: string) => {
     checkRequiredProperty(basket, 'setUpsellProducts: basket');
     checkRequiredProperty(upsellProducts, 'setUpsellProducts: upsell products data');
 
     let requestBasketData = basket.getBasketData();
     requestBasketData = { ...requestBasketData, ...basket.prepareBasketData(upsellProducts)};
-    const responseBasketData = await basketApi.upsertBasket(requestBasketData, checksum, returnTTId);
+    const responseBasketData = await basketApi.upsertBasket(requestBasketData, returnTTId, undefined, checksum);
 
     return new Basket(responseBasketData as BasketData);
   };
 
-  const upsertBasket = async (basket: Basket, checksum: string, basketData?: BasketData, returnTTId: boolean = false) => {
+  const upsertBasket = async (basket: Basket, basketData?: BasketData, returnTTId: boolean = false, checksum?: string) => {
     const requestBasketData = basketData || basket.getBasketData();
     const responseBasketData = await basketApi.upsertBasket({
       ...requestBasketData,
       ...basket.prepareBasketData(),
-    }, checksum, returnTTId);
+    }, returnTTId, undefined, checksum);
 
     return new Basket(responseBasketData as BasketData);
   };

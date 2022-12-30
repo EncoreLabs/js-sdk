@@ -56,15 +56,15 @@ interface SourceInformation {
 }
 ```
 
-* getBasket(reference, checksum, [channelId], returnTTId) ⇒ Basket
-* createBasket(basketData, checksum, returnTTId) ⇒ Basket
-* getDeliveries(basketReference, basketItems, checksum, [channelId]) ⇒ Array&lt;Delivery&gt;
+* getBasket(reference, [channelId], returnTTId, checksum) ⇒ Basket
+* createBasket(basketData, returnTTId) ⇒ Basket
+* getDeliveries(basketReference, basketItems, [channelId], checksum) ⇒ Array&lt;Delivery&gt;
 * setSelectedDelivery(basket, selectedDelivery, checksum) ⇒ Basket
-* addItems(basket, basketItems, checksum, returnTTId) ⇒ Basket
-* replaceItems(basket, basketItems, checksum, returnTTId) ⇒ Basket
+* addItems(basket, basketItems, returnTTId, checksum) ⇒ Basket
+* replaceItems(basket, basketItems, returnTTId) ⇒ Basket
 * removeItem(basketReference, itemId, [channelId]) ⇒ Basket
-* addPromoCode(basket, promoCode, checksum, returnTTId) ⇒ Basket
-* removePromoCode(basket, checksum, returnTTId) ⇒ Basket
+* addPromoCode(basket, promoCode, returnTTId, checksum) ⇒ Basket
+* removePromoCode(basket, returnTTId, checksum) ⇒ Basket
 * clearBasket(basketReference, [channelId]) ⇒ Basket
 
 #### ➥ getBasket(reference, checksum, [channelId], returnTTId) ⇒ Basket

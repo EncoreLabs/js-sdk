@@ -20,7 +20,7 @@ export const getBasketServiceApi = (
   const reservationsPath = '/reservations';
   const additionalHeaders = getAdditionalHeaders(sourceInformation, true);
 
-  const upsertBasket = async (basketData: RequestBasketData, checksum: string, returnTTId: boolean = false, jwt?: string): Promise<BasketData | ApiError> => {
+  const upsertBasket = async (basketData: RequestBasketData, returnTTId: boolean = false, jwt?: string, checksum?: string): Promise<BasketData | ApiError> => {
     checkRequiredProperty(basketData, 'upsertBasket: basket data');
 
     const {
@@ -76,7 +76,7 @@ export const getBasketServiceApi = (
     return data;
   };
 
-  const getBasket = async (reference: string, checksum: string, channelId?: string, returnTTId: boolean = false): Promise<BasketData> => {
+  const getBasket = async (reference: string, channelId?: string, returnTTId: boolean = false, checksum?: string): Promise<BasketData> => {
     checkRequiredProperty(reference, 'getBasket: basket reference');
 
     const requestUrl = `${basketsPath}/${reference}?returnTTId=${returnTTId}`;
@@ -94,7 +94,7 @@ export const getBasketServiceApi = (
     return data;
   };
 
-  const getDeliveries = async (reference: string, checksum: string, channelId?: string): Promise<DeliveryData[]> => {
+  const getDeliveries = async (reference: string, channelId?: string, checksum?: string): Promise<DeliveryData[]> => {
     checkRequiredProperty(reference, 'getDeliveries: basket reference');
 
     const requestUrl = `${basketsPath}/${reference}${deliveriesPath}`;
@@ -115,8 +115,8 @@ export const getBasketServiceApi = (
   const applyDelivery = async (
     reference: string,
     delivery: DeliveryData,
-    checksum: string,
-    channelId?: string
+    channelId?: string,
+    checksum?: string,
   ): Promise<BasketData> => {
     checkRequiredProperty(reference, 'applyDelivery: basket reference');
     checkRequiredProperty(delivery, 'applyDelivery: delivery data');
