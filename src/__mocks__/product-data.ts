@@ -14,6 +14,7 @@ export const apiProductDataMock = {
       secondLine: null,
       thirdLine: null,
       city: 'London',
+      state: 'London',
       postCode: 'SW1V 1LG',
       region: {
         name: null,
