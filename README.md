@@ -402,6 +402,7 @@ interface ApiAddress {
     line1?: string;
     line2?: string;
     postalCode?: string;
+    state?: string;
     city?: string;
     countryName?: string;
     stateOrProvince?: string;
