@@ -7,6 +7,7 @@ export class VenueAddress {
   private readonly secondLine: string;
   private readonly thirdLine: string;
   private readonly city: string;
+  private readonly state: string;
   private readonly postCode: string;
   private readonly region: Region;
   private readonly country: Country;
@@ -19,6 +20,7 @@ export class VenueAddress {
       secondLine,
       thirdLine,
       city,
+      state,
       region,
       country,
       postCode
@@ -28,6 +30,7 @@ export class VenueAddress {
     this.secondLine = secondLine;
     this.thirdLine = thirdLine;
     this.city = city;
+    this.state = state;
     this.postCode = postCode;
     this.region = region ? new Region(region) : null;
     this.country = country ? new Country(country) : null;
@@ -47,6 +50,10 @@ export class VenueAddress {
 
   getCity () {
     return this.city;
+  }
+
+  getState () {
+    return this.state;
   }
 
   getPostCode () {
