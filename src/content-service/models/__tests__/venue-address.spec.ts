@@ -42,6 +42,14 @@ describe('Venue Address model', () => {
       expect(address.getCity()).toBe(apiProductDataMock.venue.address.city);
     });
   });
+  
+  describe('getState function', () => {
+    it('should get state', () => {
+      const address = getAddress();
+
+      expect(address.getState()).toBe(apiProductDataMock.venue.address.state);
+    });
+  });
 
   describe('getPostCode function', () => {
     it('should get postCode', () => {
