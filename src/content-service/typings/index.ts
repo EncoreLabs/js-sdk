@@ -34,6 +34,7 @@ export interface ApiAddressData {
   secondLine: string;
   thirdLine: string;
   city: string;
+  state: string;
   postCode: string;
   region: ApiRegionData;
   country: ApiCountryData;
