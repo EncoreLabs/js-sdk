@@ -1,6 +1,6 @@
 {
   "name": "tte-api-services",
-  "version": "1.31.4",
+  "version": "1.31.5",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
