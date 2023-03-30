@@ -69,6 +69,10 @@ export class AreaPricing {
     return this.promotionLabel;
   }
 
+  setPromotionLabel (promotionLabel: string | null) {
+    this.promotionLabel = promotionLabel;
+  }
+
   getPriceReference () {
     return this.priceReference;
   }

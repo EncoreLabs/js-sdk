@@ -159,7 +159,36 @@ describe('AreaPricing', () => {
 
       expect(promotionLabel).toBe('Test');
     })
-  })
+  });
+
+  describe('clearPromotionLabel function', () => {
+    it('should clear any existing promotionLabel if the new one is null', () => {
+      const newPromotionLabel = null;
+      const areaPricing = getAreaPricing();
+      areaPricing.setPromotionLabel(newPromotionLabel);
+      const promotionLabel = areaPricing.getPromotionLabel();
+
+      expect(promotionLabel).toBe(null);
+    });
+
+    it('should change the promotion label if the new one is a string', () => {
+      const newPromotionLabel = 'New Promo';
+      const areaPricing = getAreaPricing();
+      areaPricing.setPromotionLabel(newPromotionLabel);
+      const promotionLabel = areaPricing.getPromotionLabel();
+
+      expect(promotionLabel).toBe('New Promo');
+    });
+
+    it('should change the promotion label if the new one is a string', () => {
+      const newPromotionLabel = 'New Promo';
+      const areaPricing = getAreaPricing();
+      areaPricing.setPromotionLabel(newPromotionLabel);
+      const promotionLabel = areaPricing.getPromotionLabel();
+
+      expect(promotionLabel).toBe('New Promo');
+    });
+  });
 
   describe('getPriceReference function', () => {
     it('should get price reference', () => {
