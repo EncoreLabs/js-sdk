@@ -1,9 +1,6 @@
 import { checkRequiredProperty } from '../../utils/validator';
 import { ShowType, Venue } from '../models';
-import {
-  ApiProductData,
-  ApiVenueData,
-} from '../typings';
+import { ApiProductData } from '../typings';
 
 export class Product {
   private readonly id: string;
@@ -47,7 +44,7 @@ export class Product {
   getVenue () {
     return this.venue;
   }
-  
+
   getPosterImageUrl () {
     return this.posterImageUrl;
   }

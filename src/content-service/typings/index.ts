@@ -19,6 +19,11 @@ export interface ApiProductData {
   posterImageUrl?: string;
 }
 
+export interface ApiProductDataV3 {
+  id: string;
+  venueChartKey: string;
+}
+
 export interface ApiRegionData {
   name: string;
   isoCode: string;
@@ -38,6 +43,20 @@ export interface ApiAddressData {
   postCode: string;
   region: ApiRegionData;
   country: ApiCountryData;
+}
+
+export interface ChartDetails {
+  chartId: string;
+  createdAt: string;
+  endDate: string;
+  id: number;
+  startDate: string;
+  updatedAt: string;
+  product: {
+    createdAt: string;
+    id: string;
+    updatedAt: string;
+  };
 }
 
 export enum EntityType {

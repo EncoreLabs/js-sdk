@@ -2,6 +2,7 @@ import { Product } from '../models';
 import { getContentServiceApi } from './api-provider';
 import { checkRequiredProperty } from '../../utils/validator';
 import { Environment, Settings, SourceInformation } from '../../shared/typings';
+import { ProductV3 } from "../models/productV3";
 
 export const getContentServiceRepository = (
   environment: Environment,
@@ -11,7 +12,7 @@ export const getContentServiceRepository = (
   checkRequiredProperty(environment, 'getContentServiceRepository: environment');
 
   const contentServiceApi = getContentServiceApi(environment, settings, sourceInformation);
-  const { getImages, getProduct, getProducts } = contentServiceApi;
+  const { getImages, getProduct, getProducts, getProductFromV3 } = contentServiceApi;
 
   return {
     getProducts: async (page?: number, limit?: number) => {
@@ -34,6 +35,18 @@ export const getContentServiceRepository = (
       }
 
       return new Product(apiProductData);
+    },
+
+    getProductFromV3: async (productId: string) => {
+      checkRequiredProperty(productId, 'getProduct: product id');
+
+      const apiProductData = await getProductFromV3(productId);
+
+      if (!apiProductData) {
+        return null;
+      }
+
+      return new ProductV3(apiProductData);
     },
 
     getImages,

@@ -2,7 +2,7 @@ import { getHttpClient } from '../../http-client-provider';
 import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
 import { pathSettings } from '../constants/path-settings';
 import { imageSizes } from '../constants/image-sizes';
-import { ApiProductData, EntityType, ImageOrientation, Image } from '../typings';
+import { ApiProductData, EntityType, ImageOrientation, Image, ApiProductDataV3 } from '../typings';
 import { Environment, Settings, SourceInformation } from '../../shared/typings';
 
 export const getContentServiceApi = (
@@ -57,6 +57,18 @@ export const getContentServiceApi = (
     return data;
   };
 
+  const getProductFromV3 = async (id: string): Promise<ApiProductDataV3> => {
+    const requestUrl = `${productsPath}/${id}?getContentFromV3=true`;
+    const { data } = await httpClient.get(
+      requestUrl,
+      {
+        headers: additionalHeaders,
+      },
+    );
+
+    return { id: data.id, venueChartKey: data.venueChartKey };
+  };
+
   const getImages = (
     entityType: EntityType,
     entityId: string,
@@ -79,6 +91,7 @@ export const getContentServiceApi = (
   return {
     getProducts,
     getProduct,
+    getProductFromV3,
     getImages,
   };
 };
