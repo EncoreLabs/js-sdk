@@ -13,9 +13,12 @@ export const getContentServiceApi = (
   checkRequiredProperty(environment, 'getContentServiceApi: environment');
 
   const baseContentApiUrl = settings?.contentApiUrl || pathSettings[environment].api;
+  const baseContentApiUrlForV3 = settings?.contentApiUrl || pathSettings[environment].apiV3;
   const baseContentImagesUrl = settings?.contentImagesUrl || pathSettings[environment].images;
 
   const httpClient = getHttpClient(baseContentApiUrl);
+  const httpClientForV3 = getHttpClient(baseContentApiUrlForV3);
+
   const productsPath = '/products';
   const additionalHeaders = getAdditionalHeaders(sourceInformation);
 
@@ -58,8 +61,9 @@ export const getContentServiceApi = (
   };
 
   const getProductFromV3 = async (id: string): Promise<ApiProductDataV3> => {
-    const requestUrl = `${productsPath}/${id}?getContentFromV3=true`;
-    const { data } = await httpClient.get(
+    const requestUrl = `${productsPath}/${id}?includeAllFields=true`;
+
+    const { data } = await httpClientForV3.get(
       requestUrl,
       {
         headers: additionalHeaders,
