@@ -463,6 +463,7 @@ interface SourceInformation {
 
 * getProducts(page, limit) ⇒ Array&lt;Product&gt;
 * getProduct(productId, getContentFromV3) ⇒ Product
+* getProductFromV3(productId) ⇒ ProductV3
 * getImages(entityType, entityId, orientation) ⇒ Array&lt;Image&gt;
 
 #### ➥ getProducts([page], [limit]) ⇒ Array&lt;Product&gt;
@@ -482,6 +483,14 @@ interface SourceInformation {
 |------------------|--------|
 | productId        | string | 
 | getContentFromV3 | bool   | 
+
+#### ➥ getProductFromV3(productId) ⇒ ProductV3
+*Get product from V3 details*
+**Returns**: ProductV3 - *product model*
+
+| Param            | Type   |
+|------------------|--------|
+| productId        | string |
 
 #### ➥ getImages(entityType, entityId, [orientation]) ⇒ Array&lt;Image&gt;
 *Get list of images*
