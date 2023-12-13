@@ -45,20 +45,6 @@ export interface ApiAddressData {
   country: ApiCountryData;
 }
 
-export interface ChartDetails {
-  chartId: string;
-  createdAt: string;
-  endDate: string;
-  id: number;
-  startDate: string;
-  updatedAt: string;
-  product: {
-    createdAt: string;
-    id: string;
-    updatedAt: string;
-  };
-}
-
 export enum EntityType {
   Products = 'products',
   SeatPlan = 'seat-plan',
