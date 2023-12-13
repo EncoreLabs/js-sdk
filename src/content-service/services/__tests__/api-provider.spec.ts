@@ -1,19 +1,16 @@
-import {AxiosInstance} from 'axios';
 import { getContentServiceApi } from '../api-provider';
 import { getHttpClient } from '../../../http-client-provider';
-import { getMockFunctionReturnValue } from '../../../utils';
 import { imageSizes } from '../../constants/image-sizes';
 import { pathSettings } from '../../constants/path-settings';
 import { EntityType, ImageOrientation } from '../../typings';
 import { Environment } from '../../../shared/typings';
 
+const mockGet = jest.fn()
 jest.mock('../../../http-client-provider', () => ({
-  getHttpClient: jest.fn().mockImplementation(() => ({
-    get: jest.fn().mockImplementation(async () => ({ data: {} })),
+ getHttpClient: jest.fn().mockImplementation(() => ({
+    get: mockGet,
   })),
 }));
-
-let httpClient: AxiosInstance;
 
 describe('Content service API', () => {
   const sourceInformation = {
@@ -28,11 +25,13 @@ describe('Content service API', () => {
   };
 
   beforeEach(() => {
-    httpClient = getMockFunctionReturnValue(getHttpClient);
+    mockGet.mockClear()
+    mockGet.mockImplementationOnce(async () => ({ data: {} }))
   });
 
   it('should create http client', () => {
     expect(getHttpClient).toBeCalledWith(pathSettings[Environment.Dev].api);
+    expect(getHttpClient).toBeCalledWith(pathSettings[Environment.Dev].apiV3);
   });
 
   it('should create http client with custom api url', () => {
@@ -49,7 +48,7 @@ describe('Content service API', () => {
     it('should get list of products', async () => {
       await contentServiceApi.getProducts();
 
-      expect(httpClient.get).toBeCalledWith(
+      expect(mockGet).toBeCalledWith(
         '/products',
         {
           headers: additionalHeaders,
@@ -62,7 +61,7 @@ describe('Content service API', () => {
       const limit = 100;
       await contentServiceApi.getProducts(page, limit);
 
-      expect(httpClient.get).toBeCalledWith(
+      expect(mockGet).toBeCalledWith(
         '/products?page=5&limit=100',
         {
           headers: additionalHeaders,
@@ -76,7 +75,7 @@ describe('Content service API', () => {
       const id = 'test';
       await contentServiceApi.getProduct(id, false);
 
-      expect(httpClient.get).toBeCalledWith(
+      expect(mockGet).toBeCalledWith(
         `/products/${id}?getContentFromV3=false`,
         {
           headers: additionalHeaders,
@@ -90,8 +89,22 @@ describe('Content service API', () => {
       const id = 'test';
       await contentServiceApi.getProduct(id, true);
 
-      expect(httpClient.get).toBeCalledWith(
+      expect(mockGet).toBeCalledWith(
         `/products/${id}?getContentFromV3=true`,
+        {
+          headers: additionalHeaders,
+        },
+      );
+    });
+  });
+
+  describe('getProductFromV3 function', () => {
+    it('should get product v3', async () => {
+      const id = 'test';
+      await contentServiceApi.getProductFromV3(id);
+
+      expect(mockGet).toBeCalledWith(
+        `/products/${id}?includeAllFields=true`,
         {
           headers: additionalHeaders,
         },
