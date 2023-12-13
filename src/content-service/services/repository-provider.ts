@@ -2,7 +2,7 @@ import { Product } from '../models';
 import { getContentServiceApi } from './api-provider';
 import { checkRequiredProperty } from '../../utils/validator';
 import { Environment, Settings, SourceInformation } from '../../shared/typings';
-import { ProductV3 } from "../models/productV3";
+import { ProductV3 } from '../models/productV3';
 
 export const getContentServiceRepository = (
   environment: Environment,
