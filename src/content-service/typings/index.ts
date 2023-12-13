@@ -19,6 +19,11 @@ export interface ApiProductData {
   posterImageUrl?: string;
 }
 
+export interface ApiProductDataV3 {
+  id: string;
+  venueChartKey: string;
+}
+
 export interface ApiRegionData {
   name: string;
   isoCode: string;

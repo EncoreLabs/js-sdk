@@ -2,7 +2,7 @@ import { getHttpClient } from '../../http-client-provider';
 import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
 import { pathSettings } from '../constants/path-settings';
 import { imageSizes } from '../constants/image-sizes';
-import { ApiProductData, EntityType, ImageOrientation, Image } from '../typings';
+import { ApiProductData, EntityType, ImageOrientation, Image, ApiProductDataV3 } from '../typings';
 import { Environment, Settings, SourceInformation } from '../../shared/typings';
 
 export const getContentServiceApi = (
@@ -13,9 +13,12 @@ export const getContentServiceApi = (
   checkRequiredProperty(environment, 'getContentServiceApi: environment');
 
   const baseContentApiUrl = settings?.contentApiUrl || pathSettings[environment].api;
+  const baseContentApiUrlForV3 = settings?.contentApiUrl || pathSettings[environment].apiV3;
   const baseContentImagesUrl = settings?.contentImagesUrl || pathSettings[environment].images;
 
   const httpClient = getHttpClient(baseContentApiUrl);
+  const httpClientForV3 = getHttpClient(baseContentApiUrlForV3);
+
   const productsPath = '/products';
   const additionalHeaders = getAdditionalHeaders(sourceInformation);
 
@@ -57,6 +60,19 @@ export const getContentServiceApi = (
     return data;
   };
 
+  const getProductFromV3 = async (id: string): Promise<ApiProductDataV3> => {
+    const requestUrl = `${productsPath}/${id}?includeAllFields=true`;
+
+    const { data } = await httpClientForV3.get(
+      requestUrl,
+      {
+        headers: additionalHeaders,
+      },
+    );
+
+    return { id: data.id, venueChartKey: data.venueChartKey };
+  };
+
   const getImages = (
     entityType: EntityType,
     entityId: string,
@@ -79,6 +95,7 @@ export const getContentServiceApi = (
   return {
     getProducts,
     getProduct,
+    getProductFromV3,
     getImages,
   };
 };
