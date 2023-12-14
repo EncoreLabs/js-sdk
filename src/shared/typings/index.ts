@@ -33,6 +33,7 @@ export interface FulfilmentBasketItem {
 export interface Settings {
   basketApiUrl?: string;
   contentApiUrl?: string;
+  contentApiUrlV3?: string;
   contentImagesUrl?: string;
 }
 
