@@ -13,7 +13,7 @@ export const getContentServiceApi = (
   checkRequiredProperty(environment, 'getContentServiceApi: environment');
 
   const baseContentApiUrl = settings?.contentApiUrl || pathSettings[environment].api;
-  const baseContentApiUrlForV3 = settings?.contentApiUrl || pathSettings[environment].apiV3;
+  const baseContentApiUrlForV3 = settings?.contentApiUrlV3 || pathSettings[environment].apiV3;
   const baseContentImagesUrl = settings?.contentImagesUrl || pathSettings[environment].images;
 
   const httpClient = getHttpClient(baseContentApiUrl);
