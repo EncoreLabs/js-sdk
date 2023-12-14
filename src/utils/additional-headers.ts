@@ -26,7 +26,6 @@ export const getAdditionalHeaders = ({
   sourceVersion,
   viewName,
   affiliateId,
-  channelId
 }: SourceInformation = {}, includeCookie: boolean = false) => {
   const sourceNamePart = sourceName ? `${sourceName} | ` : '';
   const viewNamePart = viewName ? `${viewName} using ` : '';
@@ -38,10 +37,6 @@ export const getAdditionalHeaders = ({
     'x-ttg-client': requestInformation,
   };
 
-  if (channelId) {
-    headers['x-tt-retailer'] = channelId
-  }
-
   if (sourceVersion) {
     headers['x-ttg-client-version'] = sourceVersion
   }
@@ -52,6 +47,7 @@ export const getAdditionalHeaders = ({
 
   if (affiliateId) {
     headers.affiliateId = affiliateId
+    headers['x-tt-retailer'] = affiliateId
   }
 
   if (includeCookie && cookie) {

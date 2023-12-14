@@ -48,5 +48,4 @@ export interface SourceInformation {
   sourceName?: string;
   viewName?: string;
   sourceVersion?: string;
-  channelId?: string;
 }

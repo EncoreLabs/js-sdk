@@ -4,7 +4,6 @@ const sourceName = 'Source name';
 const sourceVersion = 'v1';
 const viewName = 'View name';
 const affiliateId = 'mockretailer';
-const channelId = 'TodayTix'
 
 describe('getAdditionalHeaders function', () => {
   it('should return right headers', () => {
@@ -23,15 +22,6 @@ describe('getAdditionalHeaders function', () => {
     expect(getAdditionalHeaders({ sourceName })).toEqual(result);
   });
 
-  it('should return right headers when the channel id is provided', () => {
-    const result = {
-      'x-ttg-client': 'JS SDK',
-      'x-tt-retailer': channelId,
-    };
-
-    expect(getAdditionalHeaders({ channelId })).toEqual(result);
-  });
-
   it('should return right headers when the source name and view name are provided', () => {
     const result = {
       'x-ttg-client': `${sourceName} | ${viewName} using JS SDK`,
@@ -44,6 +34,7 @@ describe('getAdditionalHeaders function', () => {
     const result = {
       'x-ttg-client': 'JS SDK',
       'affiliateId': affiliateId,
+      'x-tt-retailer': affiliateId,
     };
 
     expect(getAdditionalHeaders({ affiliateId })).toEqual(result);
