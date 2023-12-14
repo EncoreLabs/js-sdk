@@ -114,13 +114,5 @@ describe('Content repository', () => {
       expect(getProductFromV3).toBeCalledWith(productV3.id);
       expect(ProductV3).toBeCalledWith(productV3);
     });
-
-    it('should return product v3', async () => {
-      const repository = getContentServiceRepository(Environment.Dev);
-      await repository.getProductFromV3(productV3.id);
-
-      expect(getProductFromV3).toBeCalledWith(productV3.id);
-      expect(ProductV3).toBeCalledWith(productV3);
-    });
   });
 });
