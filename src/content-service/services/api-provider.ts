@@ -21,6 +21,7 @@ export const getContentServiceApi = (
 
   const productsPath = '/products';
   const additionalHeaders = getAdditionalHeaders(sourceInformation);
+  const additionalHeadersForV3 = getAdditionalHeaders(sourceInformation, false, true);
 
   const getProducts = async (page?: number, limit?: number): Promise<ApiProductData[]> => {
     let requestUrl = productsPath;
@@ -66,7 +67,7 @@ export const getContentServiceApi = (
     const { data } = await httpClientForV3.get(
       requestUrl,
       {
-        headers: additionalHeaders,
+        headers: additionalHeadersForV3,
       },
     );
 
