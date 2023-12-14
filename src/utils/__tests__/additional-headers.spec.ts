@@ -34,10 +34,19 @@ describe('getAdditionalHeaders function', () => {
     const result = {
       'x-ttg-client': 'JS SDK',
       'affiliateId': affiliateId,
-      'x-tt-retailer': affiliateId,
     };
 
     expect(getAdditionalHeaders({ affiliateId })).toEqual(result);
+  });
+
+  it('should return right headers for affiliateId for v3', () => {
+    const result = {
+      'x-ttg-client': 'JS SDK',
+      'affiliateId': affiliateId,
+      'x-tt-retailer': affiliateId,
+    };
+
+    expect(getAdditionalHeaders({ affiliateId }, false, true)).toEqual(result);
   });
 
   it('should return right headers when all arguments were provided', () => {

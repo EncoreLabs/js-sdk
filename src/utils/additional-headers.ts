@@ -26,7 +26,7 @@ export const getAdditionalHeaders = ({
   sourceVersion,
   viewName,
   affiliateId,
-}: SourceInformation = {}, includeCookie: boolean = false) => {
+}: SourceInformation = {}, includeCookie: boolean = false, includeRetailerHeader: boolean = false) => {
   const sourceNamePart = sourceName ? `${sourceName} | ` : '';
   const viewNamePart = viewName ? `${viewName} using ` : '';
   const requestInformation = `${sourceNamePart}${viewNamePart}JS SDK`;
@@ -47,6 +47,9 @@ export const getAdditionalHeaders = ({
 
   if (affiliateId) {
     headers.affiliateId = affiliateId
+  }
+
+  if (affiliateId && includeRetailerHeader) {
     headers['x-tt-retailer'] = affiliateId
   }
 
