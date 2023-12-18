@@ -2,6 +2,7 @@ import { getVenueServiceApi } from './api-provider';
 import { checkRequiredProperty } from '../../utils/validator';
 import { Environment, SourceInformation } from '../../shared/typings';
 import { SeatAttributes, VenueDetails, ChartInfo } from '../models';
+import { VenueChart } from "../models/venue-chart";
 
 export const getVenueServiceRepository = (
   environment: Environment,
@@ -45,10 +46,18 @@ export const getVenueServiceRepository = (
       .then(chartDetails => new ChartInfo(chartDetails));
   };
 
+  const getVenueChartByKey = async (venueChartKey: string) => {
+    checkRequiredProperty(venueChartKey, 'getVenueChartByKeyFromV3: venue chart key');
+
+    return venueApi.getVenueChartByKey(venueChartKey)
+      .then(chartDetails => new VenueChart(chartDetails));
+  }
+
   return {
     getSeatAttributes,
     getDetails,
     getChartDetails,
     getSeatAttributesBySeatIds,
+    getVenueChartByKey
   };
 };
