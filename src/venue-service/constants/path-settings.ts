@@ -6,3 +6,10 @@ export const pathSettings = {
   [Environment.Staging]: 'https://venue-service.stagingtixuk.io/api/v2',
   [Environment.Prod]: 'https://venue-service.tixuk.io/api/v2',
 };
+
+export const pathSettingsForV3 = {
+  [Environment.Prod]: 'https://venue-service.tixuk.io',
+  [Environment.Qa]: 'https://venue-1.qa.ttix.io',
+  [Environment.Staging]: 'https://venue.staging.ttix.io',
+  [Environment.Dev]: 'https://venue.dev.ttix.io',
+}

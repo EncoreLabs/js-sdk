@@ -85,7 +85,7 @@ describe('Content service API', () => {
   });
 
   describe('getProduct function', () => {
-    it('should get product', async () => {
+    it('should get product with get content from V3', async () => {
       const id = 'test';
       await contentServiceApi.getProduct(id, true);
 
