@@ -11,7 +11,7 @@ export const getHttpClient = (baseURL: string) => {
 const successInterceptor = (axiosResponse: AxiosResponse) => {
   const { data } = axiosResponse;
 
-  return data ? { ...axiosResponse, data: data.response || data.result || data.data } : axiosResponse;
+  return data ? { ...axiosResponse, data: data.response || data.result || data.data || data } : axiosResponse;
 };
 
 const errorInterceptor = (error: AxiosError) => {
