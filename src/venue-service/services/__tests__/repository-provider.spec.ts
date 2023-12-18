@@ -1,10 +1,11 @@
 import { getVenueServiceRepository } from '../repository-provider';
 import { getVenueServiceApi } from '../api-provider';
 import { Environment } from '../../../shared/typings'
-import { chartInfoMock, seatAttributesMock, venueDetailsMock } from '../../__mocks__';
+import { chartInfoMock, seatAttributesMock, venueDetailsMock, venueChartMock } from '../../__mocks__';
 
 const getSeatsData = jest.fn().mockImplementation(() => Promise.resolve(seatAttributesMock));
 const getDetailsMock = jest.fn().mockImplementation(() => Promise.resolve(venueDetailsMock));
+const getVenueChartByKeyMock = jest.fn().mockImplementation(() => Promise.resolve(venueChartMock));
 const getChartDetailsMock = jest.fn().mockImplementation(() => Promise.resolve(chartInfoMock));
 
 jest.mock('../api-provider', () => ({
@@ -12,6 +13,7 @@ jest.mock('../api-provider', () => ({
     getDetails: getDetailsMock,
     getChartDetails: getChartDetailsMock,
     getSeatAttributes: getSeatsData,
+    getVenueChartByKey: getVenueChartByKeyMock,
   })),
 }));
 
@@ -31,7 +33,8 @@ describe('Venue repository', () => {
     getSeatAttributes,
     getSeatAttributesBySeatIds,
     getDetails,
-    getChartDetails
+    getChartDetails,
+    getVenueChartByKey
   } = getVenueServiceRepository(environment);
 
   it('should create api for specific environment', () => {
@@ -122,6 +125,21 @@ describe('Venue repository', () => {
       await getChartDetails(productId, performanceDate);
 
       expect(getChartDetailsMock).toBeCalledWith(productId, performanceDate);
+    });
+  });
+
+  describe('getVenueChartByKey function', () => {
+    it('should throw an error if venue chart key is not defined', async () => {
+      expect.assertions(1);
+
+      await expect(getVenueChartByKey(null)).rejects.toEqual(new Error('getVenueChartByKeyFromV3: venue chart key is required'));
+    });
+
+    it('should call venueApi.getVenueChartByKey with valid arguments', async () => {
+      const venueChartKey = '111-222-333'
+      await getVenueChartByKey(venueChartKey);
+
+      expect(getVenueChartByKeyMock).toBeCalledWith(venueChartKey);
     });
   });
 });

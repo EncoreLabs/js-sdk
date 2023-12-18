@@ -667,3 +667,11 @@ seatIdCollection should contain array with seat identifier e.g. [STALLS-A13, STA
 | --- | --- |
 | venueId | string |
 | [date] | string |
+
+#### ➥ getVenueChartByKey(venueChartKey) ⇒ VenueChartType;
+*Get venue chart*
+**Returns**: VenueChart; - *venue chart model*
+
+| Param         | Type |
+|---------------| --- |
+| venueChartKey | string |

@@ -1,7 +1,7 @@
 import { getHttpClient } from '../../http-client-provider';
 import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
-import { pathSettings } from '../constants/path-settings';
-import { ApiSeatAttributes, ChartDetails, VenueDetailsApi } from '../typings';
+import { pathSettings, pathSettingsForV3 } from '../constants/path-settings';
+import { ApiSeatAttributes, ChartDetails, VenueChartType, VenueDetailsApi } from '../typings';
 import { Environment, SourceInformation } from '../../shared/typings';
 
 interface Params {
@@ -15,15 +15,19 @@ export const getVenueServiceApi = (
   environment: Environment,
   venueApiUrl?: string,
   sourceInformation: SourceInformation = {},
+  venueApiUrlForV3?: string
 ) => {
   checkRequiredProperty(environment, 'getVenueServiceApi: environment');
 
   const baseVenueApiUrl = venueApiUrl || pathSettings[environment];
   const httpClient = getHttpClient(baseVenueApiUrl);
+  const baseVenueApiUrlForV3 = venueApiUrlForV3 || pathSettingsForV3[environment];
+  const httpClientForV3 = getHttpClient(baseVenueApiUrlForV3);
   const venuesPath = '/venues';
   const seatsPath = '/seats';
   const productsPath = '/products';
   const attributesPath = '/attributes';
+  const chartPath = '/chart'
   const additionalHeaders = getAdditionalHeaders(sourceInformation);
 
   const getSeatAttributes = async ({
@@ -92,9 +96,25 @@ export const getVenueServiceApi = (
     return data;
   };
 
+  const getVenueChartByKey = async (venueChartKey: string): Promise<VenueChartType> => {
+    const requestUrl = `${chartPath}/${venueChartKey}`;
+
+    const { data } = await httpClientForV3.get(
+      requestUrl,
+      {
+        headers: additionalHeaders,
+      },
+    );
+
+    return data;
+  };
+
   return {
     getSeatAttributes,
     getDetails,
     getChartDetails,
+    getVenueChartByKey
   };
 };
+
+

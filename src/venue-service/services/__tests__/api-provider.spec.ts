@@ -145,4 +145,19 @@ describe('Venue API', () => {
       );
     });
   });
+
+  describe('getVenueChartByKey method', () => {
+    it('should call httpClient.get with productId', () => {
+      const venueChartKey = 'venueChartKey';
+      venueApi.getVenueChartByKey(venueChartKey);
+
+      expect(sendRequest).toBeCalledWith(
+        `/chart/${venueChartKey}`,
+        {
+          headers: additionalHeaders,
+        }
+      );
+    });
+
+  });
 });
