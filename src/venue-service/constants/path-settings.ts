@@ -8,7 +8,7 @@ export const pathSettings = {
 };
 
 export const pathSettingsForV3 = {
-  [Environment.Prod]: 'https://venue.todaytixgroup.us',
+  [Environment.Prod]: 'https://venue-service.tixuk.io',
   [Environment.Qa]: 'https://venue-1.qa.ttix.io',
   [Environment.Staging]: 'https://venue.staging.ttix.io',
   [Environment.Dev]: 'https://venue.dev.ttix.io',
