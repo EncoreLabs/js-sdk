@@ -2,7 +2,7 @@ import { getHttpClient } from '../../http-client-provider';
 import { checkRequiredProperty, getAdditionalHeaders } from '../../utils';
 import { pathSettings } from '../constants/path-settings';
 import { imageSizes } from '../constants/image-sizes';
-import { ApiProductData, EntityType, ImageOrientation, Image, ApiProductDataV3 } from '../typings';
+import { ApiProductData, EntityType, ImageOrientation, Image, ApiProductDataV3, ApiProductPlatformData } from '../typings';
 import { Environment, Settings, SourceInformation } from '../../shared/typings';
 
 export const getContentServiceApi = (
@@ -15,13 +15,17 @@ export const getContentServiceApi = (
   const baseContentApiUrl = settings?.contentApiUrl || pathSettings[environment].api;
   const baseContentApiUrlForV3 = settings?.contentApiUrlV3 || pathSettings[environment].apiV3;
   const baseContentImagesUrl = settings?.contentImagesUrl || pathSettings[environment].images;
+  const basePlatformApiUrl = settings?.basePlatformApiUrl || pathSettings[environment].platform;
 
   const httpClient = getHttpClient(baseContentApiUrl);
   const httpClientForV3 = getHttpClient(baseContentApiUrlForV3);
+  const httpClientForPlatform = getHttpClient(basePlatformApiUrl);
 
   const productsPath = '/products';
+  const platformProductBasePath = '/shows';
   const additionalHeaders = getAdditionalHeaders(sourceInformation);
   const additionalHeadersForV3 = getAdditionalHeaders(sourceInformation, false, true);
+  const additionalHeadersForPlatform = getAdditionalHeaders(sourceInformation, false, true);
 
   const getProducts = async (page?: number, limit?: number): Promise<ApiProductData[]> => {
     let requestUrl = productsPath;
@@ -74,6 +78,19 @@ export const getContentServiceApi = (
     return { id: data.id, venueChartKey: data.venueChartKey };
   };
 
+  const getProductFromPlatform = async (id: string): Promise<ApiProductPlatformData> => {
+    const requestUrl = `${platformProductBasePath}/${id}`;
+
+    const { data } = await httpClientForPlatform.get(
+      requestUrl,
+      {
+        headers: additionalHeadersForPlatform,
+      },
+    );
+
+    return { id: data.id, venueChartKey: data.venueChartKey };
+  };
+
   const getImages = (
     entityType: EntityType,
     entityId: string,
@@ -97,6 +114,7 @@ export const getContentServiceApi = (
     getProducts,
     getProduct,
     getProductFromV3,
+    getProductFromPlatform,
     getImages,
   };
 };

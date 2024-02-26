@@ -112,6 +112,20 @@ describe('Content service API', () => {
     });
   });
 
+  describe('getProductFromPlatform function', () => {
+    it('should get product from platform', async () => {
+      const id = '123';
+      await contentServiceApi.getProductFromPlatform(id);
+
+      expect(mockGet).toBeCalledWith(
+        `/shows/${id}`,
+        {
+          headers: additionalHeaders,
+        },
+      );
+    });
+  });
+
   describe('getImages function', () => {
     it('should get images with specific size', () => {
       const productEntity = EntityType.Products;
