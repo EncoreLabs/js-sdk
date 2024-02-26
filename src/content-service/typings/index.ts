@@ -24,6 +24,11 @@ export interface ApiProductDataV3 {
   venueChartKey: string;
 }
 
+export interface ApiProductPlatformData {
+  id: string;
+  venueChartKey: string;
+}
+
 export interface ApiRegionData {
   name: string;
   isoCode: string;

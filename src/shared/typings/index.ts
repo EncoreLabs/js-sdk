@@ -35,6 +35,7 @@ export interface Settings {
   contentApiUrl?: string;
   contentApiUrlV3?: string;
   contentImagesUrl?: string;
+  basePlatformApiUrl?: string;
 }
 
 export interface ApiPricingValue {
