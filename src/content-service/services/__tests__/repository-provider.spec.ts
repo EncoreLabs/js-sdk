@@ -11,6 +11,7 @@ const productV3 = {
 const getImages = jest.fn();
 const getProduct = jest.fn().mockImplementation(() => product);
 const getProductFromV3 = jest.fn().mockImplementation(() => productV3);
+const getProductFromPlatform = jest.fn().mockImplementation(() => productV3);
 const getProducts = jest.fn().mockImplementation(() => [product]);
 
 jest.mock('../api-provider', () => ({
@@ -18,6 +19,7 @@ jest.mock('../api-provider', () => ({
     getImages,
     getProduct,
     getProductFromV3,
+    getProductFromPlatform,
     getProducts,
   })),
 }));
@@ -112,6 +114,30 @@ describe('Content repository', () => {
       await repository.getProductFromV3(productV3.id)
 
       expect(getProductFromV3).toBeCalledWith(productV3.id);
+      expect(ProductV3).toBeCalledWith(productV3);
+    });
+  });
+
+  describe('getProductFromPlatform function', () => {
+    it('should throw an error if product id is not defined', async () => {
+      const repository = getContentServiceRepository(Environment.Dev);
+      expect.assertions(1);
+      await expect(repository.getProductFromPlatform(null)).rejects.toEqual(new Error('getProduct: product id is required'));
+    });
+
+    it('should return null if platform product was not found', async () => {
+      (getContentServiceApi as jest.Mock).mockImplementationOnce(() => ({ getProductFromPlatform: jest.fn(() => null) }));
+      const repository = getContentServiceRepository(Environment.Dev);
+      const result = await repository.getProductFromPlatform(id);
+
+      expect(result).toBeNull();
+    });
+
+    it('should return platform product', async () => {
+      const repository = getContentServiceRepository(Environment.Dev);
+      await repository.getProductFromPlatform(productV3.id)
+
+      expect(getProductFromPlatform).toBeCalledWith(productV3.id);
       expect(ProductV3).toBeCalledWith(productV3);
     });
   });
