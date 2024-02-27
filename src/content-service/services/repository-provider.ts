@@ -12,7 +12,13 @@ export const getContentServiceRepository = (
   checkRequiredProperty(environment, 'getContentServiceRepository: environment');
 
   const contentServiceApi = getContentServiceApi(environment, settings, sourceInformation);
-  const { getImages, getProduct, getProducts, getProductFromV3 } = contentServiceApi;
+  const {
+    getImages,
+    getProduct,
+    getProducts,
+    getProductFromV3,
+    getProductFromPlatform,
+  } = contentServiceApi;
 
   return {
     getProducts: async (page?: number, limit?: number) => {
@@ -41,6 +47,18 @@ export const getContentServiceRepository = (
       checkRequiredProperty(productId, 'getProduct: product id');
 
       const apiProductData = await getProductFromV3(productId);
+
+      if (!apiProductData) {
+        return null;
+      }
+
+      return new ProductV3(apiProductData);
+    },
+
+    getProductFromPlatform: async (productId: string) => {
+      checkRequiredProperty(productId, 'getProduct: product id');
+
+      const apiProductData = await getProductFromPlatform(productId);
 
       if (!apiProductData) {
         return null;
