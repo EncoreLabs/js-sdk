@@ -11,7 +11,7 @@ export const pathSettings = {
     api: 'https://content-service.qatixuk.io/api/v1',
     apiV3: 'https://content-service.qatixuk.io/api/v3',
     images: 'https://content-service.qatixuk.com/images',
-    platform: 'https://qa.todaytix.com/api/v2',
+    platform: 'https://qa-1.todaytix.com/api/v2',
   },
   [Environment.Staging]: {
     api: 'https://content-service.stagingtixuk.io/api/v1',
