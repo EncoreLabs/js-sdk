@@ -14,6 +14,7 @@ export class SummaryAvailabilityItem {
   private readonly maxPrice: number;
   private readonly minPrice: number;
   private readonly noBookingFee: boolean;
+  private readonly currency: string;
 
   constructor (summaryAvailabilityItemData: ApiSummaryAvailabilityItemData) {
     checkRequiredProperty(summaryAvailabilityItemData, 'Summary Availability Item: summary availability item data');
@@ -28,6 +29,7 @@ export class SummaryAvailabilityItem {
       maxPrice,
       minPrice,
       noBookingFee,
+      currency,
     } = summaryAvailabilityItemData;
     this.availableSeatCount = availableSeatCount;
     this.datetime = moment(datetime);
@@ -40,6 +42,7 @@ export class SummaryAvailabilityItem {
     this.maxPrice = maxPrice;
     this.minPrice = minPrice;
     this.noBookingFee = noBookingFee;
+    this.currency = currency;
   }
 
   getAvailableSeatCount () {

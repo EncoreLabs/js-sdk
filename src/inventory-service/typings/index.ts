@@ -10,6 +10,7 @@ export interface ApiSummaryAvailabilityItemData {
   maxPrice: number;
   minPrice: number;
   noBookingFee: boolean;
+  currency: string;
 }
 
 export interface ApiUpsellApiProductData {
