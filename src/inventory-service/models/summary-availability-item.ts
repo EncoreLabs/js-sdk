@@ -9,6 +9,7 @@ export class SummaryAvailabilityItem {
   private readonly rawDateTime: string;
   private readonly rawPartTwoDateTime: string | null;
   private readonly discount: boolean;
+  private readonly offer: boolean;
   private readonly largestLumpOfTickets: number;
   private readonly maxPrice: number;
   private readonly minPrice: number;
@@ -22,6 +23,7 @@ export class SummaryAvailabilityItem {
       datetime,
       partTwoDatetime,
       discount,
+      offer,
       largestLumpOfTickets,
       maxPrice,
       minPrice,
@@ -33,6 +35,7 @@ export class SummaryAvailabilityItem {
     this.rawDateTime = datetime;
     this.rawPartTwoDateTime = partTwoDatetime || null;
     this.discount = discount;
+    this.offer = offer;
     this.largestLumpOfTickets = largestLumpOfTickets;
     this.maxPrice = maxPrice;
     this.minPrice = minPrice;

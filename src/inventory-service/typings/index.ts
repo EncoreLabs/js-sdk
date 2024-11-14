@@ -5,6 +5,7 @@ export interface ApiSummaryAvailabilityItemData {
   datetime: string;
   partTwoDatetime: string | null;
   discount: boolean;
+  offer: boolean;
   largestLumpOfTickets: number;
   maxPrice: number;
   minPrice: number;

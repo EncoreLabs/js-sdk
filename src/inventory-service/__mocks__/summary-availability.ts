@@ -8,6 +8,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 11900,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-02T19:30:00+00:00',
@@ -18,6 +19,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 11900,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-03T19:30:00+00:00',
@@ -28,6 +30,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 12500,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-04T19:30:00+00:00',
@@ -38,6 +41,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 12500,
     noBookingFee: false,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-05T14:30:00+00:00',
@@ -48,6 +52,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 12500,
     noBookingFee: false,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-05T19:30:00+00:00',
@@ -58,6 +63,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14900,
     noBookingFee: false,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-07T19:30:00+00:00',
@@ -68,6 +74,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14900,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-08T19:30:00+00:00',
@@ -78,6 +85,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14200,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-09T14:30:00+00:00',
@@ -88,6 +96,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14200,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-09T19:30:00+00:00',
@@ -98,6 +107,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14200,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-10T19:30:00+00:00',
@@ -108,6 +118,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14900,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-11T19:30:00+00:00',
@@ -118,6 +129,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 20900,
     noBookingFee: false,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-12T14:30:00+00:00',
@@ -128,6 +140,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 20900,
     noBookingFee: false,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-12T19:30:00+00:00',
@@ -138,6 +151,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 23800,
     noBookingFee: false,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-14T19:30:00+00:00',
@@ -148,6 +162,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14900,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-15T19:30:00+00:00',
@@ -158,6 +173,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14200,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-16T14:30:00+00:00',
@@ -168,6 +184,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14200,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-16T19:30:00+00:00',
@@ -178,6 +195,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14200,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-17T19:30:00+00:00',
@@ -188,6 +206,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14900,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-18T19:30:00+00:00',
@@ -198,6 +217,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 20900,
     noBookingFee: false,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-19T14:30:00+00:00',
@@ -208,6 +228,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 20900,
     noBookingFee: false,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-19T19:30:00+00:00',
@@ -218,6 +239,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 23800,
     noBookingFee: false,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-21T19:30:00+00:00',
@@ -228,6 +250,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14900,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-22T19:30:00+00:00',
@@ -238,6 +261,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14200,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-23T14:30:00+00:00',
@@ -248,6 +272,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14200,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-23T19:30:00+00:00',
@@ -258,6 +283,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14200,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-24T19:30:00+00:00',
@@ -268,6 +294,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14900,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-25T19:30:00+00:00',
@@ -278,6 +305,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 20900,
     noBookingFee: false,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-26T14:30:00+00:00',
@@ -288,6 +316,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 20900,
     noBookingFee: false,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-26T19:30:00+00:00',
@@ -298,6 +327,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 23800,
     noBookingFee: false,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-28T19:30:00+00:00',
@@ -308,6 +338,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14900,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-29T19:30:00+00:00',
@@ -318,6 +349,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14200,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-30T14:30:00+00:00',
@@ -328,6 +360,7 @@ export const summaryAvailabilityMock = [
     maxPrice: 14200,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
   {
     datetime: '2020-09-30T19:30:00+00:00',
@@ -338,5 +371,6 @@ export const summaryAvailabilityMock = [
     maxPrice: 14200,
     noBookingFee: true,
     discount: false,
+    offer: false,
   },
 ];
