@@ -11,6 +11,7 @@ export interface ApiSummaryAvailabilityItemData {
   minPrice: number;
   noBookingFee: boolean;
   currency: string;
+  promotionLabel: string | null;
 }
 
 export interface ApiUpsellApiProductData {
