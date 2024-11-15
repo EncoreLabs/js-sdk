@@ -85,4 +85,26 @@ describe('Summary Availability Item', () => {
       expect(getSummaryAvailabilityItem().hasBookingFee()).toBe(!summaryAvailabilityItem.noBookingFee);
     });  
   });
+
+  describe('getCurrency function', () => {
+    it('should get currency', () => {
+      expect(getSummaryAvailabilityItem().getCurrency()).toBe(summaryAvailabilityItem.currency);
+    });
+  });
+
+  describe('getOffer function', () => {
+    it('should get offer', () => {
+      expect(getSummaryAvailabilityItem().getOffer()).toBe(summaryAvailabilityItem.offer);
+    });
+  });
+
+  describe('getPromotionLabel function', () => {
+    it('should get promotion label', () => {
+      expect(getSummaryAvailabilityItem().getPromotionLabel()).toBe(summaryAvailabilityItem.promotionLabel);
+    });
+
+    it('should return null if there is no promotion label', () => {
+      expect(getSummaryAvailabilityItemWithoutPartTwo().getPromotionLabel()).toBeNull();
+    });
+  });
 });

@@ -87,4 +87,16 @@ export class SummaryAvailabilityItem {
   hasBookingFee () {
     return this.noBookingFee === false;
   }
+
+  getOffer () {
+    return this.offer;
+  }
+
+  getCurrency () {
+    return this.currency;
+  }
+
+  getPromotionLabel () {
+    return this.promotionLabel;
+  }
 }
