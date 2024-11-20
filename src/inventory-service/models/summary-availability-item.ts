@@ -9,10 +9,13 @@ export class SummaryAvailabilityItem {
   private readonly rawDateTime: string;
   private readonly rawPartTwoDateTime: string | null;
   private readonly discount: boolean;
+  private readonly offer: boolean;
   private readonly largestLumpOfTickets: number;
   private readonly maxPrice: number;
   private readonly minPrice: number;
   private readonly noBookingFee: boolean;
+  private readonly currency: string;
+  private readonly promotionLabel: string | null;
 
   constructor (summaryAvailabilityItemData: ApiSummaryAvailabilityItemData) {
     checkRequiredProperty(summaryAvailabilityItemData, 'Summary Availability Item: summary availability item data');
@@ -22,10 +25,13 @@ export class SummaryAvailabilityItem {
       datetime,
       partTwoDatetime,
       discount,
+      offer,
       largestLumpOfTickets,
       maxPrice,
       minPrice,
       noBookingFee,
+      currency,
+      promotionLabel,
     } = summaryAvailabilityItemData;
     this.availableSeatCount = availableSeatCount;
     this.datetime = moment(datetime);
@@ -33,10 +39,13 @@ export class SummaryAvailabilityItem {
     this.rawDateTime = datetime;
     this.rawPartTwoDateTime = partTwoDatetime || null;
     this.discount = discount;
+    this.offer = offer;
     this.largestLumpOfTickets = largestLumpOfTickets;
     this.maxPrice = maxPrice;
     this.minPrice = minPrice;
     this.noBookingFee = noBookingFee;
+    this.currency = currency;
+    this.promotionLabel = promotionLabel || null;
   }
 
   getAvailableSeatCount () {
@@ -77,5 +86,17 @@ export class SummaryAvailabilityItem {
 
   hasBookingFee () {
     return this.noBookingFee === false;
+  }
+
+  getOffer () {
+    return this.offer;
+  }
+
+  getCurrency () {
+    return this.currency;
+  }
+
+  getPromotionLabel () {
+    return this.promotionLabel;
   }
 }
