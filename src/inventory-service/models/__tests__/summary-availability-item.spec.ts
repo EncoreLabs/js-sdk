@@ -107,4 +107,16 @@ describe('Summary Availability Item', () => {
       expect(getSummaryAvailabilityItemWithoutPartTwo().getPromotionLabel()).toBeNull();
     });
   });
+
+  describe('getAvailabilityLevel function', () => {
+    it('should get availability level', () => {
+      expect(getSummaryAvailabilityItem().getAvailabilityLevel()).toBe(summaryAvailabilityItem.availabilityLevel);
+    });
+
+    it('should return null if there is no availability level', () => {
+      const summaryAvailabilityItemWithoutLevel = { ...summaryAvailabilityItem, availabilityLevel: null };
+      const summaryAvailabilityItemInstance = new SummaryAvailabilityItem(summaryAvailabilityItemWithoutLevel);
+      expect(summaryAvailabilityItemInstance.getAvailabilityLevel()).toBeNull();
+    });
+  });
 });
