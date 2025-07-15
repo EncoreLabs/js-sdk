@@ -45,7 +45,7 @@ export const availabilityMock = {
           percentageDiscount: 0,
           includesBookingFee: true,
           promotionLabel: null,
-        availabilityLevel: null,
+          availabilityLevel: null,
           timestamp: '2019-08-21T12:13:19+0000',
         },
       }],
